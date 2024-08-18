@@ -15,22 +15,32 @@ app.get('/', (req: express.Request, res: express.Response) => {
  * @param req.body.symbolCount 符数
  * @param req.body.fanCount 翻数
  */
+// TODO: API versionを付け加えたい
 app.post('/calculate-score', (req: express.Request, res: express.Response) => {
   try {
     // validate
-    const numberSchema = z.number({
+    const symbolCountSchema = z.number({
       required_error: 'param-required',
       invalid_type_error: 'expected-number',
-    });
+    }).min(20);
 
-    const symbolCount = numberSchema.parse(req.body.symbolCount);
-    const fanCount = numberSchema.parse(req.body.fanCount);
+    const fanCountSchema = z.number({
+      required_error: 'param-required',
+      invalid_type_error: 'expected-number',
+    }).min(1);
+
+    const symbolCount = symbolCountSchema.parse(req.body.symbolCount);
+    const fanCount = fanCountSchema.parse(req.body.fanCount);
 
     // FIXME 一旦、固定値を返す
     res.status(200).json({score: 1000});
   } catch (error) {
-    console.log(error)
-    res.status(400).json({error: error ?? 'Invalid input'});
+    // validationエラー
+    if (error?.message.indexOf('invalid_type') !== -1) {
+      res.status(400).json({error: 'expected-number'});
+    }
+
+    res.status(500).json({error: error});
   }
 });
 
