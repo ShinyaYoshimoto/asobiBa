@@ -7,7 +7,7 @@
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "explicit"
   },
-  "conventionalCommits.scopes": [
-    "majang"
-  ]
+  "conventionalCommits.scopes": ["majang"],
+  "jest.runMode": "watch",
+  "jest.rootPath": "./"
 }

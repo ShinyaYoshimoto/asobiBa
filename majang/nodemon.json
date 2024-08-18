@@ -1,5 +1,6 @@
 {
   "watch": ["src"],
+  "ignore": ["**/*.test.ts"],
   "ext": "ts",
   "exec": "npx etsc & npx ts-node src/index.ts"
 }
