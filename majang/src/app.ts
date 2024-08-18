@@ -22,12 +22,12 @@ app.post('/calculate-score', (req: express.Request, res: express.Response) => {
     const symbolCountSchema = z.number({
       required_error: 'param-required',
       invalid_type_error: 'expected-number',
-    }).min(20);
+    }).min(20, 'invalid_type');
 
     const fanCountSchema = z.number({
       required_error: 'param-required',
       invalid_type_error: 'expected-number',
-    }).min(1);
+    }).min(1, 'invalid_type');
 
     const symbolCount = symbolCountSchema.parse(req.body.symbolCount);
     const fanCount = fanCountSchema.parse(req.body.fanCount);
