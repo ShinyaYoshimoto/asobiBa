@@ -1,0 +1,7 @@
+POST http://localhost:3000/calculate-score
+Content-Type: application/json
+
+{
+  "symbolCount": 30,
+  "fanCount": 1
+}
