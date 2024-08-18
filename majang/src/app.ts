@@ -1,5 +1,6 @@
 import express from 'express';
 const app: express.Express = express();
+import {z} from 'zod';
 
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
@@ -15,8 +16,22 @@ app.get('/', (req: express.Request, res: express.Response) => {
  * @param req.body.fanCount 翻数
  */
 app.post('/calculate-score', (req: express.Request, res: express.Response) => {
-  const {symbolCount, fanCount} = req.body;
-  res.status(200).json({score: 1000});
+  try {
+    // validate
+    const numberSchema = z.number({
+      required_error: 'param-required',
+      invalid_type_error: 'expected-number',
+    });
+
+    const symbolCount = numberSchema.parse(req.body.symbolCount);
+    const fanCount = numberSchema.parse(req.body.fanCount);
+
+    // FIXME 一旦、固定値を返す
+    res.status(200).json({score: 1000});
+  } catch (error) {
+    console.log(error)
+    res.status(400).json({error: error ?? 'Invalid input'});
+  }
 });
 
 export default app;
