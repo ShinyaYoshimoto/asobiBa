@@ -48,11 +48,24 @@ app.openapi(
           },
         },
       },
+      400: {
+        description: 'Bad Request',
+        content: {
+          "application/json": {
+            schema: z.object({
+              message: z.string(),
+            }),
+          },
+        },
+      },
     },
   }),
   async (c) => {
     const {symbolCount, fanCount} = await c.req.json();
-    return c.json({score: symbolCount * fanCount});
+    if (symbolCount < 20 || fanCount < 1) {
+      return c.json({message: 'Symbol count must be 20 or more and fan count must be 1 or more'}, 400);
+    }
+    return c.json({score: symbolCount * fanCount}, 200);
   },
 );
 
