@@ -2,6 +2,7 @@ import {swaggerUI} from '@hono/swagger-ui';
 import {OpenAPIHono} from '@hono/zod-openapi';
 import {createRoute} from '@hono/zod-openapi';
 import {z} from 'zod';
+import { scoresCalculateRoute } from './api/scores/calculate/route';
 
 const app = new OpenAPIHono({});
 
@@ -21,57 +22,7 @@ app.get('/', c => {
 });
 
 app.openapi(
-  createRoute({
-    method: 'post',
-    path: '/scores/calculate',
-    request: {
-      body: {
-        content: {
-          'application/json': {
-            schema: z.object({
-              symbolCount: z.number(),
-              fanCount: z.number(),
-            }),
-          },
-        },
-      },
-    },
-    responses: {
-      200: {
-        description: 'OK',
-        content: {
-          'application/json': {
-            schema: z.object({
-              startPlayer: z.object({
-                draw: z.object({
-                  startPlayer: z.number().nullable(),
-                  other: z.number(),
-                }),
-                other: z.number(),
-              }),
-              other: z.object({
-                draw: z.object({
-                  startPlayer: z.number(),
-                  other: z.number(),
-                }),
-                other: z.number(),
-              }),
-            }),
-          },
-        },
-      },
-      400: {
-        description: 'Bad Request',
-        content: {
-          'application/json': {
-            schema: z.object({
-              message: z.string(),
-            }),
-          },
-        },
-      },
-    },
-  }),
+  scoresCalculateRoute,
   async c => {
     const {symbolCount, fanCount} = await c.req.json();
     if (symbolCount < 20 || fanCount < 1) {
