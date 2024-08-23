@@ -1,8 +1,8 @@
 import { z } from 'zod';
 
 export const requestBodySchema = z.object({
-  symbolCount: z.number(),
-  fanCount: z.number(),
+  symbolCount: z.number().min(20, '20符以上で入力してください'),
+  fanCount: z.number().min(1, '1飜以上で入力してください'),
 });
 
 export const responseBodySchema = z.object({
