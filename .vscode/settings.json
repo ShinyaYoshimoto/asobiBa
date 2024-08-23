@@ -9,5 +9,5 @@
   },
   "conventionalCommits.scopes": ["majang", "mahjong hono"],
   "jest.runMode": "watch",
-  "jest.rootPath": "./"
+  "jest.rootPath": "mahjong-hono"
 }

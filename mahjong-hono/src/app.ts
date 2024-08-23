@@ -42,7 +42,20 @@ app.openapi(
         content: {
           'application/json': {
             schema: z.object({
-              score: z.number(),
+              startPlayer: z.object({
+                draw: z.object({
+                  startPlayer: z.number().nullable(),
+                  other: z.number(),
+                }),
+                other: z.number(),
+              }),
+              other: z.object({
+                draw: z.object({
+                  startPlayer: z.number(),
+                  other: z.number(),
+                }),
+                other: z.number(),
+              }),
             }),
           },
         },
@@ -64,7 +77,23 @@ app.openapi(
     if (symbolCount < 20 || fanCount < 1) {
       return c.json({message: 'Symbol count must be 20 or more and fan count must be 1 or more'}, 400);
     }
-    return c.json({score: symbolCount * fanCount}, 200);
+    // FIXME: 30符1飜の値を決め打ち
+    return c.json({
+      startPlayer: {
+        draw: {
+          startPlayer: null,
+          other: 500,
+        },
+        other: 1500,
+      },
+      other: {
+        draw: {
+          startPlayer: 500,
+          other: 300,
+        },
+        other: 1000,
+      },
+    }, 200);
   }
 );
 
