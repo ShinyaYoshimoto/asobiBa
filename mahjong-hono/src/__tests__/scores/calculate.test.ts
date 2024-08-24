@@ -5,7 +5,6 @@ describe(`正常系`, () => {
     // Arrange
     const symbolCount = 30;
     const fanCount = 1;
-    const expected = 1000;
 
     // Action
     const response = await app.request('/scores/calculate', {
