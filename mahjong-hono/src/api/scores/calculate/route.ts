@@ -4,6 +4,10 @@ import {errorResponseSchema, requestBodySchema, responseBodySchema} from './sche
 export const scoresCalculateRoute = createRoute({
   method: 'post',
   path: '/scores/calculate',
+  tags: ['scores'],
+  summary: '点数計算',
+  description: `点数計算\n\n
+    符と飜数を入力して点数を計算します。`,
   request: {
     body: {
       content: {
