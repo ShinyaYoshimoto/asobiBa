@@ -26,15 +26,18 @@ describe(`正常系`, () => {
 });
 
 describe(`異常系`, () => {
-  it('20符1飜', async () => {
+  it.each`
+    symbolCount | fanCount | description
+    ${10}       | ${0}     | ${'符が最小値未満, 飜が最小値未満'}
+    ${20}       | ${0}     | ${'飜が最小値未満'}
+    ${10}       | ${1}     | ${'符が最小値未満'}
+  `('$description', async ({symbolCount, fanCount}) => {
     // Arrange
-    const symbolCount = 10;
-    const fanCount = 0;
-
+    const body = {symbolCount, fanCount};
     // Action
     const response = await app.request('/scores/calculate', {
       method: 'POST',
-      body: JSON.stringify({symbolCount, fanCount}),
+      body: JSON.stringify(body),
     });
 
     const result = await response.json();
