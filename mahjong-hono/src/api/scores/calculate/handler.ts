@@ -10,25 +10,55 @@ export class ScoresCalculateHandler {
       return c.json({message: errorMessage ?? ''}, 400);
     }
 
-    // FIXME: 30符1飜の値を決め打ち
+    if (symbolCount === 30 && fanCount === 1) {
+      return c.json(
+        {
+          startPlayer: {
+            draw: {
+              startPlayer: null,
+              other: 500,
+            },
+            other: 1500,
+          },
+          other: {
+            draw: {
+              startPlayer: 500,
+              other: 300,
+            },
+            other: 1000,
+          },
+        },
+        200
+      );
+    }
+
+    if (symbolCount === 30 && fanCount === 2) {
+      return c.json(
+        {
+          startPlayer: {
+            draw: {
+              startPlayer: null,
+              other: 1000,
+            },
+            other: 2900,
+          },
+          other: {
+            draw: {
+              startPlayer: 1000,
+              other: 500,
+            },
+            other: 2000,
+          },
+        },
+        200
+      );
+    }
+
     return c.json(
       {
-        startPlayer: {
-          draw: {
-            startPlayer: null,
-            other: 500,
-          },
-          other: 1500,
-        },
-        other: {
-          draw: {
-            startPlayer: 500,
-            other: 300,
-          },
-          other: 1000,
-        },
+        message: 'Not implemented',
       },
-      200
+      500
     );
   };
 

@@ -34,5 +34,13 @@ export const scoresCalculateRoute = createRoute({
         },
       },
     },
+    500: {
+      description: 'Internal Server Error',
+      content: {
+        'application/json': {
+          schema: errorResponseSchema,
+        },
+      },
+    },
   },
 });
