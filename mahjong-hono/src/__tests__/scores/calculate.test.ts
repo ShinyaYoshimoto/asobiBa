@@ -1,7 +1,7 @@
 import app from '../../app';
 
 describe(`正常系`, () => {
-  it('30符1飜 = 1000点', async () => {
+  it('30符1飜', async () => {
     // Arrange
     const symbolCount = 30;
     const fanCount = 1;
@@ -31,7 +31,6 @@ describe(`異常系`, () => {
     // Arrange
     const symbolCount = 10;
     const fanCount = 0;
-    const expected = 400;
 
     // Action
     const response = await app.request('/scores/calculate', {
