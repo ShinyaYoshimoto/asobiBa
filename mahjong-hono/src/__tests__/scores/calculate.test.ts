@@ -23,6 +23,29 @@ describe(`正常系`, () => {
     expect(result.other.draw.other).toBe(300);
     expect(result.other.other).toBe(1000);
   });
+
+  it('30符2飜', async () => {
+    // Arrange
+    const symbolCount = 30;
+    const fanCount = 2;
+
+    // Action
+    const response = await app.request('/scores/calculate', {
+      method: 'POST',
+      body: JSON.stringify({symbolCount, fanCount}),
+    });
+
+    const result = await response.json();
+
+    // Assert
+    expect(result.startPlayer.draw.startPlayer).toBeNull();
+    expect(result.startPlayer.draw.other).toBe(1000);
+    expect(result.startPlayer.other).toBe(2900);
+
+    expect(result.other.draw.startPlayer).toBe(1000);
+    expect(result.other.draw.other).toBe(500);
+    expect(result.other.other).toBe(2000);
+  });
 });
 
 describe(`異常系`, () => {
