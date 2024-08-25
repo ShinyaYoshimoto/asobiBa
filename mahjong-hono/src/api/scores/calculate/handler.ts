@@ -6,7 +6,7 @@ export class ScoresCalculateHandler {
     try {
       const {symbolCount, fanCount} = await c.req.json();
 
-      const {isValid, errorMessage} = this.validate(symbolCount, fanCount);
+      const {isValid, errorMessage} = this.validate({symbolCount, fanCount});
       if (!isValid) {
         return c.json({message: errorMessage ?? ''}, 400);
       }
@@ -19,11 +19,12 @@ export class ScoresCalculateHandler {
     }
   };
 
-  private validate = (symbolCount: number, fanCount: number): {isValid: boolean; errorMessage?: string} => {
-    const result = requestBodySchema.safeParse({ symbolCount, fanCount });
-    
-    if (fanCount < 5 && symbolCount === null) {
-      return {isValid: false, errorMessage: '5飜未満は指定が必要'};
+  private validate = (param: {fanCount: number; symbolCount?: number}): {isValid: boolean; errorMessage?: string} => {
+    const {fanCount, symbolCount} = param;
+    const result = requestBodySchema.safeParse({symbolCount, fanCount});
+
+    if (fanCount < 5 && symbolCount === undefined) {
+      return {isValid: false, errorMessage: 'Symbol count must be 20 or more and fan count must be 1 or more'};
     }
 
     // バリデーションエラーなし

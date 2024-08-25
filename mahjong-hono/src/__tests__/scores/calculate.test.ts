@@ -141,17 +141,15 @@ describe(`正常系`, () => {
 
   it('6飜', async () => {
     // Arrange
-    const symbolCount = 20;
     const fanCount = 6;
 
     // Action
     const response = await app.request('/scores/calculate', {
       method: 'POST',
-      body: JSON.stringify({symbolCount, fanCount}),
+      body: JSON.stringify({fanCount}),
     });
 
     const result = await response.json();
-    console.log(result);
 
     // Assert
     expect(result.startPlayer.draw.startPlayer).toBeNull();
@@ -165,17 +163,15 @@ describe(`正常系`, () => {
 
   it('14飜', async () => {
     // Arrange
-    const symbolCount = 20;
     const fanCount = 14;
 
     // Action
     const response = await app.request('/scores/calculate', {
       method: 'POST',
-      body: JSON.stringify({symbolCount, fanCount}),
+      body: JSON.stringify({fanCount}),
     });
 
     const result = await response.json();
-    console.log(result);
 
     // Assert
     expect(result.startPlayer.draw.startPlayer).toBeNull();
@@ -190,10 +186,12 @@ describe(`正常系`, () => {
 
 describe(`異常系`, () => {
   it.each`
-    symbolCount | fanCount | description
-    ${10}       | ${0}     | ${'符が最小値未満, 飜が最小値未満'}
-    ${20}       | ${0}     | ${'飜が最小値未満'}
-    ${10}       | ${1}     | ${'符が最小値未満'}
+    symbolCount  | fanCount | description
+    ${10}        | ${0}     | ${'符が最小値未満, 飜が最小値未満'}
+    ${20}        | ${0}     | ${'飜が最小値未満'}
+    ${10}        | ${1}     | ${'符が最小値未満'}
+    ${120}       | ${1}     | ${'符が最大値より大きい'}
+    ${undefined} | ${4}     | ${'4飜だが、符がundefined'}
   `('$description', async ({symbolCount, fanCount}) => {
     // Arrange
     const body = {symbolCount, fanCount};

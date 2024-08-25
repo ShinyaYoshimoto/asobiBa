@@ -5,7 +5,7 @@ export const requestBodySchema = z.object({
     .number({description: '符数 / 5飜以上は指定不要'})
     .min(20, '20符以上で入力してください')
     .max(110, '110符以下で入力してください')
-    .nullable(),
+    .optional(),
   fanCount: z.number({description: '飜数'}).min(1, '1飜以上で入力してください'),
 });
 
