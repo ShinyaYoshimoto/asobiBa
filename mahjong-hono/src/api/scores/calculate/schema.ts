@@ -15,7 +15,8 @@ export const responseBodySchema = z.object({
         },
         {description: 'ツモの場合'}
       ),
-      other: z.number({description: 'ロンの場合'}).min(1500),
+      // 平和ロンの場合はnull
+      other: z.number({description: 'ロンの場合'}).min(1500).nullable(),
     },
     {description: '親の場合の点数'}
   ),
@@ -27,7 +28,8 @@ export const responseBodySchema = z.object({
       },
       {description: 'ツモの場合'}
     ),
-    other: z.number({description: 'ロンの場合'}).min(1000),
+    // 平和ロンの場合はnull
+    other: z.number({description: 'ロンの場合'}).min(1000).nullable(),
   }, {description: '子の場合の点数'}),
 });
 
