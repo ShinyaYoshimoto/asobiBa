@@ -15,7 +15,6 @@ describe(`正常系`, () => {
     const result = await response.json();
 
     // Assert
-    expect(result.startPlayer.draw.startPlayer).toBeNull();
     expect(result.startPlayer.draw.other).toBe(500);
     expect(result.startPlayer.other).toBe(1500);
 
@@ -38,7 +37,6 @@ describe(`正常系`, () => {
     const result = await response.json();
 
     // Assert
-    expect(result.startPlayer.draw.startPlayer).toBeNull();
     expect(result.startPlayer.draw.other).toBe(1000);
     expect(result.startPlayer.other).toBe(2900);
 
@@ -61,7 +59,6 @@ describe(`正常系`, () => {
     const result = await response.json();
 
     // Assert
-    expect(result.startPlayer.draw.startPlayer).toBeNull();
     expect(result.startPlayer.draw.other).toBe(3200);
     expect(result.startPlayer.other).toBe(9600);
 
@@ -84,7 +81,6 @@ describe(`正常系`, () => {
     const result = await response.json();
 
     // Assert
-    expect(result.startPlayer.draw.startPlayer).toBeNull();
     expect(result.startPlayer.draw.other).toBe(4000);
     expect(result.startPlayer.other).toBe(12000);
 
@@ -107,7 +103,6 @@ describe(`正常系`, () => {
     const result = await response.json();
 
     // Assert
-    expect(result.startPlayer.draw.startPlayer).toBeNull();
     expect(result.startPlayer.draw.other).toBe(2600);
     expect(result.startPlayer.other).toBeNull();
 
@@ -130,7 +125,6 @@ describe(`正常系`, () => {
     const result = await response.json();
 
     // Assert
-    expect(result.startPlayer.draw.startPlayer).toBeNull();
     expect(result.startPlayer.draw.other).toBe(4000);
     expect(result.startPlayer.other).toBe(12000);
 
@@ -152,7 +146,6 @@ describe(`正常系`, () => {
     const result = await response.json();
 
     // Assert
-    expect(result.startPlayer.draw.startPlayer).toBeNull();
     expect(result.startPlayer.draw.other).toBe(6000);
     expect(result.startPlayer.other).toBe(18000);
 
@@ -174,7 +167,6 @@ describe(`正常系`, () => {
     const result = await response.json();
 
     // Assert
-    expect(result.startPlayer.draw.startPlayer).toBeNull();
     expect(result.startPlayer.draw.other).toBe(16000);
     expect(result.startPlayer.other).toBe(48000);
 

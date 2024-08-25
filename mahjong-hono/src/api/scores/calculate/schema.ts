@@ -14,7 +14,6 @@ export const responseBodySchema = z.object({
     {
       draw: z.object(
         {
-          startPlayer: z.number({description: '親が支払う点数'}).nullable(), // FIXME: 絶対nullだから返す必要なし
           other: z.number({description: '子が支払う点数'}).min(500),
         },
         {description: 'ツモの場合'}
