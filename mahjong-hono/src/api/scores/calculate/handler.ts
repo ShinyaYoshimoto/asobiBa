@@ -20,7 +20,11 @@ export class ScoresCalculateHandler {
   };
 
   private validate = (symbolCount: number, fanCount: number): {isValid: boolean; errorMessage?: string} => {
-    const result = requestBodySchema.safeParse({symbolCount, fanCount});
+    const result = requestBodySchema.safeParse({ symbolCount, fanCount });
+    
+    if (fanCount < 5 && symbolCount === null) {
+      return {isValid: false, errorMessage: '5飜未満は指定が必要'};
+    }
 
     // バリデーションエラーなし
     if (result.success) {
