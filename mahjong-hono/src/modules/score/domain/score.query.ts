@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import {z} from 'zod';
 
 // FIXME: このモジュールで知っているべき内容ではない
 import {responseBodySchema} from '../../../api/scores/calculate/schema';

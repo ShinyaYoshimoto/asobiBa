@@ -9,12 +9,28 @@ export class ScoreQueryOnMemory implements ScoreQueryInterface {
     const {fanCount, symbolCount} = params;
     const score = scoreDef.find(
       score =>
-        // 13飜以上は13飜として扱う
-        (fanCount > 13 ? score.fanCount === 13 : score.fanCount === fanCount) &&
-        // 5飜以上は飜数が一致するものを返す
-        // FIXME: 3飜かつ70符以上は、5飜として扱う
-        // FIXME: 4飜かつ40符以上は、5飜として扱う
-        (fanCount > 4 ? true : score.symbolCount === symbolCount)
+        // 飜数の条件
+        // - 13飜以上は13飜として扱う
+        // - 4飜かつ40符以上は、5飜として扱う
+        // - 3飜かつ70符以上は、5飜として扱う
+        (fanCount > 13
+          ? score.fanCount === 13
+          : fanCount === 4 && symbolCount && symbolCount >= 40
+          ? score.fanCount === 5
+          : fanCount === 3 && symbolCount && symbolCount >= 70
+          ? score.fanCount === 5
+          : score.fanCount === fanCount) &&
+        // 符数の条件
+        // - 5飜以上は飜数が一致するものを返す
+        // - 4飜かつ40符以上は、符は考慮しない
+        // - 3飜かつ70符以上は、符は考慮しない
+        (fanCount > 4
+          ? true
+          : fanCount === 4 && symbolCount && symbolCount >= 40
+          ? true
+          : fanCount === 3 && symbolCount && symbolCount >= 70
+          ? true
+          : score.symbolCount === symbolCount)
     );
     if (!score) {
       throw new Error('Score not found');
