@@ -1,11 +1,10 @@
 import {z} from 'zod';
 import {ScoreQueryInterface} from '../domain/score.query';
 
-// FIXME: このモジュールで知っているべき内容ではない
-import {responseBodySchema} from '../../../api/scores/calculate/schema';
+import {scoreEntitySchema} from '../domain/score.entity';
 
 export class ScoreQueryOnMemory implements ScoreQueryInterface {
-  findScore = async (params: {fanCount: number; symbolCount?: number}): Promise<z.infer<typeof responseBodySchema>> => {
+  findScore = async (params: {fanCount: number; symbolCount?: number}): Promise<z.infer<typeof scoreEntitySchema>> => {
     const {fanCount, symbolCount} = params;
     const score = scoreDef.find(
       score =>
@@ -35,7 +34,7 @@ export class ScoreQueryOnMemory implements ScoreQueryInterface {
     if (!score) {
       throw new Error('Score not found');
     }
-    return responseBodySchema.parse(score.score);
+    return scoreEntitySchema.parse(score);
   };
 }
 
@@ -564,7 +563,7 @@ const scoreDef = [
       },
     },
   },
-  
+
   // 4飜
   {
     symbolCount: 20,

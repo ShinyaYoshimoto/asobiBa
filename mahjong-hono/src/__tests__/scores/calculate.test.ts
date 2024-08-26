@@ -15,12 +15,12 @@ describe(`正常系`, () => {
     const result = await response.json();
 
     // Assert
-    expect(result.startPlayer.draw.other).toBe(500);
-    expect(result.startPlayer.other).toBe(1500);
+    expect(result.score.startPlayer.draw.other).toBe(500);
+    expect(result.score.startPlayer.other).toBe(1500);
 
-    expect(result.other.draw.startPlayer).toBe(500);
-    expect(result.other.draw.other).toBe(300);
-    expect(result.other.other).toBe(1000);
+    expect(result.score.other.draw.startPlayer).toBe(500);
+    expect(result.score.other.draw.other).toBe(300);
+    expect(result.score.other.other).toBe(1000);
   });
 
   it('30符2飜', async () => {
@@ -37,12 +37,12 @@ describe(`正常系`, () => {
     const result = await response.json();
 
     // Assert
-    expect(result.startPlayer.draw.other).toBe(1000);
-    expect(result.startPlayer.other).toBe(2900);
+    expect(result.score.startPlayer.draw.other).toBe(1000);
+    expect(result.score.startPlayer.other).toBe(2900);
 
-    expect(result.other.draw.startPlayer).toBe(1000);
-    expect(result.other.draw.other).toBe(500);
-    expect(result.other.other).toBe(2000);
+    expect(result.score.other.draw.startPlayer).toBe(1000);
+    expect(result.score.other.draw.other).toBe(500);
+    expect(result.score.other.other).toBe(2000);
   });
 
   it('50符3飜', async () => {
@@ -59,12 +59,12 @@ describe(`正常系`, () => {
     const result = await response.json();
 
     // Assert
-    expect(result.startPlayer.draw.other).toBe(3200);
-    expect(result.startPlayer.other).toBe(9600);
+    expect(result.score.startPlayer.draw.other).toBe(3200);
+    expect(result.score.startPlayer.other).toBe(9600);
 
-    expect(result.other.draw.startPlayer).toBe(3200);
-    expect(result.other.draw.other).toBe(1600);
-    expect(result.other.other).toBe(6400);
+    expect(result.score.other.draw.startPlayer).toBe(3200);
+    expect(result.score.other.draw.other).toBe(1600);
+    expect(result.score.other.other).toBe(6400);
   });
 
   it('70符3飜', async () => {
@@ -81,12 +81,12 @@ describe(`正常系`, () => {
     const result = await response.json();
 
     // Assert
-    expect(result.startPlayer.draw.other).toBe(4000);
-    expect(result.startPlayer.other).toBe(12000);
+    expect(result.score.startPlayer.draw.other).toBe(4000);
+    expect(result.score.startPlayer.other).toBe(12000);
 
-    expect(result.other.draw.startPlayer).toBe(4000);
-    expect(result.other.draw.other).toBe(2000);
-    expect(result.other.other).toBe(8000);
+    expect(result.score.other.draw.startPlayer).toBe(4000);
+    expect(result.score.other.draw.other).toBe(2000);
+    expect(result.score.other.other).toBe(8000);
   });
 
   it('20符4飜', async () => {
@@ -103,12 +103,12 @@ describe(`正常系`, () => {
     const result = await response.json();
 
     // Assert
-    expect(result.startPlayer.draw.other).toBe(2600);
-    expect(result.startPlayer.other).toBeNull();
+    expect(result.score.startPlayer.draw.other).toBe(2600);
+    expect(result.score.startPlayer.other).toBeNull();
 
-    expect(result.other.draw.startPlayer).toBe(2600);
-    expect(result.other.draw.other).toBe(1300);
-    expect(result.other.other).toBeNull();
+    expect(result.score.other.draw.startPlayer).toBe(2600);
+    expect(result.score.other.draw.other).toBe(1300);
+    expect(result.score.other.other).toBeNull();
   });
 
   it('40符4飜', async () => {
@@ -125,12 +125,12 @@ describe(`正常系`, () => {
     const result = await response.json();
 
     // Assert
-    expect(result.startPlayer.draw.other).toBe(4000);
-    expect(result.startPlayer.other).toBe(12000);
+    expect(result.score.startPlayer.draw.other).toBe(4000);
+    expect(result.score.startPlayer.other).toBe(12000);
 
-    expect(result.other.draw.startPlayer).toBe(4000);
-    expect(result.other.draw.other).toBe(2000);
-    expect(result.other.other).toBe(8000);
+    expect(result.score.other.draw.startPlayer).toBe(4000);
+    expect(result.score.other.draw.other).toBe(2000);
+    expect(result.score.other.other).toBe(8000);
   });
 
   it('6飜', async () => {
@@ -146,12 +146,12 @@ describe(`正常系`, () => {
     const result = await response.json();
 
     // Assert
-    expect(result.startPlayer.draw.other).toBe(6000);
-    expect(result.startPlayer.other).toBe(18000);
+    expect(result.score.startPlayer.draw.other).toBe(6000);
+    expect(result.score.startPlayer.other).toBe(18000);
 
-    expect(result.other.draw.startPlayer).toBe(6000);
-    expect(result.other.draw.other).toBe(3000);
-    expect(result.other.other).toBe(12000);
+    expect(result.score.other.draw.startPlayer).toBe(6000);
+    expect(result.score.other.draw.other).toBe(3000);
+    expect(result.score.other.other).toBe(12000);
   });
 
   it('14飜', async () => {
@@ -167,12 +167,12 @@ describe(`正常系`, () => {
     const result = await response.json();
 
     // Assert
-    expect(result.startPlayer.draw.other).toBe(16000);
-    expect(result.startPlayer.other).toBe(48000);
+    expect(result.score.startPlayer.draw.other).toBe(16000);
+    expect(result.score.startPlayer.other).toBe(48000);
 
-    expect(result.other.draw.startPlayer).toBe(16000);
-    expect(result.other.draw.other).toBe(8000);
-    expect(result.other.other).toBe(32000);
+    expect(result.score.other.draw.startPlayer).toBe(16000);
+    expect(result.score.other.draw.other).toBe(8000);
+    expect(result.score.other.other).toBe(32000);
   });
 });
 

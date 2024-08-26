@@ -1,8 +1,7 @@
 import {z} from 'zod';
 
-// FIXME: このモジュールで知っているべき内容ではない
-import {responseBodySchema} from '../../../api/scores/calculate/schema';
+import {scoreEntitySchema} from './score.entity';
 
 export interface ScoreQueryInterface {
-  findScore(params: {fanCount: number; symbolCount?: number}): Promise<z.infer<typeof responseBodySchema>>;
+  findScore(params: {fanCount: number; symbolCount?: number}): Promise<z.infer<typeof scoreEntitySchema>>;
 }
