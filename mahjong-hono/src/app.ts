@@ -8,6 +8,13 @@ const app = new OpenAPIHono({});
 // 各種エンドポイントを追加する
 app.openapi(scoresCalculateRoute, new ScoresCalculateHandler().handle);
 
+// TODO: 特定の条件（ex. 親 - ツモ - 70符1飜）は何点？という問題への回答を記録するAPIを作成する
+// - [ ] エンドポイントとスキーマを決める
+// - [ ] Prismaでテーブルを作成する
+// - [ ] テーブルに回答を記録する
+// - [ ] テーブルに記録された回答を取得する
+// - [ ] 認証できるようにする
+
 // health check
 app.get('/', c => {
   return c.text('Hello Hono!');
