@@ -6,6 +6,6 @@ export class ScoresAnswerHandler {
   handle = async (c: Context) => {
     console.log('not implemented');
 
-    return c.json({isCorrect: false}, 200);
+    return c.json({isCorrect: true}, 200);
   };
 }
