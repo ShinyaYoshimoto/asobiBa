@@ -2,14 +2,17 @@ import {swaggerUI} from '@hono/swagger-ui';
 import {OpenAPIHono} from '@hono/zod-openapi';
 import {scoresCalculateRoute} from './api/scores/calculate/route';
 import {ScoresCalculateHandler} from './api/scores/calculate/handler';
+import {scoresAnswerRoute} from './api/scores/answer/route';
+import {ScoresAnswerHandler} from './api/scores/answer/handler';
 
 const app = new OpenAPIHono({});
 
 // 各種エンドポイントを追加する
 app.openapi(scoresCalculateRoute, new ScoresCalculateHandler().handle);
+app.openapi(scoresAnswerRoute, new ScoresAnswerHandler().handle);
 
 // TODO: 特定の条件（ex. 親 - ツモ - 70符1飜）は何点？という問題への回答を記録するAPIを作成する
-// - [ ] エンドポイントとスキーマを決める
+// - [x] エンドポイントとスキーマを決める
 // - [ ] Prismaでテーブルを作成する
 // - [ ] テーブルに回答を記録する
 // - [ ] テーブルに記録された回答を取得する
