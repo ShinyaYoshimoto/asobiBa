@@ -10,6 +10,10 @@ export class ScoresAnswerHandler {
     this.scoreQuery = dep?.scoreQuery ?? new ScoreQueryOnMemory();
   }
 
+  // - [ ] Prismaでテーブルを作成する
+  // - [ ] テーブルに回答を記録する
+  // - [ ] テーブルに記録された回答を取得する
+  // - [ ] 認証できるようにする
   handle = async (c: Context) => {
     try {
       const requestBody = await c.req.json();
@@ -24,6 +28,8 @@ export class ScoresAnswerHandler {
         symbolCount: requestBody.question.symbolCount,
       });
 
+      // 一旦、愚直に書いてる
+      // メソッド分けるなども検討
       if (requestBody.question.isStartPlayer) {
         if (requestBody.question.isDraw) {
           return c.json(
