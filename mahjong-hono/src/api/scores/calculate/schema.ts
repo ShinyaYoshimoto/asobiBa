@@ -11,8 +11,3 @@ export const requestBodySchema = z.object({
 });
 
 export const responseBodySchema = scoreEntitySchema;
-
-// FIXME: 共通化してもいいかも？
-export const errorResponseSchema = z.object({
-  message: z.string(),
-});

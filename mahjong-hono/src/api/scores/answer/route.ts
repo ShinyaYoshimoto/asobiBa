@@ -1,5 +1,6 @@
 import {createRoute} from '@hono/zod-openapi';
-import {errorResponseBodySchema, requestBodySchema, responseBodySchema} from './schema';
+import {requestBodySchema, responseBodySchema} from './schema';
+import {errorResponseSchema} from '../common/schema';
 
 export const scoresAnswerRoute = createRoute({
   method: 'post',
@@ -32,7 +33,7 @@ export const scoresAnswerRoute = createRoute({
       description: 'Bad Request',
       content: {
         'application/json': {
-          schema: errorResponseBodySchema,
+          schema: errorResponseSchema,
         },
       },
     },
@@ -40,7 +41,7 @@ export const scoresAnswerRoute = createRoute({
       description: 'Unauthorized',
       content: {
         'application/json': {
-          schema: errorResponseBodySchema,
+          schema: errorResponseSchema,
         },
       },
     },
@@ -48,7 +49,7 @@ export const scoresAnswerRoute = createRoute({
       description: 'Internal Server Error',
       content: {
         'application/json': {
-          schema: errorResponseBodySchema,
+          schema: errorResponseSchema,
         },
       },
     },

@@ -18,8 +18,3 @@ export const requestBodySchema = z.object({
 export const responseBodySchema = z.object({
   isCorrect: z.boolean(),
 });
-
-// FIXME: 共通化してもいいはず
-export const errorResponseBodySchema = z.object({
-  message: z.string(),
-});
