@@ -5,6 +5,7 @@
 - [ ] モジュール作成
 - [ ] ユーザー認証（firebase authとか？）
 - [ ] secret manager導入
+- [ ] logger
 
 ## 簡易実行
 ```
