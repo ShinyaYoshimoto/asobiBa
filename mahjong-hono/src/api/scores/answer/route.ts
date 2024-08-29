@@ -5,8 +5,11 @@ export const scoresAnswerRoute = createRoute({
   method: 'post',
   path: '/scores/answer',
   tags: ['scores'],
-  summary: '点数計算クイズの回答を記録する',
-  description: '## 概要\n点数計算クイズの回答を記録する',
+  summary: '点数申告クイズの回答を記録する',
+  description: `## 概要\n
+    点数申告クイズの回答を記録する\n
+    ## 前提\n
+    - 符は110符まで`,
   request: {
     body: {
       content: {
