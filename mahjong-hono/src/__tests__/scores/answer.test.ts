@@ -1,7 +1,14 @@
 import app from '../../app';
+import {AnswerEntity, AnswerSchema} from '../../modules/answer/domain/answer.entity';
+import {AnswerCommandSqlite} from '../../modules/answer/infrastructure/answer.command.sqlite';
+
+jest.mock('../../modules/answer/infrastructure/answer.command.sqlite');
 
 describe('scores/answer', () => {
   describe('正常系', () => {
+    beforeEach(() => {
+      (AnswerCommandSqlite.prototype.register as jest.Mock).mockClear();
+    });
     it('子の30符1翻ツモは、子から300点、親から500点のあがりである', async () => {
       // Arrange
       const question = {
@@ -16,6 +23,19 @@ describe('scores/answer', () => {
           other: 300,
         },
       };
+
+      // モックの実装
+      (AnswerCommandSqlite.prototype.register as jest.Mock).mockResolvedValue(
+        AnswerEntity.create(
+          AnswerSchema.parse({
+            isStartPlayer: false,
+            isDraw: true,
+            symbolCount: 30,
+            fanCount: 1,
+            isCorrect: true,
+          })
+        )
+      );
 
       // Action
       const response = await app.request('/scores/answer', {
@@ -47,6 +67,19 @@ describe('scores/answer', () => {
         },
       };
 
+      // モックの実装
+      (AnswerCommandSqlite.prototype.register as jest.Mock).mockResolvedValue(
+        AnswerEntity.create(
+          AnswerSchema.parse({
+            isStartPlayer: false,
+            isDraw: true,
+            symbolCount: 30,
+            fanCount: 1,
+            isCorrect: false,
+          })
+        )
+      );
+
       // Action
       const response = await app.request('/scores/answer', {
         method: 'POST',
@@ -77,6 +110,19 @@ describe('scores/answer', () => {
           other: 500,
         },
       };
+
+      // モックの実装
+      (AnswerCommandSqlite.prototype.register as jest.Mock).mockResolvedValue(
+        AnswerEntity.create(
+          AnswerSchema.parse({
+            isStartPlayer: false,
+            isDraw: true,
+            symbolCount: 0,
+            fanCount: 1,
+            isCorrect: false,
+          })
+        )
+      );
 
       // Action
       const response = await app.request('/scores/answer', {
