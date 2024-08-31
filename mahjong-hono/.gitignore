@@ -1,4 +1,11 @@
-# dev
+#custom
+
+## sqliteは環境の適用ごとに作るってことでOKとする。
+prisma/dev.db
+prisma/dev.db-journal
+
+# default
+## dev
 .yarn/
 !.yarn/releases
 .vscode/*
@@ -8,14 +15,14 @@
 .idea/usage.statistics.xml
 .idea/shelf
 
-# deps
+## deps
 node_modules/
 
-# env
+## env
 .env
 .env.production
 
-# logs
+## logs
 logs/
 *.log
 npm-debug.log*
@@ -24,5 +31,5 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-# misc
+## misc
 .DS_Store
