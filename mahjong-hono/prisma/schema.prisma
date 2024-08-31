@@ -15,7 +15,7 @@ model Answer {
   isStartPlayer Boolean
   isDraw Boolean
   fanCount Int
-  symbolCount Int
+  symbolCount Int?
   score Int
   isCorrect Boolean
   createdAt DateTime @default(now())
