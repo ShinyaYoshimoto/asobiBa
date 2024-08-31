@@ -10,13 +10,13 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// TODO: questionテーブルを別で用意して、それに紐づくようにする
 model Answer {
   id    String @id @default(cuid())
   isStartPlayer Boolean
   isDraw Boolean
   fanCount Int
   symbolCount Int?
-  score Int
   isCorrect Boolean
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
