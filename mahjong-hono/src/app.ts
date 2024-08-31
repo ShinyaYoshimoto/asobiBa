@@ -11,6 +11,9 @@ const app = new OpenAPIHono({});
 app.openapi(scoresCalculateRoute, new ScoresCalculateHandler().handle);
 app.openapi(scoresAnswerRoute, new ScoresAnswerHandler().handle);
 
+// TODO
+// - [ ] テーブルに記録された回答を取得するAPIを作成する
+// - [ ] 認証できるようにし、ユーザーごとに回答を保持、取得できるようにする
 
 // health check
 app.get('/', c => {
