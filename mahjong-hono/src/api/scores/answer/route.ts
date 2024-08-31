@@ -7,10 +7,7 @@ export const scoresAnswerRoute = createRoute({
   path: '/scores/answer',
   tags: ['scores'],
   summary: '点数申告クイズの回答を記録する',
-  description: `## 概要\n
-    点数申告クイズの回答を記録する\n
-    ## 前提\n
-    - 符は110符まで`,
+  description: `## 概要\n点数申告クイズの回答を記録する\n## 注意\n- 符は110符まで\n- 翻数は1翻以上\n- 支払いがない場合は0を指定してください`,
   request: {
     body: {
       content: {
