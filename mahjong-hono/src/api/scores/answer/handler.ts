@@ -29,7 +29,9 @@ export class ScoresAnswerHandler {
       // 一旦、愚直に書いてる
       // メソッド分けるなども検討
       if (requestBody.data.question.isStartPlayer) {
+        // 親
         if (requestBody.data.question.isDraw) {
+          // ツモ
           return c.json(
             {
               isCorrect:
@@ -39,6 +41,7 @@ export class ScoresAnswerHandler {
             200
           );
         } else {
+          // ロン
           return c.json(
             {
               isCorrect:
@@ -49,7 +52,9 @@ export class ScoresAnswerHandler {
           );
         }
       } else {
+        // 子
         if (requestBody.data.question.isDraw) {
+          // ツモ
           return c.json(
             {
               isCorrect:
@@ -59,6 +64,7 @@ export class ScoresAnswerHandler {
             200
           );
         } else {
+          // ロン
           return c.json(
             {
               isCorrect:
