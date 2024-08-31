@@ -1,8 +1,11 @@
 ## やりたいこと
 
-- [ ] DB（firestore, RDB, ES）
+- [ ] DB
+  - [x] RDB（prisma x sqlite）面倒なのでsqlite
+  - [ ] Firestore（出番は来ないかも？）
+  - [ ] Elasticsearch（view indexとして利用してみる？）
 - [ ] Cloud Runにデプロイする
-- [ ] モジュール作成
+- [x] モジュール作成
 - [ ] ユーザー認証（firebase authとか？）
 - [ ] secret manager導入
 - [ ] logger
