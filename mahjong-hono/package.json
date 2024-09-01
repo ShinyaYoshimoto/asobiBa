@@ -2,7 +2,9 @@
   "name": "mahjong-hono",
   "scripts": {
     "dev": "tsx watch src/index.ts",
-    "test": "jest"
+    "build": "tsc",
+    "test": "jest",
+    "prd": "pnpm run build && node dist/index.js"
   },
   "dependencies": {
     "@hono/node-server": "^1.12.1",
