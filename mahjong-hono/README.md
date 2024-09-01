@@ -4,7 +4,8 @@
   - [x] RDB（prisma x sqlite）面倒なのでsqlite
   - [ ] Firestore（出番は来ないかも？）
   - [ ] Elasticsearch（view indexとして利用してみる？）
-- [ ] Cloud Runにデプロイする
+- [x] Cloud Runにデプロイする
+  - ただし、SQLiteとの疎通がうまくいってない。CI/CD組み込んでから考えたい
 - [x] モジュール作成
 - [ ] ユーザー認証（firebase authとか？）
 - [ ] secret manager導入
@@ -19,6 +20,20 @@ npm run dev
 ```
 open http://localhost:3000
 ```
+
+## 24.09.01時点におけるデプロイ
+
+1. Cloud Buildを介して、Artifact Registryに登録
+```
+gcloud builds submit \
+    --region asia-east1 \
+    --config cloudbuild.yaml
+```
+
+2. Cloud Runのコンソール画面から、適用させる
+
+### 備考
+- あくまで、cloud Runで動かせるよね？を確認したかったのでCI/CDの優先度は決して高くない。
 
 ## API作成における手順
 
