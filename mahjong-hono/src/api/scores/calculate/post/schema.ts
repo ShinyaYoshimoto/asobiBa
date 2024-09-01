@@ -1,5 +1,5 @@
 import {z} from 'zod';
-import {scoreEntitySchema} from '../../../modules/score/domain/score.entity';
+import {scoreEntitySchema} from '../../../../modules/score/domain/score.entity';
 
 export const requestBodySchema = z.object({
   symbolCount: z

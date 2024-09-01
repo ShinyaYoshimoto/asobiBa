@@ -1,11 +1,11 @@
 import {Context} from 'hono';
 import {requestBodySchema} from './schema';
-import {ScoreQueryInterface} from '../../../modules/score/domain/score.query';
-import {ScoreQueryOnMemory} from '../../../modules/score/infrastructure/score.query.memory';
-import {AnswerCommandInterface} from '../../../modules/answer/domain/answer.command';
-import {AnswerCommandSqlite} from '../../../modules/answer/infrastructure/answer.command.sqlite';
+import {ScoreQueryInterface} from '../../../../modules/score/domain/score.query';
+import {ScoreQueryOnMemory} from '../../../../modules/score/infrastructure/score.query.memory';
+import {AnswerCommandInterface} from '../../../../modules/answer/domain/answer.command';
+import {AnswerCommandSqlite} from '../../../../modules/answer/infrastructure/answer.command.sqlite';
 import {PrismaClient} from '@prisma/client';
-import {AnswerEntity} from '../../../modules/answer/domain/answer.entity';
+import {AnswerEntity} from '../../../../modules/answer/domain/answer.entity';
 
 export class ScoresAnswerHandler {
   private readonly scoreQuery: ScoreQueryInterface;

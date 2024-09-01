@@ -1,9 +1,9 @@
 import {swaggerUI} from '@hono/swagger-ui';
 import {OpenAPIHono} from '@hono/zod-openapi';
-import {scoresCalculateRoute} from './api/scores/calculate/route';
-import {ScoresCalculateHandler} from './api/scores/calculate/handler';
-import {scoresAnswerRoute} from './api/scores/answer/route';
-import {ScoresAnswerHandler} from './api/scores/answer/handler';
+import {scoresCalculateRoute} from './api/scores/calculate/post/route';
+import {ScoresCalculateHandler} from './api/scores/calculate/post/handler';
+import {scoresAnswerRoute} from './api/scores/answer/post/route';
+import {ScoresAnswerHandler} from './api/scores/answer/post/handler';
 
 const app = new OpenAPIHono({});
 

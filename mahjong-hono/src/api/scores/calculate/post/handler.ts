@@ -1,7 +1,7 @@
 import {Context} from 'hono';
 import {requestBodySchema} from './schema';
-import {ScoreQueryInterface} from '../../../modules/score/domain/score.query';
-import {ScoreQueryOnMemory} from '../../../modules/score/infrastructure/score.query.memory';
+import {ScoreQueryInterface} from '../../../../modules/score/domain/score.query';
+import {ScoreQueryOnMemory} from '../../../../modules/score/infrastructure/score.query.memory';
 
 export class ScoresCalculateHandler {
   private readonly scoreRepository: ScoreQueryInterface;
