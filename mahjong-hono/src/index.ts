@@ -1,7 +1,7 @@
 import {serve} from '@hono/node-server';
 import app from './app';
 
-const port = 3000;
+const port = 8080;
 console.log(`Server is running on port ${port}`);
 
 serve({
