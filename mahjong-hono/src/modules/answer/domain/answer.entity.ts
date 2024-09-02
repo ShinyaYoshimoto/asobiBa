@@ -20,6 +20,7 @@ export class AnswerEntity {
   }
 
   // FIXME: これgetterっぽいのはやす形でほんまにええんか？
+  id = () => this.data.id;
   isStartPlayer = () => this.data.isStartPlayer;
   isDraw = () => this.data.isDraw;
   symbolCount = () => this.data.symbolCount;
