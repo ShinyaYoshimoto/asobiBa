@@ -1,5 +1,7 @@
 import {swaggerUI} from '@hono/swagger-ui';
 import {OpenAPIHono} from '@hono/zod-openapi';
+
+// FIXME: APIを増やすたびに、RouterとHandlerを追加する必要があり、ちょっと冗長な気もする
 import {scoresCalculateRoute} from './api/scores/calculate/post/route';
 import {ScoresCalculateHandler} from './api/scores/calculate/post/handler';
 import {scoresAnswerRoute} from './api/scores/answer/post/route';
@@ -15,7 +17,6 @@ app.openapi(scoresAnswerRoute, new ScoresAnswerHandler().handle);
 app.openapi(scoresAnswersRoute, new ScoresAnswersHandler().handle);
 
 // TODO
-// - [ ] テーブルに記録された回答を取得するAPIを作成する
 // - [ ] 認証できるようにし、ユーザーごとに回答を保持、取得できるようにする
 
 // health check
