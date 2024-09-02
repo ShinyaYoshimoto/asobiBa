@@ -1,8 +1,8 @@
-import app from '../../app';
-import {AnswerEntity, AnswerSchema} from '../../modules/answer/domain/answer.entity';
-import {AnswerQuerySqlite} from '../../modules/answer/infrastructure/answer.query.sqlite';
+import app from '../../../app';
+import {AnswerEntity, AnswerSchema} from '../../../modules/answer/domain/answer.entity';
+import {AnswerQuerySqlite} from '../../../modules/answer/infrastructure/answer.query.sqlite';
 
-jest.mock('../../modules/answer/infrastructure/answer.query.sqlite');
+jest.mock('../../../modules/answer/infrastructure/answer.query.sqlite');
 
 describe('scores/answers', () => {
   describe('正常系', () => {

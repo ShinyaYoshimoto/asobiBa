@@ -1,4 +1,4 @@
-import app from '../../app';
+import app from '../../../app';
 
 describe(`正常系`, () => {
   it('30符1飜', async () => {
