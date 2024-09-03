@@ -23,6 +23,7 @@ export class ScoresAnswersHandler {
               // FIXME: undefinedとなりうるので、面倒だがここでチェックする
               const id = answer.id();
               if (!id) {
+        // TODO: logging
                 throw new Error('Answer id is not defined');
               }
               return {id, isCorrect: answer.isCorrect()};
@@ -31,7 +32,8 @@ export class ScoresAnswersHandler {
         200
       );
     } catch (e) {
-      console.log(e)
+      // TODO: 構造化したエラーをcloud loggingに出力できるようにする
+      console.log(e);
       return c.json({message: 'Internal Server Error'}, 500);
     }
   };

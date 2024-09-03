@@ -27,7 +27,7 @@ COPY --from=builder --chown=hono:nodejs /app/prisma /app/prisma
 
 # ARG DATABASE_URL
 # ENV DATABASE_URL=${DATABASE_URL}
-# なぜかうまくいかないが、まぁいいか。Firestore使う or Cloud SQLとか使うか...
+# FIXME: なぜかうまくいかないが、まぁいいか。Firestore使う or Cloud SQLとか使うか...
 ENV DATABASE_URL=file:/tmp/prisma/dev.db
 
 RUN npx prisma migrate deploy
@@ -39,4 +39,3 @@ USER hono
 EXPOSE 8080
 
 CMD ["node", "/app/dist/index.js"]
-

@@ -32,6 +32,7 @@ export class ScoresCalculateHandler {
     const result = requestBodySchema.safeParse({symbolCount, fanCount});
 
     if (fanCount < 5 && symbolCount === undefined) {
+      // TODO: logging
       return {isValid: false, errorMessage: 'Symbol count must be 20 or more and fan count must be 1 or more'};
     }
 
@@ -64,6 +65,7 @@ export class ScoresCalculateHandler {
     // result.error.errors.map(error => {
     // })
     // FIXME: 面倒なので一旦、一律でエラーを返す
+    // TODO: logging
     return {isValid: false, errorMessage: 'Symbol count must be 20 or more and fan count must be 1 or more'};
   };
 }

@@ -32,12 +32,14 @@ export class ScoreQueryOnMemory implements ScoreQueryInterface {
           : score.symbolCount === symbolCount)
     );
     if (!score) {
+      // TODO: logging
       throw new Error('Score not found');
     }
     return scoreEntitySchema.parse(score);
   };
 }
 
+// TODO: ベタ書きしているが、別ファイルに分けたり、DBから取得するようにしたりすることも検討する
 // 110符まで対応
 const scoreDef = [
   // 1飜

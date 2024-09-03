@@ -22,6 +22,7 @@ export class ScoresAnswerHandler {
     try {
       const requestBody = requestBodySchema.safeParse(await c.req.json());
       if (!requestBody.success) {
+        // TODO: logging
         return c.json({message: 'bad request'}, 400);
       }
 
@@ -30,8 +31,7 @@ export class ScoresAnswerHandler {
         symbolCount: requestBody.data.question.symbolCount,
       });
 
-      // 一旦、愚直に書いてる
-      // メソッド分けるなども検討
+      // TODO: 一旦、愚直に書いてるメソッド分けるなども検討
       if (requestBody.data.question.isStartPlayer) {
         // 親
         if (requestBody.data.question.isDraw) {
@@ -54,6 +54,7 @@ export class ScoresAnswerHandler {
               await this.prismaClient.$disconnect();
             })
             .catch(async e => {
+              // TODO: logging
               await this.prismaClient.$disconnect();
               throw e;
             });
@@ -84,6 +85,7 @@ export class ScoresAnswerHandler {
               await this.prismaClient.$disconnect();
             })
             .catch(async e => {
+              // TODO: logging
               await this.prismaClient.$disconnect();
               throw e;
             });
@@ -117,6 +119,7 @@ export class ScoresAnswerHandler {
               await this.prismaClient.$disconnect();
             })
             .catch(async e => {
+              // TODO: logging
               await this.prismaClient.$disconnect();
               throw e;
             });
@@ -147,6 +150,7 @@ export class ScoresAnswerHandler {
               await this.prismaClient.$disconnect();
             })
             .catch(async e => {
+              // TODO: logging
               await this.prismaClient.$disconnect();
               throw e;
             });
@@ -160,6 +164,7 @@ export class ScoresAnswerHandler {
         }
       }
     } catch (e) {
+      // TODO: logging
       return c.json({message: 'Internal Server Error'}, 500);
     }
   };
