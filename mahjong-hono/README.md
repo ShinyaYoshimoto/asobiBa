@@ -45,6 +45,34 @@ gcloud builds submit \
 6. __tests__以下にテストファイルを作成し、テストを実装
 7. 以降、TDDのアプローチで実装を行う
 
+## フォルダ構成等
+
+```
+.- src
+  |- __tests__ ... API単位でのテストを書く際には、こちら（ぶっちゃけ、handler.tsの横にhandler.test.tsを置くでもいい気はする）
+    |- **
+      |- {method}
+        |- *.test.ts
+  |- api
+    |- **
+      |- {method}
+        |- handler.ts
+        |- route.ts
+        |- schema.ts
+  |- modules
+    |- **
+      |- domain
+        |- entityクラス
+        |- valueObjectクラス
+        |- *.query.ts（interface）
+        |- *.command.ts（interface）
+      |- infrastructure
+        |- *.query.{infra}.ts（ex. sqlite, firestore, elasticsearch ...）
+        |- *.command.{infra}.ts（ex. sqlite, firestore, elasticsearch ...）
+  |- app.ts
+  |- index.ts
+```
+
 ## 構築時のメモ
 
 ### プロジェクトの作成
