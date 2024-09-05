@@ -1,11 +1,12 @@
 import {Context} from 'hono';
-import {requestBodySchema} from './schema';
+import {requestBodySchema, responseBodySchema} from './schema';
 import {ScoreQueryInterface} from '../../../../modules/score/domain/score.query';
 import {ScoreQueryOnMemory} from '../../../../modules/score/infrastructure/score.query.memory';
 import {AnswerCommandInterface} from '../../../../modules/answer/domain/answer.command';
 import {AnswerCommandSqlite} from '../../../../modules/answer/infrastructure/answer.command.sqlite';
 import {PrismaClient} from '@prisma/client';
 import {AnswerEntity} from '../../../../modules/answer/domain/answer.entity';
+import {z} from 'zod';
 
 export class ScoresAnswerHandler {
   private readonly scoreQuery: ScoreQueryInterface;
@@ -26,146 +27,139 @@ export class ScoresAnswerHandler {
         return c.json({message: 'bad request'}, 400);
       }
 
-      const score = await this.scoreQuery.findScore({
-        fanCount: requestBody.data.question.fanCount,
-        symbolCount: requestBody.data.question.symbolCount,
-      });
-
-      // TODO: 一旦、愚直に書いてるメソッド分けるなども検討
-      if (requestBody.data.question.isStartPlayer) {
-        // 親
-        if (requestBody.data.question.isDraw) {
-          // ツモ
-          const isCorrect =
-            requestBody.data.answer.score.startPlayer === 0 &&
-            requestBody.data.answer.score.other === score.score.startPlayer.draw.other;
-
-          await this.answerCommand
-            .register(
-              AnswerEntity.create({
-                isStartPlayer: true,
-                isDraw: true,
-                fanCount: requestBody.data.question.fanCount,
-                symbolCount: requestBody.data.question.symbolCount,
-                isCorrect,
-              })
-            )
-            .then(async () => {
-              await this.prismaClient.$disconnect();
-            })
-            .catch(async e => {
-              // TODO: logging
-              await this.prismaClient.$disconnect();
-              throw e;
-            });
-
-          return c.json(
-            {
-              isCorrect,
-            },
-            200
-          );
-        } else {
-          // ロン
-          const isCorrect =
-            requestBody.data.answer.score.startPlayer === 0 &&
-            requestBody.data.answer.score.other === score.score.startPlayer.other;
-
-          await this.answerCommand
-            .register(
-              AnswerEntity.create({
-                isStartPlayer: true,
-                isDraw: false,
-                fanCount: requestBody.data.question.fanCount,
-                symbolCount: requestBody.data.question.symbolCount,
-                isCorrect,
-              })
-            )
-            .then(async () => {
-              await this.prismaClient.$disconnect();
-            })
-            .catch(async e => {
-              // TODO: logging
-              await this.prismaClient.$disconnect();
-              throw e;
-            });
-
-          return c.json(
-            {
-              isCorrect,
-            },
-            200
-          );
-        }
-      } else {
-        // 子
-        if (requestBody.data.question.isDraw) {
-          // ツモ
-          const isCorrect =
-            requestBody.data.answer.score.startPlayer === score.score.other.draw.startPlayer &&
-            requestBody.data.answer.score.other === score.score.other.draw.other;
-
-          await this.answerCommand
-            .register(
-              AnswerEntity.create({
-                isStartPlayer: false,
-                isDraw: true,
-                symbolCount: requestBody.data.question.symbolCount,
-                fanCount: requestBody.data.question.fanCount,
-                isCorrect,
-              })
-            )
-            .then(async () => {
-              await this.prismaClient.$disconnect();
-            })
-            .catch(async e => {
-              // TODO: logging
-              await this.prismaClient.$disconnect();
-              throw e;
-            });
-
-          return c.json(
-            {
-              isCorrect,
-            },
-            200
-          );
-        } else {
-          // ロン
-          const isCorrect =
-            requestBody.data.answer.score.startPlayer === score.score.startPlayer.other &&
-            requestBody.data.answer.score.other === score.score.other.other;
-
-          await this.answerCommand
-            .register(
-              AnswerEntity.create({
-                isStartPlayer: false,
-                isDraw: false,
-                fanCount: requestBody.data.question.fanCount,
-                symbolCount: requestBody.data.question.symbolCount,
-                isCorrect,
-              })
-            )
-            .then(async () => {
-              await this.prismaClient.$disconnect();
-            })
-            .catch(async e => {
-              // TODO: logging
-              await this.prismaClient.$disconnect();
-              throw e;
-            });
-
-          return c.json(
-            {
-              isCorrect,
-            },
-            200
-          );
-        }
-      }
+      const result = await this.logic(requestBody.data);
+      return c.json(result, 200);
     } catch (e) {
       // TODO: logging
       return c.json({message: 'Internal Server Error'}, 500);
+    }
+  };
+
+  logic = async (validatedBody: z.infer<typeof requestBodySchema>): Promise<z.infer<typeof responseBodySchema>> => {
+    const score = await this.scoreQuery.findScore({
+      fanCount: validatedBody.question.fanCount,
+      symbolCount: validatedBody.question.symbolCount,
+    });
+
+    // TODO: 一旦、愚直に書いてるメソッド分けるなども検討
+    if (validatedBody.question.isStartPlayer) {
+      // 親
+      if (validatedBody.question.isDraw) {
+        // ツモ
+        const isCorrect =
+          validatedBody.answer.score.startPlayer === 0 &&
+          validatedBody.answer.score.other === score.score.startPlayer.draw.other;
+
+        await this.answerCommand
+          .register(
+            AnswerEntity.create({
+              isStartPlayer: true,
+              isDraw: true,
+              fanCount: validatedBody.question.fanCount,
+              symbolCount: validatedBody.question.symbolCount,
+              isCorrect,
+            })
+          )
+          .then(async () => {
+            await this.prismaClient.$disconnect();
+          })
+          .catch(async e => {
+            // TODO: logging
+            await this.prismaClient.$disconnect();
+            throw e;
+          });
+
+        return {
+          isCorrect,
+        };
+      } else {
+        // ロン
+        const isCorrect =
+          validatedBody.answer.score.startPlayer === 0 &&
+          validatedBody.answer.score.other === score.score.startPlayer.other;
+
+        await this.answerCommand
+          .register(
+            AnswerEntity.create({
+              isStartPlayer: true,
+              isDraw: false,
+              fanCount: validatedBody.question.fanCount,
+              symbolCount: validatedBody.question.symbolCount,
+              isCorrect,
+            })
+          )
+          .then(async () => {
+            await this.prismaClient.$disconnect();
+          })
+          .catch(async e => {
+            // TODO: logging
+            await this.prismaClient.$disconnect();
+            throw e;
+          });
+
+        return {
+          isCorrect,
+        };
+      }
+    } else {
+      // 子
+      if (validatedBody.question.isDraw) {
+        // ツモ
+        const isCorrect =
+          validatedBody.answer.score.startPlayer === score.score.other.draw.startPlayer &&
+          validatedBody.answer.score.other === score.score.other.draw.other;
+
+        await this.answerCommand
+          .register(
+            AnswerEntity.create({
+              isStartPlayer: false,
+              isDraw: true,
+              symbolCount: validatedBody.question.symbolCount,
+              fanCount: validatedBody.question.fanCount,
+              isCorrect,
+            })
+          )
+          .then(async () => {
+            await this.prismaClient.$disconnect();
+          })
+          .catch(async e => {
+            // TODO: logging
+            await this.prismaClient.$disconnect();
+            throw e;
+          });
+
+        return {
+          isCorrect,
+        };
+      } else {
+        // ロン
+        const isCorrect =
+          validatedBody.answer.score.startPlayer === score.score.startPlayer.other &&
+          validatedBody.answer.score.other === score.score.other.other;
+
+        await this.answerCommand
+          .register(
+            AnswerEntity.create({
+              isStartPlayer: false,
+              isDraw: false,
+              fanCount: validatedBody.question.fanCount,
+              symbolCount: validatedBody.question.symbolCount,
+              isCorrect,
+            })
+          )
+          .then(async () => {
+            await this.prismaClient.$disconnect();
+          })
+          .catch(async e => {
+            // TODO: logging
+            await this.prismaClient.$disconnect();
+            throw e;
+          });
+
+        return {
+          isCorrect,
+        };
+      }
     }
   };
 }

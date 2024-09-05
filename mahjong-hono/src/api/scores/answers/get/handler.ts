@@ -23,7 +23,7 @@ export class ScoresAnswersHandler {
               // FIXME: undefinedとなりうるので、面倒だがここでチェックする
               const id = answer.id();
               if (!id) {
-        // TODO: logging
+                // TODO: logging
                 throw new Error('Answer id is not defined');
               }
               return {id, isCorrect: answer.isCorrect()};
