@@ -7,7 +7,7 @@
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "explicit"
   },
-  "conventionalCommits.scopes": ["majang", "mahjong hono"],
+  "conventionalCommits.scopes": ["mahjong hono"],
   "jest.runMode": "watch",
   "jest.rootPath": "mahjong-hono"
 }
