@@ -31,6 +31,7 @@ export class ScoresAnswerHandler {
       return c.json(result, 200);
     } catch (e) {
       // TODO: logging
+      console.log(e);
       return c.json({message: 'Internal Server Error'}, 500);
     }
   };
