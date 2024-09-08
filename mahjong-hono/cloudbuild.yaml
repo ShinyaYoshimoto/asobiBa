@@ -1,11 +1,11 @@
 steps:
 - name: 'gcr.io/cloud-builders/docker'
   # FIXME: バージョンを固定している部分って本当にこれでいいの？
-  args: [ 'build', '-t', 'asia-northeast1-docker.pkg.dev/${PROJECT_ID}/hono-mahjong-app-repo/api-image:v1.0.0', '.' ]
+  args: [ 'build', '-t', 'asia-northeast1-docker.pkg.dev/${PROJECT_ID}/hono-mahjong-app-repo/api-image:${_TAG_VERSION}', '.' ]
   # env情報はsecret managerから取れるようにしたい
   env:
     - 'PORT=8080'
     # - 'DATABASE_URL=file:/tmp/prisma/dev.db'
 images:
 # FIXME: バージョンを固定している部分って本当にこれでいいの？
-- 'asia-northeast1-docker.pkg.dev/${PROJECT_ID}/hono-mahjong-app-repo/api-image:v1.0.0'
+- 'asia-northeast1-docker.pkg.dev/${PROJECT_ID}/hono-mahjong-app-repo/api-image:${_TAG_VERSION}'
