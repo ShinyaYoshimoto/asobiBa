@@ -37,5 +37,5 @@ jobs:
         gcloud builds submit \
         # 本当は、asia-east1 は、asia-northeast1 に変更したい
           --region asia-east1 \
-          --config ./mahjong-hono/cloudbuild.yaml \
+          --config mahjong-hono/cloudbuild.yaml \
           --substitutions=_TAG_VERSION=${{ env.TAG_VERSION }}
