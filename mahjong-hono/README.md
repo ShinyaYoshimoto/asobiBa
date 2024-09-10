@@ -21,13 +21,13 @@ npm run dev
 open http://localhost:3000
 ```
 
-## 24.09.01時点におけるデプロイ
+## 24.09.11時点におけるデプロイ
 
-1. Cloud Buildを介して、Artifact Registryに登録
+1. タグ打ちをトリガーに、github actionsを介して、Artifact Registryに登録
 ```
-gcloud builds submit \
-    --region asia-east1 \
-    --config cloudbuild.yaml
+$ git tag v1.0.1
+
+$ git push origin v1.0.1
 ```
 
 2. Cloud Runのコンソール画面から、適用させる
