@@ -6,9 +6,9 @@ RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
 # Build
-COPY mahjong-hono/package.json mahjong-hono/pnpm-lock.yaml mahjong-hono/tsconfig.json ./
-COPY mahjong-hono/prisma ./prisma
-COPY mahjong-hono/src ./src
+COPY package.json pnpm-lock.yaml tsconfig.json ./
+COPY prisma ./prisma
+COPY src ./src
 RUN npm install -g pnpm@ && \
     pnpm install --no-frozen-lockfile && \
     pnpm run build && \
