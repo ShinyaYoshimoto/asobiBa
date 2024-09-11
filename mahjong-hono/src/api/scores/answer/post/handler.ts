@@ -22,8 +22,10 @@ export class ScoresAnswerHandler {
   handle = async (c: Context) => {
     try {
       const requestBody = requestBodySchema.safeParse(await c.req.json());
+      console.log({severity: 'DEBUG', payload: {message: 'sample'}});
       if (!requestBody.success) {
         // TODO: logging
+        console.log({severity: 'ERROR', payload: {message: 'bad request'}});
         return c.json({message: 'bad request'}, 400);
       }
 
