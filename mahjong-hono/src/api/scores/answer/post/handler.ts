@@ -36,28 +36,27 @@ export class ScoresAnswerHandler {
     }
   };
 
-  logic = async (validatedBody: z.infer<typeof requestBodySchema>): Promise<z.infer<typeof responseBodySchema>> => {
+  logic = async (body: z.infer<typeof requestBodySchema>): Promise<z.infer<typeof responseBodySchema>> => {
     const score = await this.scoreQuery.findScore({
-      fanCount: validatedBody.question.fanCount,
-      symbolCount: validatedBody.question.symbolCount,
+      fanCount: body.question.fanCount,
+      symbolCount: body.question.symbolCount,
     });
 
     // TODO: 一旦、愚直に書いてるメソッド分けるなども検討
-    if (validatedBody.question.isStartPlayer) {
+    if (body.question.isStartPlayer) {
       // 親
-      if (validatedBody.question.isDraw) {
+      if (body.question.isDraw) {
         // ツモ
         const isCorrect =
-          validatedBody.answer.score.startPlayer === 0 &&
-          validatedBody.answer.score.other === score.score.startPlayer.draw.other;
+          body.answer.score.startPlayer === 0 && body.answer.score.other === score.score.startPlayer.draw.other;
 
         await this.answerCommand
           .register(
             AnswerEntity.create({
               isStartPlayer: true,
               isDraw: true,
-              fanCount: validatedBody.question.fanCount,
-              symbolCount: validatedBody.question.symbolCount,
+              fanCount: body.question.fanCount,
+              symbolCount: body.question.symbolCount,
               isCorrect,
             })
           )
@@ -76,16 +75,15 @@ export class ScoresAnswerHandler {
       } else {
         // ロン
         const isCorrect =
-          validatedBody.answer.score.startPlayer === 0 &&
-          validatedBody.answer.score.other === score.score.startPlayer.other;
+          body.answer.score.startPlayer === 0 && body.answer.score.other === score.score.startPlayer.other;
 
         await this.answerCommand
           .register(
             AnswerEntity.create({
               isStartPlayer: true,
               isDraw: false,
-              fanCount: validatedBody.question.fanCount,
-              symbolCount: validatedBody.question.symbolCount,
+              fanCount: body.question.fanCount,
+              symbolCount: body.question.symbolCount,
               isCorrect,
             })
           )
@@ -104,19 +102,19 @@ export class ScoresAnswerHandler {
       }
     } else {
       // 子
-      if (validatedBody.question.isDraw) {
+      if (body.question.isDraw) {
         // ツモ
         const isCorrect =
-          validatedBody.answer.score.startPlayer === score.score.other.draw.startPlayer &&
-          validatedBody.answer.score.other === score.score.other.draw.other;
+          body.answer.score.startPlayer === score.score.other.draw.startPlayer &&
+          body.answer.score.other === score.score.other.draw.other;
 
         await this.answerCommand
           .register(
             AnswerEntity.create({
               isStartPlayer: false,
               isDraw: true,
-              symbolCount: validatedBody.question.symbolCount,
-              fanCount: validatedBody.question.fanCount,
+              symbolCount: body.question.symbolCount,
+              fanCount: body.question.fanCount,
               isCorrect,
             })
           )
@@ -135,16 +133,16 @@ export class ScoresAnswerHandler {
       } else {
         // ロン
         const isCorrect =
-          validatedBody.answer.score.startPlayer === score.score.startPlayer.other &&
-          validatedBody.answer.score.other === score.score.other.other;
+          body.answer.score.startPlayer === score.score.startPlayer.other &&
+          body.answer.score.other === score.score.other.other;
 
         await this.answerCommand
           .register(
             AnswerEntity.create({
               isStartPlayer: false,
               isDraw: false,
-              fanCount: validatedBody.question.fanCount,
-              symbolCount: validatedBody.question.symbolCount,
+              fanCount: body.question.fanCount,
+              symbolCount: body.question.symbolCount,
               isCorrect,
             })
           )
