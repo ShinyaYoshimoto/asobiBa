@@ -23,6 +23,7 @@ export class ScoresAnswerHandler {
     try {
       const requestBody = requestBodySchema.safeParse(await c.req.json());
       console.log({severity: 'DEBUG', message: 'sample', traceId: 'hogehoge'});
+      console.log({severity: 'DEBUG', message: 'sample', traceId: 'hogehoge'});
       console.log({severity: 'INFO', message: 'sample', traceId: 'hogehoge'});
       console.log({severity: 'WARNING', message: 'sample', traceId: 'hogehoge'});
       console.log({severity: 'ERROR', message: 'sample', traceId: 'hogehoge'});
