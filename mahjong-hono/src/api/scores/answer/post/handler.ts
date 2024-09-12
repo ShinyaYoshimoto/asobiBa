@@ -22,7 +22,11 @@ export class ScoresAnswerHandler {
   handle = async (c: Context) => {
     try {
       const requestBody = requestBodySchema.safeParse(await c.req.json());
-      console.log({severity: 'DEBUG', payload: {message: 'sample'}});
+      console.log({severity: 'DEBUG', message: 'sample', traceId: 'hogehoge'});
+      console.log({severity: 'INFO', message: 'sample', traceId: 'hogehoge'});
+      console.log({severity: 'WARNING', message: 'sample', traceId: 'hogehoge'});
+      console.log({severity: 'ERROR', message: 'sample', traceId: 'hogehoge'});
+      console.log({severity: 'ALERT', message: 'sample', traceId: 'hogehoge'});
       if (!requestBody.success) {
         // TODO: logging
         console.log(JSON.stringify({severity: 'ERROR', payload: {message: 'bad request'}}));
