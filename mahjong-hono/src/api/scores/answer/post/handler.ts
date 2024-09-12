@@ -25,7 +25,7 @@ export class ScoresAnswerHandler {
       console.log({severity: 'DEBUG', payload: {message: 'sample'}});
       if (!requestBody.success) {
         // TODO: logging
-        console.log({severity: 'ERROR', payload: {message: 'bad request'}});
+        console.log(JSON.stringify({severity: 'ERROR', payload: {message: 'bad request'}}));
         return c.json({message: 'bad request'}, 400);
       }
 
