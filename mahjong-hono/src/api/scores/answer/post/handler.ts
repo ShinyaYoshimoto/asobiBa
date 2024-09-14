@@ -40,12 +40,12 @@ export class ScoresAnswerHandler {
   handle = async (c: Context) => {
     try {
       const requestBody = requestBodySchema.safeParse(await c.req.json());
-      console.log({severity: 'DEBUG', message: 'sample', traceId: 'hogehoge'});
-      console.log({severity: 'DEBUG', message: 'sample', traceId: 'hogehoge'});
-      console.log({severity: 'INFO', message: 'sample', traceId: 'hogehoge'});
-      console.log({severity: 'WARNING', message: 'sample', traceId: 'hogehoge'});
-      console.log({severity: 'ERROR', message: 'sample', traceId: 'hogehoge'});
-      console.log({severity: 'ALERT', message: 'sample', traceId: 'hogehoge'});
+      console.log(JSON.stringify({severity: 'DEBUG', message: 'sample', traceId: 'hogehoge'}));
+      console.log(JSON.stringify({severity: 'DEBUG', message: 'sample', traceId: 'hogehoge'}));
+      console.log(JSON.stringify({severity: 'INFO', message: 'sample', traceId: 'hogehoge'}));
+      console.log(JSON.stringify({severity: 'WARNING', message: 'sample', traceId: 'hogehoge'}));
+      console.log(JSON.stringify({severity: 'ERROR', message: 'sample', traceId: 'hogehoge'}));
+      console.log(JSON.stringify({severity: 'ALERT', message: 'sample', traceId: 'hogehoge'}));
       console.log('error massage'); // 重要度: DEFAULT | ErrorReport:
       console.log(new Error('error message')); // 重要度: ERROR   | ErrorReport: ✅
       console.warn('error massage'); // 重要度: DEFAULT | ErrorReport:
