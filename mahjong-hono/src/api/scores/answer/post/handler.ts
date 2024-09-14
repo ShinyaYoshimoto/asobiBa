@@ -8,24 +8,6 @@ import {PrismaClient} from '@prisma/client';
 import {AnswerEntity} from '../../../../modules/answer/domain/answer.entity';
 import { z } from 'zod';
 
-const makeLogger = (severity: 'INFO' | 'WARNING' | 'ERROR') => {
-  return (entry: any, meta?: Record<string, any>) => {
-    console.log(
-      JSON.stringify({
-        severity,
-        message: entry instanceof Error ? entry.stack : entry,
-        ...meta,
-      })
-    );
-  };
-};
-
-const logger = {
-  info: makeLogger('INFO'),
-  warn: makeLogger('WARNING'),
-  error: makeLogger('ERROR'),
-};
-
 export class ScoresAnswerHandler {
   private readonly scoreQuery: ScoreQueryInterface;
   private readonly answerCommand: AnswerCommandInterface;
@@ -40,24 +22,11 @@ export class ScoresAnswerHandler {
   handle = async (c: Context) => {
     try {
       const requestBody = requestBodySchema.safeParse(await c.req.json());
-      console.log(JSON.stringify({severity: 'DEBUG', message: 'sample', traceId: 'hogehoge'}));
-      console.log(JSON.stringify({severity: 'DEBUG', message: 'sample', traceId: 'hogehoge'}));
-      console.log(JSON.stringify({severity: 'INFO', message: 'sample', traceId: 'hogehoge'}));
-      console.log(JSON.stringify({severity: 'WARNING', message: 'sample', traceId: 'hogehoge'}));
-      console.log(JSON.stringify({severity: 'ERROR', message: 'sample', traceId: 'hogehoge'}));
-      console.log(JSON.stringify({severity: 'ALERT', message: 'sample', traceId: 'hogehoge'}));
-      console.log('error massage'); // 重要度: DEFAULT | ErrorReport:
-      console.log(new Error('error message')); // 重要度: ERROR   | ErrorReport: ✅
-      console.warn('error massage'); // 重要度: DEFAULT | ErrorReport:
-      console.warn(new Error('error message')); // 重要度: ERROR   | ErrorReport: ✅
-      console.error('error massage'); // 重要度: DEFAULT | ErrorReport:
-      console.error(new Error('error message')); // 重要度: ERROR   | ErrorReport: ✅
-      logger.info('error massage'); // 重要度: INFO    | ErrorReport:
-      logger.info(new Error('error message')); // 重要度: INFO    | ErrorReport:
-      logger.warn('error massage'); // 重要度: WARNING | ErrorReport:
-      logger.warn(new Error('error message')); // 重要度: WARNING | ErrorReport:
-      logger.error('error massage'); // 重要度: ERROR   | ErrorReport:
-      logger.error(new Error('error message')); // 重要度: ERROR   | ErrorReport:
+      console.log(JSON.stringify({severity: 'DEBUG', message: 'debug', traceId: 'debug trace id'}));
+      console.log(JSON.stringify({severity: 'INFO', message: 'info', traceId: 'info trace id'}));
+      console.log(JSON.stringify({severity: 'WARNING', message: 'warning', traceId: 'warning trace id'}));
+      console.log(JSON.stringify({severity: 'ERROR', message: 'error', traceId: 'error trace id'}));
+      console.log(JSON.stringify({severity: 'ALERT', message: 'alert', traceId: 'alert trace id'}));
       if (!requestBody.success) {
         // TODO: logging
         console.log(JSON.stringify({severity: 'ERROR', payload: {message: 'bad request'}}));
