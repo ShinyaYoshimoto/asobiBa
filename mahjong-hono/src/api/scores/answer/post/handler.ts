@@ -6,7 +6,25 @@ import {AnswerCommandInterface} from '../../../../modules/answer/domain/answer.c
 import {AnswerCommandSqlite} from '../../../../modules/answer/infrastructure/answer.command.sqlite';
 import {PrismaClient} from '@prisma/client';
 import {AnswerEntity} from '../../../../modules/answer/domain/answer.entity';
-import {z} from 'zod';
+import { z } from 'zod';
+
+const makeLogger = (severity: 'INFO' | 'WARNING' | 'ERROR') => {
+  return (entry: any, meta?: Record<string, any>) => {
+    console.log(
+      JSON.stringify({
+        severity,
+        message: entry instanceof Error ? entry.stack : entry,
+        ...meta,
+      })
+    );
+  };
+};
+
+const logger = {
+  info: makeLogger('INFO'),
+  warn: makeLogger('WARNING'),
+  error: makeLogger('ERROR'),
+};
 
 export class ScoresAnswerHandler {
   private readonly scoreQuery: ScoreQueryInterface;
@@ -34,6 +52,12 @@ export class ScoresAnswerHandler {
       console.warn(new Error('error message')); // 重要度: ERROR   | ErrorReport: ✅
       console.error('error massage'); // 重要度: DEFAULT | ErrorReport:
       console.error(new Error('error message')); // 重要度: ERROR   | ErrorReport: ✅
+      logger.info('error massage'); // 重要度: INFO    | ErrorReport:
+      logger.info(new Error('error message')); // 重要度: INFO    | ErrorReport:
+      logger.warn('error massage'); // 重要度: WARNING | ErrorReport:
+      logger.warn(new Error('error message')); // 重要度: WARNING | ErrorReport:
+      logger.error('error massage'); // 重要度: ERROR   | ErrorReport:
+      logger.error(new Error('error message')); // 重要度: ERROR   | ErrorReport:
       if (!requestBody.success) {
         // TODO: logging
         console.log(JSON.stringify({severity: 'ERROR', payload: {message: 'bad request'}}));
