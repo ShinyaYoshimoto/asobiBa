@@ -28,6 +28,12 @@ export class ScoresAnswerHandler {
       console.log({severity: 'WARNING', message: 'sample', traceId: 'hogehoge'});
       console.log({severity: 'ERROR', message: 'sample', traceId: 'hogehoge'});
       console.log({severity: 'ALERT', message: 'sample', traceId: 'hogehoge'});
+      console.log('error massage'); // 重要度: DEFAULT | ErrorReport:
+      console.log(new Error('error message')); // 重要度: ERROR   | ErrorReport: ✅
+      console.warn('error massage'); // 重要度: DEFAULT | ErrorReport:
+      console.warn(new Error('error message')); // 重要度: ERROR   | ErrorReport: ✅
+      console.error('error massage'); // 重要度: DEFAULT | ErrorReport:
+      console.error(new Error('error message')); // 重要度: ERROR   | ErrorReport: ✅
       if (!requestBody.success) {
         // TODO: logging
         console.log(JSON.stringify({severity: 'ERROR', payload: {message: 'bad request'}}));
