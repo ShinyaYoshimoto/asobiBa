@@ -6,7 +6,8 @@ import {AnswerCommandInterface} from '../../../../modules/answer/domain/answer.c
 import {AnswerCommandSqlite} from '../../../../modules/answer/infrastructure/answer.command.sqlite';
 import {PrismaClient} from '@prisma/client';
 import {AnswerEntity} from '../../../../modules/answer/domain/answer.entity';
-import { z } from 'zod';
+import {z} from 'zod';
+import {basicLogger} from '../../../../utils/logger';
 
 export class ScoresAnswerHandler {
   private readonly scoreQuery: ScoreQueryInterface;
@@ -22,11 +23,11 @@ export class ScoresAnswerHandler {
   handle = async (c: Context) => {
     try {
       const requestBody = requestBodySchema.safeParse(await c.req.json());
-      console.log(JSON.stringify({severity: 'DEBUG', message: 'debug', traceId: 'debug trace id'}));
-      console.log(JSON.stringify({severity: 'INFO', message: 'info', traceId: 'info trace id'}));
-      console.log(JSON.stringify({severity: 'WARNING', message: 'warning', traceId: 'warning trace id'}));
-      console.log(JSON.stringify({severity: 'ERROR', message: 'error', traceId: 'error trace id'}));
-      console.log(JSON.stringify({severity: 'ALERT', message: 'alert', traceId: 'alert trace id'}));
+      basicLogger.debug('debug');
+      basicLogger.info('info');
+      basicLogger.warn('warning');
+      basicLogger.error('error');
+      basicLogger.alert('alert');
       if (!requestBody.success) {
         // TODO: logging
         console.log(JSON.stringify({severity: 'ERROR', payload: {message: 'bad request'}}));
