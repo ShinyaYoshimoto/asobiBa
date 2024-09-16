@@ -7,38 +7,37 @@ import {AnswerCommandSqlite} from '../../../../modules/answer/infrastructure/ans
 import {PrismaClient} from '@prisma/client';
 import {AnswerEntity} from '../../../../modules/answer/domain/answer.entity';
 import {z} from 'zod';
-import {basicLogger} from '../../../../utils/logger';
+import {basicLogger, loggerInterface} from '../../../../utils/logger';
 
 export class ScoresAnswerHandler {
   private readonly scoreQuery: ScoreQueryInterface;
   private readonly answerCommand: AnswerCommandInterface;
   private readonly prismaClient: PrismaClient;
+  private readonly logger: loggerInterface;
 
-  constructor(dep?: {scoreQuery?: ScoreQueryInterface; answerCommand?: AnswerCommandInterface}) {
+  constructor(dep?: {
+    scoreQuery?: ScoreQueryInterface;
+    answerCommand?: AnswerCommandInterface;
+    logger?: loggerInterface;
+  }) {
     this.prismaClient = new PrismaClient();
     this.scoreQuery = dep?.scoreQuery ?? new ScoreQueryOnMemory();
     this.answerCommand = dep?.answerCommand ?? new AnswerCommandSqlite(this.prismaClient);
+    this.logger = dep?.logger ?? new basicLogger();
   }
 
   handle = async (c: Context) => {
     try {
       const requestBody = requestBodySchema.safeParse(await c.req.json());
-      basicLogger.debug('debug');
-      basicLogger.info('info');
-      basicLogger.warn('warning');
-      basicLogger.error('error');
-      basicLogger.alert('alert');
       if (!requestBody.success) {
-        // TODO: logging
-        console.log(JSON.stringify({severity: 'ERROR', payload: {message: 'bad request'}}));
+        this.logger.warn('bad request');
         return c.json({message: 'bad request'}, 400);
       }
 
       const result = await this.logic(requestBody.data);
       return c.json(result, 200);
     } catch (e) {
-      // TODO: logging
-      console.log(e);
+      this.logger.error('ScoresAnswerHandler: Internal Server Error');
       return c.json({message: 'Internal Server Error'}, 500);
     }
   };
@@ -71,7 +70,7 @@ export class ScoresAnswerHandler {
             await this.prismaClient.$disconnect();
           })
           .catch(async e => {
-            // TODO: logging
+            this.logger.error(e);
             await this.prismaClient.$disconnect();
             throw e;
           });
@@ -98,7 +97,7 @@ export class ScoresAnswerHandler {
             await this.prismaClient.$disconnect();
           })
           .catch(async e => {
-            // TODO: logging
+            this.logger.error(e);
             await this.prismaClient.$disconnect();
             throw e;
           });
@@ -129,7 +128,7 @@ export class ScoresAnswerHandler {
             await this.prismaClient.$disconnect();
           })
           .catch(async e => {
-            // TODO: logging
+            this.logger.error(e);
             await this.prismaClient.$disconnect();
             throw e;
           });
@@ -157,7 +156,7 @@ export class ScoresAnswerHandler {
             await this.prismaClient.$disconnect();
           })
           .catch(async e => {
-            // TODO: logging
+            this.logger.error(e);
             await this.prismaClient.$disconnect();
             throw e;
           });
