@@ -24,10 +24,14 @@ jobs:
       run: npm install -g pnpm
 
     - name: Install dependencies
-      run: pnpm install
+      run: |
+        cd ./mahjong-hono  # 必要に応じてディレクトリを変更
+        pnpm install
 
     - name: Run ESLint
-      run: pnpm run lint
+      run: |
+        cd ./mahjong-hono  # 必要に応じてディレクトリを変更
+        pnpm run lint
       continue-on-error: false  # エラーがあれば処理を中断
 
     - name: Set up Cloud SDK
