@@ -4,11 +4,11 @@ import typescriptParser from '@typescript-eslint/parser';
 const config = [
   {
     files: ['**/*.ts'],
-    ignores: ['utils/logger.ts'],
+    ignores: ['src/utils/logger.ts'],
     languageOptions: {
       parser: typescriptParser,
       parserOptions: {
-        ecmaVersion: 2021,
+        ecmaVersion: 2020,
         sourceType: 'module',
       },
     },
@@ -20,11 +20,11 @@ const config = [
     },
   },
   {
-    files: ['utils/logger.ts'],
+    files: ['src/utils/logger.ts'],
     languageOptions: {
       parser: typescriptParser,
       parserOptions: {
-        ecmaVersion: 2021,
+        ecmaVersion: 2020,
         sourceType: 'module',
       },
     },
