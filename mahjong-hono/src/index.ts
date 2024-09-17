@@ -6,7 +6,6 @@ import app from './app';
 const port = 8080;
 const logger = new basicLogger();
 
-console.log('hoge')
 logger.info(`Server is running on port ${port}`);
 
 serve({
