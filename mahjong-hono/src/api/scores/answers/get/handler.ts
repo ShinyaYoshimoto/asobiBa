@@ -32,8 +32,7 @@ export class ScoresAnswersHandler {
         200
       );
     } catch (e) {
-      // TODO: 構造化したエラーをcloud loggingに出力できるようにする
-      console.log(e);
+      // TODO: logging
       return c.json({message: 'Internal Server Error'}, 500);
     }
   };
