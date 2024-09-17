@@ -18,13 +18,16 @@ jobs:
     - name: Set up Node.js
       uses: actions/setup-node@v2
       with:
-        node-version: '16'  # 最新のLTSバージョンに更新
+        node-version: '20'  # @types/nodeのバージョンに合わせて更新
+
+    - name: Install pnpm
+      run: npm install -g pnpm
 
     - name: Install dependencies
-      run: npm install
+      run: pnpm install
 
     - name: Run ESLint
-      run: npm run lint
+      run: pnpm run lint
       continue-on-error: false  # エラーがあれば処理を中断
 
     - name: Set up Cloud SDK
