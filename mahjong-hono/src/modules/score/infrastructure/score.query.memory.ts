@@ -33,6 +33,7 @@ export class ScoreQueryOnMemory implements ScoreQueryInterface {
     );
     if (!score) {
       // TODO: logging
+      // TDODO: カスタムエラークラスを作ってそれを使うようにする
       throw new Error('Score not found');
     }
     return scoreEntitySchema.parse(score);
