@@ -4,10 +4,10 @@ on:
   push:
     tags:
       - 'v*.*.*'
-  # workflow_run:
-  #   workflows: ["Increment Patch Version"]
-  #   types:
-  #     - completed
+  workflow_run:
+    workflows: ["Increment Patch Version"]
+    types:
+      - completed
 
 jobs:
   build:
@@ -18,6 +18,8 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
 
     - name: Set up Node.js
       uses: actions/setup-node@v2
@@ -49,9 +51,14 @@ jobs:
       id: extract_tag
       run: |
         TAG_VERSION=${GITHUB_REF#refs/tags/}
+        latest_tag=$(git tag -l --sort -refname --sort -authordate | head -1)
+
+        if [[ ! "$TAG_VERSION" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+          TAG_VERSION=${latest_tag}
+        fi
+
         if [[ ! "$TAG_VERSION" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
           echo "Invalid tag format. Must be v{major}.{minor}.{patch} with numeric values."
-          echo "$TAG_VERSION"
           exit 1
         fi
         echo "TAG_VERSION=$TAG_VERSION" >> $GITHUB_ENV
