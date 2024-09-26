@@ -29,6 +29,7 @@ export class ScoresAnswerHandler {
   handle = async (c: Context) => {
     try {
       const requestBody = requestBodySchema.safeParse(await c.req.json());
+      this.logger.info('ScoresAnswerHandler: requestBody', requestBody);
       if (!requestBody.success) {
         this.logger.warn('bad request');
         return c.json({message: 'bad request'}, 400);
@@ -138,6 +139,9 @@ export class ScoresAnswerHandler {
         };
       } else {
         // ロン
+        // FIXME: これ多分ロジック間違ってるな
+        // 解決方法1. どちらにも同じ数字を入れる <- こっちかなぁ...
+        // 解決方法2. ロンの場合は、子の数字を入れる
         const isCorrect =
           body.answer.score.startPlayer === score.score.startPlayer.other &&
           body.answer.score.other === score.score.other.other;
