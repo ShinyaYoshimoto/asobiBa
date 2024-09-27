@@ -143,7 +143,7 @@ export class ScoresAnswerHandler {
         // 解決方法1. どちらにも同じ数字を入れる <- こっちかなぁ...
         // 解決方法2. ロンの場合は、子の数字を入れる
         const isCorrect =
-          body.answer.score.startPlayer === score.score.startPlayer.other &&
+          body.answer.score.startPlayer === score.score.other.other &&
           body.answer.score.other === score.score.other.other;
 
         await this.answerCommand
