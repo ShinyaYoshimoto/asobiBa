@@ -139,9 +139,6 @@ export class ScoresAnswerHandler {
         };
       } else {
         // ロン
-        // FIXME: これ多分ロジック間違ってるな
-        // 解決方法1. どちらにも同じ数字を入れる <- こっちかなぁ...
-        // 解決方法2. ロンの場合は、子の数字を入れる
         const isCorrect =
           body.answer.score.startPlayer === score.score.other.other &&
           body.answer.score.other === score.score.other.other;
