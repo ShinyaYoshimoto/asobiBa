@@ -86,7 +86,7 @@ export class ScoresAnswerHandler {
       } else {
         // ロン
         const isCorrect =
-          body.answer.score.startPlayer === 0 && body.answer.score.other === score.score.other.other;
+          body.answer.score.startPlayer === 0 && body.answer.score.other === score.score.startPlayer.other;
 
         await this.answerCommand
           .register(
@@ -111,7 +111,7 @@ export class ScoresAnswerHandler {
           isCorrect,
           correctAnswer: {
             startPlayer: 0,
-            other: score.score.other.other ?? 0,
+            other: score.score.startPlayer.other ?? 0,
           },
         };
       }
