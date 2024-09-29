@@ -78,11 +78,15 @@ export class ScoresAnswerHandler {
 
         return {
           isCorrect,
+          correctAnswer: {
+            startPlayer: 0,
+            other: score.score.startPlayer.draw.other,
+          },
         };
       } else {
         // ロン
         const isCorrect =
-          body.answer.score.startPlayer === 0 && body.answer.score.other === score.score.startPlayer.other;
+          body.answer.score.startPlayer === 0 && body.answer.score.other === score.score.other.other;
 
         await this.answerCommand
           .register(
@@ -105,6 +109,10 @@ export class ScoresAnswerHandler {
 
         return {
           isCorrect,
+          correctAnswer: {
+            startPlayer: 0,
+            other: score.score.other.other ?? 0,
+          },
         };
       }
     } else {
@@ -136,6 +144,10 @@ export class ScoresAnswerHandler {
 
         return {
           isCorrect,
+          correctAnswer: {
+            startPlayer: score.score.other.draw.startPlayer,
+            other: score.score.other.draw.other,
+          },
         };
       } else {
         // ロン
@@ -164,6 +176,10 @@ export class ScoresAnswerHandler {
 
         return {
           isCorrect,
+          correctAnswer: {
+            startPlayer: score.score.other.other ?? 0,
+            other: score.score.other.other ?? 0,
+          },
         };
       }
     }

@@ -21,5 +21,9 @@ export const requestBodySchema = z.object({
 });
 
 export const responseBodySchema = z.object({
-  isCorrect: z.boolean(),
+  isCorrect: z.boolean().openapi({default: false}),
+  correctAnswer: z.object({
+    startPlayer: z.number().openapi({default: 500}),
+    other: z.number().openapi({default: 300}),
+  }),
 });
