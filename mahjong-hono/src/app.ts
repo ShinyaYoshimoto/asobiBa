@@ -8,6 +8,8 @@ import {scoresAnswerRoute} from './api/scores/answer/post/route';
 import {ScoresAnswerHandler} from './api/scores/answer/post/handler';
 import {ScoresAnswersHandler} from './api/scores/answers/get/handler';
 import {scoresAnswersRoute} from './api/scores/answers/get/route';
+import {ScoresAnswersSummariesHandler} from './api/scores/answers/summaries/get/handler';
+import {scoresAnswersSummariesRoute} from './api/scores/answers/summaries/get/route';
 
 const app = new OpenAPIHono({});
 
@@ -15,6 +17,7 @@ const app = new OpenAPIHono({});
 app.openapi(scoresCalculateRoute, new ScoresCalculateHandler().handle);
 app.openapi(scoresAnswerRoute, new ScoresAnswerHandler().handle);
 app.openapi(scoresAnswersRoute, new ScoresAnswersHandler().handle);
+app.openapi(scoresAnswersSummariesRoute, new ScoresAnswersSummariesHandler().handle);
 
 // TODO
 // - [ ] 認証できるようにし、ユーザーごとに回答を保持、取得できるようにする
