@@ -4,7 +4,7 @@ export const AnswerSchema = z.object({
   id: z.string().optional(),
   isStartPlayer: z.boolean(),
   isDraw: z.boolean(),
-  symbolCount: z.number().min(20).max(100).optional(),
+  symbolCount: z.number().min(20).max(110).optional(),
   fanCount: z.number().min(1),
   isCorrect: z.boolean(),
   createdAt: z.date().optional(),

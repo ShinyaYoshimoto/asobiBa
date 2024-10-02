@@ -94,6 +94,49 @@ describe('scores/answer', () => {
       // Assert
       expect(result.isCorrect).toBeFalsy();
     });
+
+    it('子の110符1翻ツモは、子から900点、親から1800点のあがりである', async () => {
+      // Arrange
+      const question = {
+        isStartPlayer: false,
+        isDraw: true,
+        symbolCount: 110,
+        fanCount: 1,
+      };
+      const answer = {
+        score: {
+          startPlayer: 1800,
+          other: 900,
+        },
+      };
+
+      // モックの実装
+      (AnswerCommandSqlite.prototype.register as jest.Mock).mockResolvedValue(
+        AnswerEntity.create(
+          AnswerSchema.parse({
+            isStartPlayer: false,
+            isDraw: true,
+            symbolCount: 110,
+            fanCount: 1,
+            isCorrect: false,
+          })
+        )
+      );
+
+      // Action
+      const response = await app.request('/scores/answer', {
+        method: 'POST',
+        body: JSON.stringify({
+          question,
+          answer,
+        }),
+      });
+
+      const result = await response.json();
+
+      // Assert
+      expect(result.isCorrect).toBeTruthy();
+    });
   });
   describe('異常系', () => {
     it('子の0符1翻ツモは、子から300点、親から500点のあがりである', async () => {
