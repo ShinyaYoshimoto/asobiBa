@@ -43,7 +43,7 @@ export class ScoresAnswerHandler {
     }
   };
 
-  logic = async (body: z.infer<typeof requestBodySchema>): Promise<z.infer<typeof responseBodySchema>> => {
+  private logic = async (body: z.infer<typeof requestBodySchema>): Promise<z.infer<typeof responseBodySchema>> => {
     const score = await this.scoreQuery.findScore({
       fanCount: body.question.fanCount,
       symbolCount: body.question.symbolCount,
