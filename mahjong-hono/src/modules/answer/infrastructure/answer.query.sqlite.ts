@@ -10,9 +10,7 @@ export class AnswerQuerySqlite implements AnswerQueryInterface {
   // FIXME: 一旦、雑に全件返している。この辺の対応はまたいつか
   async loadAll(): Promise<AnswerEntity[]> {
     const answers = await this.prisma.answer.findMany();
-
-    // FIXME: createメソッドではないもの容易して、idが必須になるようにしたい気持ち
-    return answers.map(answer => AnswerEntity.create(AnswerSchema.parse(answer)));
+    return answers.map(answer => AnswerEntity.reconstruct(AnswerSchema.parse(answer)));
   }
 
   async loadSummary(): Promise<z.infer<typeof AnswerSummarySchema>[]> {

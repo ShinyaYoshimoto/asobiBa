@@ -19,6 +19,13 @@ export class AnswerEntity {
     return new AnswerEntity(data);
   }
 
+  static reconstruct(answer: z.infer<typeof AnswerSchema>) {
+    if (!answer.id) {
+      throw new Error('id is required');
+    }
+    return new AnswerEntity(answer);
+  }
+
   // FIXME: これgetterっぽいのはやす形でほんまにええんか？
   id = () => this.data.id;
   isStartPlayer = () => this.data.isStartPlayer;
