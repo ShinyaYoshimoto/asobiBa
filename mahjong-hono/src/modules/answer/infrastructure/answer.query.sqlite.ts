@@ -3,6 +3,7 @@ import {AnswerEntity, AnswerSchema} from '../domain/answer.entity';
 import {PrismaClient} from '@prisma/client';
 import {z} from 'zod';
 import {AnswerSummarySchema} from '../domain/summary.value';
+import {ArrayUtil} from '../../../utils/array';
 
 export class AnswerQuerySqlite implements AnswerQueryInterface {
   constructor(private readonly prisma: PrismaClient) {}
@@ -18,20 +19,28 @@ export class AnswerQuerySqlite implements AnswerQueryInterface {
       by: ['isStartPlayer', 'isDraw', 'fanCount', 'symbolCount', 'isCorrect'],
       _count: {
         _all: true,
-        isCorrect: true,
       },
     });
 
-    // FIXME: isCorrectのtrue, falseをそれぞれカウントしたい
-    return summaries.map(summary => ({
-      isStartPlayer: summary.isStartPlayer,
-      isDraw: summary.isDraw,
-      fanCount: summary.fanCount,
-      isCorrect: summary.isCorrect,
-      symbolCount: summary.symbolCount === null ? undefined : summary.symbolCount,
+    const grouped = ArrayUtil.groupBy(
+      summaries.map(summary => ({
+        ...summary,
+        key: `${summary.symbolCount}-${summary.fanCount}-${summary.isStartPlayer ? 'start' : 'notStart'}-${
+          summary.isDraw ? 'draw' : 'notDraw'
+        }`,
+      })),
+      'key'
+    );
+
+    return grouped.map(group => ({
+      isStartPlayer: group.values[0].isStartPlayer,
+      isDraw: group.values[0].isDraw,
+      fanCount: group.values[0].fanCount,
+      isCorrect: group.values[0].isCorrect,
+      symbolCount: group.values[0].symbolCount === null ? undefined : group.values[0].symbolCount,
       count: {
-        true: summary._count.isCorrect,
-        false: summary._count._all - summary._count.isCorrect,
+        true: group.values.find(summary => summary.isCorrect)?._count._all ?? 0,
+        false: group.values.find(summary => !summary.isCorrect)?._count._all ?? 0,
       },
     }));
   }
