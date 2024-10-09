@@ -2,12 +2,15 @@ import {Context} from 'hono';
 import {requestBodySchema} from './schema';
 import {ScoreQueryInterface} from '../../../../modules/score/domain/score.query';
 import {ScoreQueryOnMemory} from '../../../../modules/score/infrastructure/score.query.memory';
+import {basicLogger, loggerInterface} from '../../../../utils/logger';
 
 export class ScoresCalculateHandler {
   private readonly scoreRepository: ScoreQueryInterface;
+  private readonly logger: loggerInterface;
 
   constructor(dep?: {scoreRepository?: ScoreQueryInterface}) {
     this.scoreRepository = dep?.scoreRepository ?? new ScoreQueryOnMemory();
+    this.logger = new basicLogger();
   }
 
   handle = async (c: Context) => {
@@ -32,7 +35,7 @@ export class ScoresCalculateHandler {
     const result = requestBodySchema.safeParse({symbolCount, fanCount});
 
     if (fanCount < 5 && symbolCount === undefined) {
-      // TODO: logging
+      this.logger.error('symbolCount is required when fanCount is less than 5', {fanCount, symbolCount});
       return {isValid: false, errorMessage: 'Symbol count must be 20 or more and fan count must be 1 or more'};
     }
 
