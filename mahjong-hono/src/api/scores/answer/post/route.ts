@@ -34,14 +34,15 @@ export const scoresAnswerRoute = createRoute({
         },
       },
     },
-    401: {
-      description: 'Unauthorized',
-      content: {
-        'application/json': {
-          schema: errorResponseSchema,
-        },
-      },
-    },
+    // TODO: 認証機能を入れた際に初めて利用するのでコメントアウト
+    // 401: {
+    //   description: 'Unauthorized',
+    //   content: {
+    //     'application/json': {
+    //       schema: errorResponseSchema,
+    //     },
+    //   },
+    // },
     500: {
       description: 'Internal Server Error',
       content: {
