@@ -2,6 +2,7 @@
 
 - [ ] DB
   - [x] RDB（prisma x sqlite）面倒なのでsqlite
+    - sqliteのデータが消えないような仕組み ないしは 別のDBの用意はやはり必要...
   - [ ] Firestore（出番は来ないかも？）
   - [ ] Elasticsearch（view indexとして利用してみる？）
 - [x] Cloud Runにデプロイする
