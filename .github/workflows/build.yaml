@@ -69,4 +69,4 @@ jobs:
         gcloud builds submit \
           --region asia-east1 \
           --config cloudbuild.yaml \
-          --substitutions=_TAG_VERSION=${{ env.TAG_VERSION }}
+          --substitutions=_TAG_VERSION=${{ env.TAG_VERSION }},_DATABASE_URL=${{ secrets.DATABASE_URL }}

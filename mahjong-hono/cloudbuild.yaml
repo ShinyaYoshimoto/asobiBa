@@ -4,7 +4,7 @@ steps:
   # env情報はsecret managerから取れるようにしたい
   env:
     - 'PORT=8080'
-    # - 'DATABASE_URL=file:/tmp/prisma/dev.db'
+    - 'DATABASE_URL=${_DATABASE_URL}'
 images:
 - 'asia-northeast1-docker.pkg.dev/${PROJECT_ID}/hono-mahjong-app-repo/api-image:${_TAG_VERSION}'
 
