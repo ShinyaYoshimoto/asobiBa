@@ -10,3 +10,4 @@ images:
 
 substitutions:
   _TAG_VERSION: 'latest'  # ここでデフォルトのタグバージョンを設定
+  _DATABASE_URL: ''
