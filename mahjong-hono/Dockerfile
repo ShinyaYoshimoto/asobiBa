@@ -33,6 +33,7 @@ COPY --from=builder --chown=hono:nodejs /app/package.json /app/package.json
 COPY --from=builder --chown=hono:nodejs /app/prisma /app/prisma
 
 # ARG DATABASE_URL
+ARG DATABASE_URL
 ENV DATABASE_URL=${DATABASE_URL}
 # ENV DATABASE_URL=file:/tmp/prisma/dev.db
 
