@@ -36,7 +36,7 @@ export class ScoreQueryOnMemory implements ScoreQueryInterface {
       // TDODO: カスタムエラークラスを作ってそれを使うようにする
       throw new Error('Score not found');
     }
-    return scoreEntitySchema.parse(score);
+    return scoreEntitySchema.parse({...score, fanCount, symbolCount});
   };
 }
 
