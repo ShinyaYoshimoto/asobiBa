@@ -7,6 +7,7 @@ WORKDIR /app
 
 # Build
 COPY package.json pnpm-lock.yaml tsconfig.json ./
+COPY prisma ./prisma
 COPY src ./src
 RUN npm install -g pnpm@ && \
     pnpm install --no-frozen-lockfile && \
@@ -22,9 +23,11 @@ RUN adduser --system --uid 1001 hono
 COPY --from=builder --chown=hono:nodejs /app/node_modules /app/node_modules
 COPY --from=builder --chown=hono:nodejs /app/dist /app/dist
 COPY --from=builder --chown=hono:nodejs /app/package.json /app/package.json
+COPY --from=builder --chown=hono:nodejs /app/prisma /app/prisma
 
 # ARG DATABASE_URL
 ENV DATABASE_URL=${DATABASE_URL}
+# ENV DATABASE_URL=file:/tmp/prisma/dev.db
 
 # FIXME: 本番用のマイグレートはデプロイ時にやったほうがいいかな...
 # RUN npx prisma migrate deploy
