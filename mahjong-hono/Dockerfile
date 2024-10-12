@@ -1,5 +1,12 @@
 FROM node:20-alpine AS base
 
+# 環境変数を設定
+ARG DATABASE_URL
+ENV DATABASE_URL=${DATABASE_URL}
+
+# 環境変数の値をログに出力
+RUN echo "DATABASE_URL is ${DATABASE_URL}"
+
 FROM base AS builder
 
 RUN apk add --no-cache libc6-compat
