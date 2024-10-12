@@ -4,7 +4,7 @@ specifiers:
   '@hono/node-server': ^1.12.1
   '@hono/swagger-ui': ^0.4.0
   '@hono/zod-openapi': ^0.15.3
-  '@prisma/client': 5.19.0
+  '@prisma/client': ^5.20.0
   '@types/jest': ^29.5.12
   '@types/node': ^20.11.17
   '@typescript-eslint/eslint-plugin': ^8.6.0
@@ -23,7 +23,7 @@ dependencies:
   '@hono/node-server': 1.12.1
   '@hono/swagger-ui': 0.4.0_hono@4.5.6
   '@hono/zod-openapi': 0.15.3_hono@4.5.6+zod@3.23.8
-  '@prisma/client': 5.19.0_prisma@5.20.0
+  '@prisma/client': 5.20.0_prisma@5.20.0
   hono: 4.5.6
   zod: 3.23.8
 
@@ -1010,8 +1010,8 @@ packages:
       fastq: 1.17.1
     dev: true
 
-  /@prisma/client/5.19.0_prisma@5.20.0:
-    resolution: {integrity: sha512-CzOpau+q1kEWQyoQMvlnXIHqPvwmWbh48xZ4n8KWbAql0p8PC0BIgSTYW5ncxXa4JSEff0tcoxSZB874wDstdg==}
+  /@prisma/client/5.20.0_prisma@5.20.0:
+    resolution: {integrity: sha512-CLv55ZuMuUawMsxoqxGtLT3bEZoa2W8L3Qnp6rDIFWy+ZBrUcOFKdoeGPSnbBqxc3SkdxJrF+D1veN/WNynZYA==}
     engines: {node: '>=16.13'}
     requiresBuild: true
     peerDependencies:
