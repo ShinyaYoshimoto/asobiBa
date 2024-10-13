@@ -1,13 +1,13 @@
 import app from '../../../app';
 import {AnswerEntity, AnswerSchema} from '../../../modules/answer/domain/answer.entity';
-import {AnswerCommandSqlite} from '../../../modules/answer/infrastructure/answer.command.sqlite';
+import {AnswerCommandRdb} from '../../../modules/answer/infrastructure/answer.command.rdb';
 
-jest.mock('../../../modules/answer/infrastructure/answer.command.sqlite');
+jest.mock('../../../modules/answer/infrastructure/answer.command.rdb');
 
 describe('scores/answer', () => {
   describe('正常系', () => {
     beforeEach(() => {
-      (AnswerCommandSqlite.prototype.register as jest.Mock).mockClear();
+      (AnswerCommandRdb.prototype.register as jest.Mock).mockClear();
     });
     it('子の30符1翻ツモは、子から300点、親から500点のあがりである', async () => {
       // Arrange
@@ -25,7 +25,7 @@ describe('scores/answer', () => {
       };
 
       // モックの実装
-      (AnswerCommandSqlite.prototype.register as jest.Mock).mockResolvedValue(
+      (AnswerCommandRdb.prototype.register as jest.Mock).mockResolvedValue(
         AnswerEntity.create(
           AnswerSchema.parse({
             isStartPlayer: false,
@@ -68,7 +68,7 @@ describe('scores/answer', () => {
       };
 
       // モックの実装
-      (AnswerCommandSqlite.prototype.register as jest.Mock).mockResolvedValue(
+      (AnswerCommandRdb.prototype.register as jest.Mock).mockResolvedValue(
         AnswerEntity.create(
           AnswerSchema.parse({
             isStartPlayer: false,
@@ -111,7 +111,7 @@ describe('scores/answer', () => {
       };
 
       // モックの実装
-      (AnswerCommandSqlite.prototype.register as jest.Mock).mockResolvedValue(
+      (AnswerCommandRdb.prototype.register as jest.Mock).mockResolvedValue(
         AnswerEntity.create(
           AnswerSchema.parse({
             isStartPlayer: false,
@@ -155,7 +155,7 @@ describe('scores/answer', () => {
       };
 
       // モックの実装
-      (AnswerCommandSqlite.prototype.register as jest.Mock).mockResolvedValue(
+      (AnswerCommandRdb.prototype.register as jest.Mock).mockResolvedValue(
         AnswerEntity.create(
           AnswerSchema.parse({
             isStartPlayer: false,

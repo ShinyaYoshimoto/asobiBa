@@ -3,7 +3,7 @@ import {requestBodySchema, responseBodySchema} from './schema';
 import {ScoreQueryInterface} from '../../../../modules/score/domain/score.query';
 import {ScoreQueryOnMemory} from '../../../../modules/score/infrastructure/score.query.memory';
 import {AnswerCommandInterface} from '../../../../modules/answer/domain/answer.command';
-import {AnswerCommandSqlite} from '../../../../modules/answer/infrastructure/answer.command.sqlite';
+import {AnswerCommandRdb} from '../../../../modules/answer/infrastructure/answer.command.rdb';
 import {PrismaClient} from '@prisma/client';
 import {AnswerEntity} from '../../../../modules/answer/domain/answer.entity';
 import {z} from 'zod';
@@ -22,7 +22,7 @@ export class ScoresAnswerHandler {
   }) {
     this.prismaClient = new PrismaClient();
     this.scoreQuery = dep?.scoreQuery ?? new ScoreQueryOnMemory();
-    this.answerCommand = dep?.answerCommand ?? new AnswerCommandSqlite(this.prismaClient);
+    this.answerCommand = dep?.answerCommand ?? new AnswerCommandRdb(this.prismaClient);
     this.logger = dep?.logger ?? new basicLogger();
   }
 

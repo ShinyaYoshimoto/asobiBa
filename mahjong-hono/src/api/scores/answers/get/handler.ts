@@ -1,5 +1,5 @@
 import {Context} from 'hono';
-import {AnswerQuerySqlite} from '../../../../modules/answer/infrastructure/answer.query.sqlite';
+import {AnswerQueryRdb} from '../../../../modules/answer/infrastructure/answer.query.rdb';
 import {PrismaClient} from '@prisma/client';
 import {AnswerQueryInterface} from '../../../../modules/answer/domain/answer.query';
 
@@ -9,7 +9,7 @@ export class ScoresAnswersHandler {
 
   constructor(dep?: {answerQuery?: AnswerQueryInterface}) {
     this.prismaClient = new PrismaClient();
-    this.answerQuery = dep?.answerQuery ?? new AnswerQuerySqlite(this.prismaClient);
+    this.answerQuery = dep?.answerQuery ?? new AnswerQueryRdb(this.prismaClient);
   }
 
   handle = async (c: Context) => {

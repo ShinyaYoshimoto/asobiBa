@@ -5,7 +5,7 @@ import {z} from 'zod';
 import {AnswerSummarySchema} from '../domain/summary.value';
 import {ArrayUtil} from '../../../utils/array';
 
-export class AnswerQuerySqlite implements AnswerQueryInterface {
+export class AnswerQueryRdb implements AnswerQueryInterface {
   constructor(private readonly prisma: PrismaClient) {}
 
   // FIXME: 一旦、雑に全件返している。この辺の対応はまたいつか

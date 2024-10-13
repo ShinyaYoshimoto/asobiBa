@@ -2,7 +2,7 @@ import {AnswerCommandInterface} from '../domain/answer.command';
 import {AnswerEntity, AnswerSchema} from '../domain/answer.entity';
 import {PrismaClient} from '@prisma/client';
 
-export class AnswerCommandSqlite implements AnswerCommandInterface {
+export class AnswerCommandRdb implements AnswerCommandInterface {
   constructor(private readonly prisma: PrismaClient) {}
 
   async register(answer: AnswerEntity): Promise<AnswerEntity> {
