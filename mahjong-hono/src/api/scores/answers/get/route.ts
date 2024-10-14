@@ -1,6 +1,6 @@
 import {createRoute} from '@hono/zod-openapi';
 import {responseBodySchema} from './schema';
-import {errorResponseSchema} from '../../common/schema';
+import {errorResponseSchema} from '../../../common/schema';
 
 export const scoresAnswersRoute = createRoute({
   method: 'get',
