@@ -21,3 +21,13 @@ model Answer {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
+
+// 役と翻数を管理するテーブル
+model Hand {
+  id String @id @default(cuid())
+  name String
+  fanCount Int
+  fanCountForCall Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
