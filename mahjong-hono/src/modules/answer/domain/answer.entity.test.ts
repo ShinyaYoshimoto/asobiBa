@@ -1,36 +1,81 @@
 import {AnswerEntity, AnswerSchema} from './answer.entity';
 
 describe('AnswerEntity', () => {
-   it('createメソッドは、idがない場合にエラーを返す', () => {
-     // Arrange
-     const answer = AnswerSchema.parse({
-       id: undefined,
-       isStartPlayer: true,
-       isDraw: true,
-       symbolCount: 110,
-       fanCount: 1,
-       isCorrect: true,
-     });
+  describe('createメソッド', () => {
+    describe('正常系', () => {
+      it('idあり', () => {
+        // Arrange
+        const answer = AnswerSchema.parse({
+          id: '1',
+          isStartPlayer: true,
+          isDraw: true,
+          symbolCount: 110,
+          fanCount: 1,
+          isCorrect: true,
+        });
 
-     // Action
-     const result = AnswerEntity.create(answer);
+        // Action
+        const result = AnswerEntity.create(answer);
 
-     // Assert
-     expect(result).toBeInstanceOf(AnswerEntity);
-   });
+        // Assert
+        expect(result).toBeInstanceOf(AnswerEntity);
+      });
+      it('idなし', () => {
+        // Arrange
+        const answer = AnswerSchema.parse({
+          id: undefined,
+          isStartPlayer: true,
+          isDraw: true,
+          symbolCount: 110,
+          fanCount: 1,
+          isCorrect: true,
+        });
 
-  it('reconstructメソッドは、idがない場合にエラーを返す', () => {
-    // Arrange
-    const answer = AnswerSchema.parse({
-      id: undefined,
-      isStartPlayer: true,
-      isDraw: true,
-      symbolCount: 110,
-      fanCount: 1,
-      isCorrect: true,
+        // Action
+        const result = AnswerEntity.create(answer);
+
+        // Assert
+        expect(result).toBeInstanceOf(AnswerEntity);
+      });
     });
+    describe.skip('異常系', () => {});
+  });
 
-    // Action & Assert
-    expect(() => AnswerEntity.reconstruct(answer)).toThrow('id is required');
+  describe('reconstructメソッド', () => {
+    describe('正常系', () => {
+      it('idあり', () => {
+        // Arrange
+        const answer = AnswerSchema.parse({
+          id: '1',
+          isStartPlayer: true,
+          isDraw: true,
+          symbolCount: 110,
+          fanCount: 1,
+          isCorrect: true,
+        });
+
+        // Action
+        const result = AnswerEntity.create(answer);
+
+        // Assert
+        expect(result).toBeInstanceOf(AnswerEntity);
+      });
+    });
+    describe('異常系', () => {
+      it('idなし', () => {
+        // Arrange
+        const answer = AnswerSchema.parse({
+          id: undefined,
+          isStartPlayer: true,
+          isDraw: true,
+          symbolCount: 110,
+          fanCount: 1,
+          isCorrect: true,
+        });
+
+        // Action & Assert
+        expect(() => AnswerEntity.reconstruct(answer)).toThrow('id is required');
+      });
+    });
   });
 });
