@@ -26,6 +26,7 @@ model Answer {
 model Hand {
   id String @id @default(cuid())
   name String
+  nameKana String
   fanCount Int
   fanCountForCall Int
   createdAt DateTime @default(now())
