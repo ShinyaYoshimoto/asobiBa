@@ -1,10 +1,10 @@
-import {z} from 'zod';
+import {nullable, z} from 'zod';
 
 export const AnswerSchema = z.object({
   id: z.string().optional(),
   isStartPlayer: z.boolean(),
   isDraw: z.boolean(),
-  symbolCount: z.number().min(20).max(110).optional(),
+  symbolCount: z.number().min(20).max(110).nullable().optional(),
   fanCount: z.number().min(1),
   isCorrect: z.boolean(),
   createdAt: z.date().optional(),
@@ -15,8 +15,13 @@ export class AnswerEntity {
   private constructor(private readonly data: z.infer<typeof AnswerSchema>) {}
 
   static create(answer: z.infer<typeof AnswerSchema>) {
-    const data = AnswerSchema.parse(answer);
-    return new AnswerEntity(data);
+    const symbolCount = answer.fanCount > 4 ? undefined : answer.symbolCount ?? undefined;
+    const data = AnswerSchema.safeParse({...answer, symbolCount});
+
+    if (data.success) {
+      return new AnswerEntity(data.data);
+    }
+    throw new Error('Invalid answer');
   }
 
   static reconstruct(answer: z.infer<typeof AnswerSchema>) {
