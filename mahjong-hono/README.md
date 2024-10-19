@@ -3,13 +3,13 @@
 - [ ] DB
   - [x] RDB（prisma x sqlite）面倒なのでsqlite
     - sqliteのデータが消えないような仕組み ないしは 別のDBの用意はやはり必要...
+      - postgreたてて、そっちに移動したので上記は不要
   - [ ] Firestore（出番は来ないかも？）
   - [ ] Elasticsearch（view indexとして利用してみる？）
 - [x] Cloud Runにデプロイする
   - ただし、SQLiteとの疎通がうまくいってない。CI/CD組み込んでから考えたい
 - [x] モジュール作成
 - [ ] ユーザー認証（firebase authとか？）
-- [ ] secret manager導入
 - [x] logger
 
 ## 簡易実行
