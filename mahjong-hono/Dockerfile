@@ -4,9 +4,6 @@ FROM node:20-alpine AS base
 ARG DATABASE_URL
 ENV DATABASE_URL=${DATABASE_URL}
 
-# 環境変数の値をログに出力
-RUN echo "DATABASE_URL is ${DATABASE_URL}"
-
 FROM base AS builder
 
 RUN apk add --no-cache libc6-compat
@@ -35,7 +32,6 @@ COPY --from=builder --chown=hono:nodejs /app/prisma /app/prisma
 # ARG DATABASE_URL
 ARG DATABASE_URL
 ENV DATABASE_URL=${DATABASE_URL}
-# ENV DATABASE_URL=file:/tmp/prisma/dev.db
 
 # FIXME: 本番用のマイグレートはデプロイ時にやったほうがいいかな...
 # RUN npx prisma migrate deploy
