@@ -14,8 +14,8 @@
 
 ## 簡易実行
 ```
-npm install
-npm run dev
+pnpm install
+pnpm run dev
 ```
 
 ```
