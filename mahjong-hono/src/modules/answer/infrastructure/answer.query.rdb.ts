@@ -32,16 +32,23 @@ export class AnswerQueryRdb implements AnswerQueryInterface {
       'key'
     );
 
-    return grouped.map(group => ({
-      isStartPlayer: group.values[0].isStartPlayer,
-      isDraw: group.values[0].isDraw,
-      fanCount: group.values[0].fanCount,
-      isCorrect: group.values[0].isCorrect,
-      symbolCount: group.values[0].symbolCount === null ? undefined : group.values[0].symbolCount,
-      count: {
-        true: group.values.find(summary => summary.isCorrect)?._count._all ?? 0,
-        false: group.values.find(summary => !summary.isCorrect)?._count._all ?? 0,
-      },
-    }));
+    return grouped
+      .map(group => ({
+        isStartPlayer: group.values[0].isStartPlayer,
+        isDraw: group.values[0].isDraw,
+        fanCount: group.values[0].fanCount,
+        isCorrect: group.values[0].isCorrect,
+        symbolCount: group.values[0].symbolCount === null ? undefined : group.values[0].symbolCount,
+        count: {
+          true: group.values.find(summary => summary.isCorrect)?._count._all ?? 0,
+          false: group.values.find(summary => !summary.isCorrect)?._count._all ?? 0,
+        },
+      }))
+      .sort((a, b) => {
+        if (a.fanCount !== b.fanCount) {
+          return a.fanCount - b.fanCount;
+        }
+        return (a.symbolCount ?? 0) - (b.symbolCount ?? 0);
+      });
   }
 }
