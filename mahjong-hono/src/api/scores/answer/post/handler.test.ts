@@ -1,10 +1,10 @@
-import app from '../../../app';
-import {AnswerEntity, AnswerSchema} from '../../../modules/answer/domain/answer.entity';
-import {AnswerCommandRdb} from '../../../modules/answer/infrastructure/answer.command.rdb';
+import app from '../../../../app';
+import {AnswerEntity, AnswerSchema} from '../../../../modules/answer/domain/answer.entity';
+import {AnswerCommandRdb} from '../../../../modules/answer/infrastructure/answer.command.rdb';
 
-jest.mock('../../../modules/answer/infrastructure/answer.command.rdb');
+jest.mock('../../../../modules/answer/infrastructure/answer.command.rdb');
 
-describe('scores/answer', () => {
+describe('POST /scores/answer', () => {
   describe('正常系', () => {
     beforeEach(() => {
       (AnswerCommandRdb.prototype.register as jest.Mock).mockClear();
