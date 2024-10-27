@@ -16,10 +16,10 @@ import {HandsHander} from './api/hands/get/handler';
 const app = new OpenAPIHono({});
 
 // 各種エンドポイントを追加する
-app.openapi(scoresCalculateRoute, new ScoresCalculateHandler().handle);
-app.openapi(scoresAnswerRoute, new ScoresAnswerHandler().handle);
-app.openapi(scoresAnswersRoute, new ScoresAnswersHandler().handle);
-app.openapi(scoresAnswersSummariesRoute, new ScoresAnswersSummariesHandler().handle);
+app.openapi(scoresCalculateRoute, new ScoresCalculateHandler().execute);
+app.openapi(scoresAnswerRoute, new ScoresAnswerHandler().execute);
+app.openapi(scoresAnswersRoute, new ScoresAnswersHandler().execute);
+app.openapi(scoresAnswersSummariesRoute, new ScoresAnswersSummariesHandler().execute);
 app.openapi(handsRoute, new HandsHander().execute);
 
 // TODO

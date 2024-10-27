@@ -7,26 +7,26 @@ import {AnswerCommandRdb} from '../../../../modules/answer/infrastructure/answer
 import {PrismaClient} from '@prisma/client';
 import {AnswerEntity} from '../../../../modules/answer/domain/answer.entity';
 import {z} from 'zod';
-import {basicLogger, loggerInterface} from '../../../../utils/logger';
+import {loggerInterface} from '../../../../utils/logger';
+import {AbstractHandler} from '../../../common/abstractHandler';
 
-export class ScoresAnswerHandler {
+export class ScoresAnswerHandler extends AbstractHandler {
   private readonly scoreQuery: ScoreQueryInterface;
   private readonly answerCommand: AnswerCommandInterface;
   private readonly prismaClient: PrismaClient;
-  private readonly logger: loggerInterface;
 
   constructor(dep?: {
     scoreQuery?: ScoreQueryInterface;
     answerCommand?: AnswerCommandInterface;
     logger?: loggerInterface;
   }) {
+    super(dep);
     this.prismaClient = new PrismaClient();
     this.scoreQuery = dep?.scoreQuery ?? new ScoreQueryOnMemory();
     this.answerCommand = dep?.answerCommand ?? new AnswerCommandRdb(this.prismaClient);
-    this.logger = dep?.logger ?? new basicLogger();
   }
 
-  handle = async (c: Context) => {
+  execute = async (c: Context) => {
     try {
       const requestBody = requestBodySchema.safeParse(await c.req.json());
       this.logger.info('ScoresAnswerHandler: requestBody', requestBody);

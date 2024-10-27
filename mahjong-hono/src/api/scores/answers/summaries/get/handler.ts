@@ -2,20 +2,20 @@ import {Context} from 'hono';
 import {AnswerQueryRdb} from '../../../../../modules/answer/infrastructure/answer.query.rdb';
 import {PrismaClient} from '@prisma/client';
 import {AnswerQueryInterface} from '../../../../../modules/answer/domain/answer.query';
-import {basicLogger, loggerInterface} from '../../../../../utils/logger';
+import {loggerInterface} from '../../../../../utils/logger';
+import {AbstractHandler} from '../../../../common/abstractHandler';
 
-export class ScoresAnswersSummariesHandler {
+export class ScoresAnswersSummariesHandler extends AbstractHandler {
   private readonly answerQuery: AnswerQueryInterface;
   private readonly prismaClient: PrismaClient;
-  private readonly logger: loggerInterface;
 
   constructor(dep?: {answerQuery?: AnswerQueryInterface; logger?: loggerInterface}) {
+    super(dep);
     this.prismaClient = new PrismaClient();
     this.answerQuery = dep?.answerQuery ?? new AnswerQueryRdb(this.prismaClient);
-    this.logger = dep?.logger ?? new basicLogger();
   }
 
-  handle = async (c: Context) => {
+  execute = async (c: Context) => {
     try {
       const answers = await this.answerQuery.loadSummary();
       return c.json({answers: answers.map(answer => ({...answer, count: answer.count}))}, 200);

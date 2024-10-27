@@ -2,18 +2,18 @@ import {Context} from 'hono';
 import {requestBodySchema} from './schema';
 import {ScoreQueryInterface} from '../../../../modules/score/domain/score.query';
 import {ScoreQueryOnMemory} from '../../../../modules/score/infrastructure/score.query.memory';
-import {basicLogger, loggerInterface} from '../../../../utils/logger';
+import {loggerInterface} from '../../../../utils/logger';
+import {AbstractHandler} from '../../../common/abstractHandler';
 
-export class ScoresCalculateHandler {
+export class ScoresCalculateHandler extends AbstractHandler {
   private readonly scoreRepository: ScoreQueryInterface;
-  private readonly logger: loggerInterface;
 
-  constructor(dep?: {scoreRepository?: ScoreQueryInterface}) {
+  constructor(dep?: {scoreRepository?: ScoreQueryInterface; logger?: loggerInterface}) {
+    super(dep);
     this.scoreRepository = dep?.scoreRepository ?? new ScoreQueryOnMemory();
-    this.logger = new basicLogger();
   }
 
-  handle = async (c: Context) => {
+  execute = async (c: Context) => {
     try {
       const {symbolCount, fanCount} = await c.req.json();
 
