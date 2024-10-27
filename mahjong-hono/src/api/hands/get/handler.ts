@@ -1,5 +1,6 @@
 import {Context} from 'hono';
-import {basicLogger, loggerInterface} from '../../../utils/logger';
+import {loggerInterface} from '../../../utils/logger';
+import {AbstractHandler} from '../../common/abstractHandler';
 
 /**
  * TODO
@@ -10,14 +11,12 @@ import {basicLogger, loggerInterface} from '../../../utils/logger';
  *   - [] APIのテスト実装
  *   - [] APIの実装
  */
-export class HandsHander {
-  private logger: loggerInterface;
-
+export class HandsHander extends AbstractHandler {
   constructor(dep?: {logger?: loggerInterface}) {
-    this.logger = dep?.logger ?? new basicLogger();
+    super(dep);
   }
 
-  handle = async (c: Context) => {
+  execute = async (c: Context) => {
     try {
       return c.json({hands: []}, 200);
     } catch (e) {

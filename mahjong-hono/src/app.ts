@@ -20,7 +20,7 @@ app.openapi(scoresCalculateRoute, new ScoresCalculateHandler().handle);
 app.openapi(scoresAnswerRoute, new ScoresAnswerHandler().handle);
 app.openapi(scoresAnswersRoute, new ScoresAnswersHandler().handle);
 app.openapi(scoresAnswersSummariesRoute, new ScoresAnswersSummariesHandler().handle);
-app.openapi(handsRoute, new HandsHander().handle);
+app.openapi(handsRoute, new HandsHander().execute);
 
 // TODO
 // - [ ] 認証できるようにし、ユーザーごとに回答を保持、取得できるようにする
