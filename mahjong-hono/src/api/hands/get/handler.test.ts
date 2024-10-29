@@ -6,7 +6,7 @@ describe('GET /hands', () => {
   });
 
   describe('正常系', () => {
-    it('happy path', async () => {
+    it('happy pattern', async () => {
       // Arrange
       // TODO: モックの作成
       // ただ、データ自体は初期投入データを取得するだけなので、モックは不要かも
