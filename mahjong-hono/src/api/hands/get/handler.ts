@@ -5,15 +5,6 @@ import {PrismaClient} from '@prisma/client';
 import {HandQueryInterface} from '../../../modules/hand/domain/hand.query';
 import {HandQueryRDB} from '../../../modules/hand/infrastructure/hand.query.rdb';
 
-/**
- * TODO
- * - 役と翻数を全件取得するAPIを作る
- *   - [x] 役と翻数を管理するテーブルを作る
- *   - [x] DBにデータを登録するマイグレーション作成・データ投入
- *   - [x] APIのpath, schema検討
- *   - [x] APIのテスト実装
- *   - [x] APIの実装
- */
 export class HandsHander extends AbstractHandler {
   private prismaClient: PrismaClient;
   private handQuery: HandQueryInterface;
