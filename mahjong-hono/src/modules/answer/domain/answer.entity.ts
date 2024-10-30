@@ -1,4 +1,4 @@
-import {nullable, z} from 'zod';
+import {z} from 'zod';
 
 export const AnswerSchema = z.object({
   id: z.string().optional(),
