@@ -25,19 +25,31 @@ app.openapi(handsRoute, new HandsHander().execute);
 // TODO
 // - [ ] 認証できるようにし、ユーザーごとに回答を保持、取得できるようにする
 
-// health check
-app.get('/', c => {
-  return c.text('Hello Hono!');
-});
-
+/////////////////////////////////
 // swagger UI
+/////////////////////////////////
+const description = `## 概要
+- 麻雀に関するAPIを公開しています。
+- 本APIの結果の正しさについては責任を負いません。
+- 過剰なリクエストが発生した場合、利用が制限される可能性があります。
+- APIの内容は予告なく変更・停止されることがあります。
+- APIの仕様については、できる限りMリーグの公式ルールに沿った内容を目指しています。
+`;
+
 app.doc31('doc', {
   openapi: '3.1.0',
   info: {
     title: 'Mahjong API',
     version: '0.0.1',
+    description,
   },
+  tags: [
+    {
+      name: 'hands',
+      description: 'あがり役',
+    },
+  ],
 });
-app.get('/ui', swaggerUI({url: '/doc'}));
+app.get('/about', swaggerUI({url: '/doc'}));
 
 export default app;
