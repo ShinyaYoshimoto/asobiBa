@@ -1,13 +1,27 @@
 import {createRoute} from '@hono/zod-openapi';
 import {responseBodySchema} from './schema';
-import {errorResponseSchema} from '../../../../common/schema';
+import {errorResponseSchema} from '../../../common/schema';
+
+const description = `
+## 概要（何ができるか）
+- 正誤を判定した点数申告のサマリーを取得します
+
+## 挙動（どのように行うか）
+- 翻数の小さい順かつ、符数の小さい順にサマリーを取得します
+
+## 前提（何が必要か）
+- なし
+
+## その他・補足
+- なし
+`;
 
 export const scoresAnswersSummariesRoute = createRoute({
   method: 'get',
-  path: '/scores/answers/summaries',
-  tags: ['scores'],
-  summary: '点数申告クイズの回答のサマリー取得する',
-  description: `## 概要\n点数申告クイズの回答のサマリーを取得する`,
+  path: '/score-declarations/summaries',
+  tags: ['ScoresDeclarations'],
+  summary: '正誤を判定した点数申告のサマリーを取得します',
+  description,
   responses: {
     200: {
       description: 'Success',

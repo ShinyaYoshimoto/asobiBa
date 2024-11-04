@@ -3,6 +3,7 @@ import {requestBodySchema, responseBodySchema} from './schema';
 import {errorResponseSchema} from '../../../common/schema';
 
 export const scoresCalculateRoute = createRoute({
+  deprecated: true,
   method: 'post',
   path: '/scores/calculate',
   tags: ['scores'],

@@ -1,9 +1,9 @@
 import {Context} from 'hono';
-import {AnswerQueryRdb} from '../../../../../modules/answer/infrastructure/answer.query.rdb';
+import {AnswerQueryRdb} from '../../../../modules/answer/infrastructure/answer.query.rdb';
 import {PrismaClient} from '@prisma/client';
-import {AnswerQueryInterface} from '../../../../../modules/answer/domain/answer.query';
-import {loggerInterface} from '../../../../../utils/logger';
-import {AbstractHandler} from '../../../../common/abstractHandler';
+import {AnswerQueryInterface} from '../../../../modules/answer/domain/answer.query';
+import {loggerInterface} from '../../../../utils/logger';
+import {AbstractHandler} from '../../../common/abstractHandler';
 
 export class ScoresAnswersSummariesHandler extends AbstractHandler {
   private readonly answerQuery: AnswerQueryInterface;
