@@ -16,7 +16,7 @@ const description = `
 - 門前役で鳴きありの場合には、役が付かない為、0を返します
 `;
 
-export const handsRoute = createRoute({
+export const handsGetRoute = createRoute({
   method: 'get',
   path: '/hands',
   tags: ['hands'],

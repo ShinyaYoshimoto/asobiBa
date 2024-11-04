@@ -5,7 +5,7 @@ import {PrismaClient} from '@prisma/client';
 import {HandQueryInterface} from '../../../modules/hand/domain/hand.query';
 import {HandQueryRDB} from '../../../modules/hand/infrastructure/hand.query.rdb';
 
-export class HandsHander extends AbstractHandler {
+export class HandsGetHander extends AbstractHandler {
   private prismaClient: PrismaClient;
   private handQuery: HandQueryInterface;
 
@@ -18,17 +18,20 @@ export class HandsHander extends AbstractHandler {
   execute = async (c: Context) => {
     try {
       const hands = await this.handQuery.loadAll();
-      return c.json({
-        hands: hands.map(hand => {
-          return {
-            id: hand.id(),
-            name: hand.name(),
-            nameKana: hand.nameKana(),
-            fanCountForCall: hand.fanCountForCall(),
-            fanCount: hand.fanCount(),
-          };
-        }),
-      }, 200);
+      return c.json(
+        {
+          hands: hands.map(hand => {
+            return {
+              id: hand.id(),
+              name: hand.name(),
+              nameKana: hand.nameKana(),
+              fanCountForCall: hand.fanCountForCall(),
+              fanCount: hand.fanCount(),
+            };
+          }),
+        },
+        200
+      );
     } catch (e) {
       this.logger.error('Internal Server Error', e);
       return c.json({message: 'Internal Server Error'}, 500);
