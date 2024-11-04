@@ -15,13 +15,14 @@ const description = `
 - 親のアガり時の、親の支払い（自信の支払い）など、支払いが存在しない場合は0を指定してください
 
 ## その他・補足
+- POST \`/scores-declarations/calculate\` を利用してください
 `;
 
 export const scoresAnswerPostRoute = createRoute({
   deprecated: true,
   method: 'post',
   path: '/scores/answer',
-  tags: ['scores'],
+  tags: ['Scores'],
   summary: '点数申告クイズの回答を記録する',
   description,
   request: {

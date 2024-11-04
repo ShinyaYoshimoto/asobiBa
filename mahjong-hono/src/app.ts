@@ -55,6 +55,10 @@ app.doc31('doc', {
       name: 'ScoresDeclarations',
       description: '点数申告',
     },
+    {
+      name: 'Scores',
+      description: '点数計算',
+    },
   ],
 });
 app.get('/about', swaggerUI({url: '/doc'}));
