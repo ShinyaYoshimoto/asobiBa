@@ -6,24 +6,24 @@ import {scoresCalculateRoute} from './api/scores/calculate/post/route';
 import {ScoresCalculateHandler} from './api/scores/calculate/post/handler';
 import {scoresAnswerRoute} from './api/scores/answer/post/route';
 import {ScoresAnswerHandler} from './api/scores/answer/post/handler';
-import {ScoresAnswersHandler} from './api/scores/answers/get/handler';
-import {scoresAnswersRoute} from './api/scores/answers/get/route';
+import {ScoresDeclarationsGetHandler} from './api/score-declarations/get/handler';
+import {ScoresDeclarationsGetRoute} from './api/score-declarations/get/route';
 import {ScoresAnswersSummariesHandler} from './api/scores/answers/summaries/get/handler';
 import {scoresAnswersSummariesRoute} from './api/scores/answers/summaries/get/route';
 import {handsGetRoute} from './api/hands/get/route';
 import {HandsGetHander} from './api/hands/get/handler';
-import {ScoresDeclarationPostRoute} from './api/score-declarations/post/route';
-import {ScoresDeclarationPostHandler} from './api/score-declarations/post/handler';
+import {ScoresDeclarationsPostRoute} from './api/score-declarations/post/route';
+import {ScoresDeclarationsPostHandler} from './api/score-declarations/post/handler';
 
 const app = new OpenAPIHono({});
 
 // 各種エンドポイントを追加する
 app.openapi(scoresCalculateRoute, new ScoresCalculateHandler().execute);
 app.openapi(scoresAnswerRoute, new ScoresAnswerHandler().execute);
-app.openapi(scoresAnswersRoute, new ScoresAnswersHandler().execute);
+app.openapi(ScoresDeclarationsGetRoute, new ScoresDeclarationsGetHandler().execute);
 app.openapi(scoresAnswersSummariesRoute, new ScoresAnswersSummariesHandler().execute);
 app.openapi(handsGetRoute, new HandsGetHander().execute);
-app.openapi(ScoresDeclarationPostRoute, new ScoresDeclarationPostHandler().execute);
+app.openapi(ScoresDeclarationsPostRoute, new ScoresDeclarationsPostHandler().execute);
 
 // TODO
 // - [ ] 認証できるようにし、ユーザーごとに回答を保持、取得できるようにする

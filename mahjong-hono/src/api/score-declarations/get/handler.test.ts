@@ -1,10 +1,10 @@
-import app from '../../../../app';
-import {AnswerEntity, AnswerSchema} from '../../../../modules/answer/domain/answer.entity';
-import {AnswerQueryRdb} from '../../../../modules/answer/infrastructure/answer.query.rdb';
+import app from '../../../app';
+import {AnswerEntity, AnswerSchema} from '../../../modules/answer/domain/answer.entity';
+import {AnswerQueryRdb} from '../../../modules/answer/infrastructure/answer.query.rdb';
 
-jest.mock('../../../../modules/answer/infrastructure/answer.query.rdb');
+jest.mock('../../../modules/answer/infrastructure/answer.query.rdb');
 
-describe('GET /scores/answers', () => {
+describe('GET /score-declarations', () => {
   describe('正常系', () => {
     beforeEach(() => {
       (AnswerQueryRdb.prototype.loadAll as jest.Mock).mockClear();
@@ -24,7 +24,7 @@ describe('GET /scores/answers', () => {
         ),
       ]);
       // Act
-      const response = await app.request('/scores/answers', {
+      const response = await app.request('/score-declarations', {
         method: 'GET',
       });
 

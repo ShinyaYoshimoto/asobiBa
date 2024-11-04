@@ -1,11 +1,11 @@
 import {Context} from 'hono';
-import {AnswerQueryRdb} from '../../../../modules/answer/infrastructure/answer.query.rdb';
+import {AnswerQueryRdb} from '../../../modules/answer/infrastructure/answer.query.rdb';
 import {PrismaClient} from '@prisma/client';
-import {AnswerQueryInterface} from '../../../../modules/answer/domain/answer.query';
-import {AbstractHandler} from '../../../common/abstractHandler';
-import {loggerInterface} from '../../../../utils/logger';
+import {AnswerQueryInterface} from '../../../modules/answer/domain/answer.query';
+import {AbstractHandler} from '../../common/abstractHandler';
+import {loggerInterface} from '../../../utils/logger';
 
-export class ScoresAnswersHandler extends AbstractHandler {
+export class ScoresDeclarationsGetHandler extends AbstractHandler {
   private readonly answerQuery: AnswerQueryInterface;
   private readonly prismaClient: PrismaClient;
 
