@@ -1,28 +1,26 @@
 import {createRoute} from '@hono/zod-openapi';
 import {requestBodySchema, responseBodySchema} from './schema';
-import {errorResponseSchema} from '../../../common/schema';
+import {errorResponseSchema} from '../../common/schema';
 
 const description = `
 ## 概要（何ができるか）
-- 点数申告クイズの解答を記録します
+- 点数申告の正誤を判定します
 
 ## 挙動（どのように行うか）
-- なし
+- 翻数は13、符は110までサポートします
 
 ## 前提（何が必要か）
-- 翻数は13、符は110までサポートします
 - 親のアガり時の、親の支払い（自信の支払い）など、支払いが存在しない場合は0を指定してください
 
 ## その他・補足
 - なし
 `;
 
-export const scoresAnswerRoute = createRoute({
-  deprecated: true,
+export const ScoresDeclarationPostRoute = createRoute({
   method: 'post',
-  path: '/scores/answer',
-  tags: ['scores'],
-  summary: '点数申告クイズの回答を記録する',
+  path: '/score-declarations',
+  tags: ['ScoresDeclarations'],
+  summary: '点数申告の正誤を判定します',
   description,
   request: {
     body: {

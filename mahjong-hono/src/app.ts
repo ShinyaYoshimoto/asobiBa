@@ -12,6 +12,8 @@ import {ScoresAnswersSummariesHandler} from './api/scores/answers/summaries/get/
 import {scoresAnswersSummariesRoute} from './api/scores/answers/summaries/get/route';
 import {handsGetRoute} from './api/hands/get/route';
 import {HandsGetHander} from './api/hands/get/handler';
+import {ScoresDeclarationPostRoute} from './api/score-declarations/post/route';
+import {ScoresDeclarationPostHandler} from './api/score-declarations/post/handler';
 
 const app = new OpenAPIHono({});
 
@@ -21,6 +23,7 @@ app.openapi(scoresAnswerRoute, new ScoresAnswerHandler().execute);
 app.openapi(scoresAnswersRoute, new ScoresAnswersHandler().execute);
 app.openapi(scoresAnswersSummariesRoute, new ScoresAnswersSummariesHandler().execute);
 app.openapi(handsGetRoute, new HandsGetHander().execute);
+app.openapi(ScoresDeclarationPostRoute, new ScoresDeclarationPostHandler().execute);
 
 // TODO
 // - [ ] 認証できるようにし、ユーザーごとに回答を保持、取得できるようにする
@@ -45,8 +48,12 @@ app.doc31('doc', {
   },
   tags: [
     {
-      name: 'hands',
+      name: 'Hands',
       description: 'あがり役',
+    },
+    {
+      name: 'ScoresDeclarations',
+      description: '点数申告',
     },
   ],
 });

@@ -19,7 +19,7 @@ const description = `
 export const handsGetRoute = createRoute({
   method: 'get',
   path: '/hands',
-  tags: ['hands'],
+  tags: ['Hands'],
   summary: '有効な全ての役を取得します',
   description,
   responses: {
