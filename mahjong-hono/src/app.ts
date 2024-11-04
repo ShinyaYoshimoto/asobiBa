@@ -2,28 +2,28 @@ import {swaggerUI} from '@hono/swagger-ui';
 import {OpenAPIHono} from '@hono/zod-openapi';
 
 // FIXME: APIを増やすたびに、RouterとHandlerを追加する必要があり、ちょっと冗長な気もする
-import {scoresCalculateRoute} from './api/scores/calculate/post/route';
-import {ScoresCalculateHandler} from './api/scores/calculate/post/handler';
-import {scoresAnswerRoute} from './api/scores/answer/post/route';
-import {ScoresAnswerHandler} from './api/scores/answer/post/handler';
+import {scoresDeclarationsCalculatePostRoute} from './api/score-declarations/calculate/post/route';
+import {ScoresDeclarationsCalculatePostHandlerHandler} from './api/score-declarations/calculate/post/handler';
+import {scoresAnswerPostRoute} from './api/scores/answer/post/route';
+import {ScoresAnswerPostHandler} from './api/scores/answer/post/handler';
 import {ScoresDeclarationsGetHandler} from './api/score-declarations/get/handler';
-import {ScoresDeclarationsGetRoute} from './api/score-declarations/get/route';
-import {ScoresAnswersSummariesHandler} from './api/score-declarations/summaries/get/handler';
-import {scoresAnswersSummariesRoute} from './api/score-declarations/summaries/get/route';
+import {scoresDeclarationsGetRoute} from './api/score-declarations/get/route';
+import {ScoresDeclarationsSummariesGetHandler} from './api/score-declarations/summaries/get/handler';
+import {scoresDeclarationsSummariesGetHandlerRoute} from './api/score-declarations/summaries/get/route';
 import {handsGetRoute} from './api/hands/get/route';
 import {HandsGetHander} from './api/hands/get/handler';
-import {ScoresDeclarationsPostRoute} from './api/score-declarations/post/route';
+import {scoresDeclarationsPostRoute} from './api/score-declarations/post/route';
 import {ScoresDeclarationsPostHandler} from './api/score-declarations/post/handler';
 
 const app = new OpenAPIHono({});
 
 // 各種エンドポイントを追加する
-app.openapi(scoresCalculateRoute, new ScoresCalculateHandler().execute);
-app.openapi(scoresAnswerRoute, new ScoresAnswerHandler().execute);
-app.openapi(ScoresDeclarationsGetRoute, new ScoresDeclarationsGetHandler().execute);
-app.openapi(scoresAnswersSummariesRoute, new ScoresAnswersSummariesHandler().execute);
+app.openapi(scoresDeclarationsCalculatePostRoute, new ScoresDeclarationsCalculatePostHandlerHandler().execute);
+app.openapi(scoresAnswerPostRoute, new ScoresAnswerPostHandler().execute);
+app.openapi(scoresDeclarationsGetRoute, new ScoresDeclarationsGetHandler().execute);
+app.openapi(scoresDeclarationsSummariesGetHandlerRoute, new ScoresDeclarationsSummariesGetHandler().execute);
 app.openapi(handsGetRoute, new HandsGetHander().execute);
-app.openapi(ScoresDeclarationsPostRoute, new ScoresDeclarationsPostHandler().execute);
+app.openapi(scoresDeclarationsPostRoute, new ScoresDeclarationsPostHandler().execute);
 
 // TODO
 // - [ ] 認証できるようにし、ユーザーごとに回答を保持、取得できるようにする

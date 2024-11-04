@@ -8,7 +8,7 @@ describe('POST /scores/calculate', () => {
       const fanCount = 1;
 
       // Action
-      const response = await app.request('/scores/calculate', {
+      const response = await app.request('/scores-declarations/calculate', {
         method: 'POST',
         body: JSON.stringify({symbolCount, fanCount}),
       });
@@ -30,7 +30,7 @@ describe('POST /scores/calculate', () => {
       const fanCount = 2;
 
       // Action
-      const response = await app.request('/scores/calculate', {
+      const response = await app.request('/scores-declarations/calculate', {
         method: 'POST',
         body: JSON.stringify({symbolCount, fanCount}),
       });
@@ -52,7 +52,7 @@ describe('POST /scores/calculate', () => {
       const fanCount = 3;
 
       // Action
-      const response = await app.request('/scores/calculate', {
+      const response = await app.request('/scores-declarations/calculate', {
         method: 'POST',
         body: JSON.stringify({symbolCount, fanCount}),
       });
@@ -74,7 +74,7 @@ describe('POST /scores/calculate', () => {
       const fanCount = 3;
 
       // Action
-      const response = await app.request('/scores/calculate', {
+      const response = await app.request('/scores-declarations/calculate', {
         method: 'POST',
         body: JSON.stringify({symbolCount, fanCount}),
       });
@@ -96,7 +96,7 @@ describe('POST /scores/calculate', () => {
       const fanCount = 4;
 
       // Action
-      const response = await app.request('/scores/calculate', {
+      const response = await app.request('/scores-declarations/calculate', {
         method: 'POST',
         body: JSON.stringify({symbolCount, fanCount}),
       });
@@ -118,7 +118,7 @@ describe('POST /scores/calculate', () => {
       const fanCount = 4;
 
       // Action
-      const response = await app.request('/scores/calculate', {
+      const response = await app.request('/scores-declarations/calculate', {
         method: 'POST',
         body: JSON.stringify({symbolCount, fanCount}),
       });
@@ -139,7 +139,7 @@ describe('POST /scores/calculate', () => {
       const fanCount = 6;
 
       // Action
-      const response = await app.request('/scores/calculate', {
+      const response = await app.request('/scores-declarations/calculate', {
         method: 'POST',
         body: JSON.stringify({fanCount}),
       });
@@ -160,7 +160,7 @@ describe('POST /scores/calculate', () => {
       const fanCount = 14;
 
       // Action
-      const response = await app.request('/scores/calculate', {
+      const response = await app.request('/scores-declarations/calculate', {
         method: 'POST',
         body: JSON.stringify({fanCount}),
       });
@@ -189,7 +189,7 @@ describe('POST /scores/calculate', () => {
       // Arrange
       const body = {symbolCount, fanCount};
       // Action
-      const response = await app.request('/scores/calculate', {
+      const response = await app.request('/scores-declarations/calculate', {
         method: 'POST',
         body: JSON.stringify(body),
       });

@@ -7,17 +7,17 @@ const description = `
 - 点数申告クイズの解答を記録します
 
 ## 挙動（どのように行うか）
-- なし
+- 13翻以上は、13翻として計算します
+- 符は20符から110符までサポートします
+  - ただし、20符はツモ（平和）のみ有効です
 
 ## 前提（何が必要か）
-- 翻数は13、符は110までサポートします
 - 親のアガり時の、親の支払い（自信の支払い）など、支払いが存在しない場合は0を指定してください
 
 ## その他・補足
-- なし
 `;
 
-export const scoresAnswerRoute = createRoute({
+export const scoresAnswerPostRoute = createRoute({
   deprecated: true,
   method: 'post',
   path: '/scores/answer',

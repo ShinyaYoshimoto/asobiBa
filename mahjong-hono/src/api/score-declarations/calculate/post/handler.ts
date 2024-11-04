@@ -5,7 +5,7 @@ import {ScoreQueryOnMemory} from '../../../../modules/score/infrastructure/score
 import {loggerInterface} from '../../../../utils/logger';
 import {AbstractHandler} from '../../../common/abstractHandler';
 
-export class ScoresCalculateHandler extends AbstractHandler {
+export class ScoresDeclarationsCalculatePostHandlerHandler extends AbstractHandler {
   private readonly scoreRepository: ScoreQueryInterface;
 
   constructor(dep?: {scoreRepository?: ScoreQueryInterface; logger?: loggerInterface}) {

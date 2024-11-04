@@ -5,7 +5,7 @@ import {AnswerQueryInterface} from '../../../../modules/answer/domain/answer.que
 import {loggerInterface} from '../../../../utils/logger';
 import {AbstractHandler} from '../../../common/abstractHandler';
 
-export class ScoresAnswersSummariesHandler extends AbstractHandler {
+export class ScoresDeclarationsSummariesGetHandler extends AbstractHandler {
   private readonly answerQuery: AnswerQueryInterface;
   private readonly prismaClient: PrismaClient;
 

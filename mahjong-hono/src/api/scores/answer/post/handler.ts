@@ -10,7 +10,7 @@ import {z} from 'zod';
 import {loggerInterface} from '../../../../utils/logger';
 import {AbstractHandler} from '../../../common/abstractHandler';
 
-export class ScoresAnswerHandler extends AbstractHandler {
+export class ScoresAnswerPostHandler extends AbstractHandler {
   private readonly scoreQuery: ScoreQueryInterface;
   private readonly answerCommand: AnswerCommandInterface;
   private readonly prismaClient: PrismaClient;

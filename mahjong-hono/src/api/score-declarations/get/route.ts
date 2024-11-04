@@ -16,7 +16,7 @@ const description = `
 - なし
 `;
 
-export const ScoresDeclarationsGetRoute = createRoute({
+export const scoresDeclarationsGetRoute = createRoute({
   method: 'get',
   path: '/score-declarations',
   tags: ['ScoresDeclarations'],
