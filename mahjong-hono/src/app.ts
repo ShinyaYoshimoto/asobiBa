@@ -10,10 +10,11 @@ import {ScoresDeclarationsGetHandler} from './api/score-declarations/get/handler
 import {scoresDeclarationsGetRoute} from './api/score-declarations/get/route';
 import {ScoresDeclarationsSummariesGetHandler} from './api/score-declarations/summaries/get/handler';
 import {scoresDeclarationsSummariesGetHandlerRoute} from './api/score-declarations/summaries/get/route';
-import {handsGetRoute} from './api/hands/get/route';
-import {HandsGetHander} from './api/hands/get/handler';
+// import {handsGetRoute} from './api/hands/get/route';
+// import {HandsGetHander} from './api/hands/get/handler';
 import {scoresDeclarationsPostRoute} from './api/score-declarations/post/route';
 import {ScoresDeclarationsPostHandler} from './api/score-declarations/post/handler';
+import {handsGet} from './api/hands/get';
 
 const app = new OpenAPIHono({});
 
@@ -22,7 +23,8 @@ app.openapi(scoresDeclarationsCalculatePostRoute, new ScoresDeclarationsCalculat
 app.openapi(scoresAnswerPostRoute, new ScoresAnswerPostHandler().execute);
 app.openapi(scoresDeclarationsGetRoute, new ScoresDeclarationsGetHandler().execute);
 app.openapi(scoresDeclarationsSummariesGetHandlerRoute, new ScoresDeclarationsSummariesGetHandler().execute);
-app.openapi(handsGetRoute, new HandsGetHander().execute);
+// app.openapi(handsGetRoute, new HandsGetHander().execute);
+handsGet(app);
 app.openapi(scoresDeclarationsPostRoute, new ScoresDeclarationsPostHandler().execute);
 
 // TODO
