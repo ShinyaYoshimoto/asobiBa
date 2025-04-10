@@ -9,5 +9,10 @@
   },
   "conventionalCommits.scopes": ["mahjong hono"],
   "jest.runMode": "watch",
-  "jest.rootPath": "mahjong-hono"
+  "jest.rootPath": "mahjong-hono",
+  "files.autoSave": "afterDelay",
+  "editor.tabSize": 2,
+  "editor.renderWhitespace": "all",
+  "editor.cursorStyle": "line",
+  "files.trimTrailingWhitespace": false
 }
