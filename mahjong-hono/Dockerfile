@@ -1,4 +1,4 @@
-FROM node:20-alpine AS base
+FROM node:20-alpine3.20 AS base
 
 # 環境変数を設定
 ARG DATABASE_URL
