@@ -66,4 +66,19 @@ export class PhotoQueryPostgres implements PhotoQueryInterface {
       })
     );
   }
+
+  public async find(param: {id: string}): Promise<Photo | undefined> {
+    const {id} = param;
+
+    const photo = await this.prisma.photo.findUnique({where: {id}});
+
+    if (!photo) return;
+
+    return Photo.reconstruct({
+      id: photo.id,
+      fileName: photo.fileName,
+      date: photo.createdAt,
+      tags: [], // TODO: タグは使わないので、使うタイミングになったら追加してね
+    });
+  }
 }

@@ -9,4 +9,13 @@ export class TagQueryPostgres implements TagQueryInterface {
     const tags = await this.prisma.tag.findMany();
     return tags.map(tag => Tag.reconstruct(tag));
   }
+
+  public async findByName(param: {name: string, accountId: string}): Promise<Tag | undefined> {
+    const {name, accountId} = param;
+
+    const tag = await this.prisma.tag.findUnique({where: {accountId_name: {accountId, name}}});
+    if (!tag) return;
+
+    return Tag.reconstruct(tag);
+  }
 }
