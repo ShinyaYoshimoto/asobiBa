@@ -1,5 +1,5 @@
 import {Context} from 'hono';
-import {PrismaClient} from '../../../generated/client';
+import {PrismaClient} from '../../../../prisma/client';
 import {AbstractHandler} from '../../common/abstractHandler';
 import {loggerInterface} from '../../../utils/logger';
 import {TagQueryInterface} from '../../../modules/photo/tag/tag.query';

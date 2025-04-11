@@ -1,5 +1,5 @@
 import {TagQueryInterface} from './tag.query';
-import {PrismaClient} from '../../../generated/client';
+import {PrismaClient} from '../../../../prisma/client';
 import {Tag} from './tag.entity';
 
 export class TagQueryPostgres implements TagQueryInterface {

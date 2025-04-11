@@ -1,5 +1,5 @@
 import {HandQueryInterface} from '../domain/hand.query';
-import {PrismaClient} from '../../../generated/client';
+import {PrismaClient} from '../../../../prisma/client';
 import {Hand} from '../domain/hand.entity';
 
 export class HandQueryRDB implements HandQueryInterface {

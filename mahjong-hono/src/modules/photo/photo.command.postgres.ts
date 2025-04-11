@@ -1,4 +1,4 @@
-import {PrismaClient} from '../../generated/client';
+import {PrismaClient} from '../../../prisma/client';
 import {PhotoCommandInterface} from './photo.command';
 import {Photo} from './photo.entity';
 import {Tag} from './tag/tag.entity';

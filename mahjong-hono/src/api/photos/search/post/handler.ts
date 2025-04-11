@@ -1,6 +1,6 @@
 import {Context} from 'hono';
 import {requestBodySchema, responseBodySchema} from './schema';
-import {PrismaClient} from '../../../../generated/client';
+import {PrismaClient} from '../../../../../prisma/client';
 import {z} from 'zod';
 import {loggerInterface} from '../../../../utils/logger';
 import {AbstractHandler} from '../../../common/abstractHandler';
