@@ -1,5 +1,5 @@
 import {TagQueryInterface} from './tag.query';
-import {PrismaClient} from '@prisma/client';
+import {PrismaClient} from '../../../generated/client';
 import {Tag} from './tag.entity';
 
 export class TagQueryPostgres implements TagQueryInterface {
@@ -10,7 +10,7 @@ export class TagQueryPostgres implements TagQueryInterface {
     return tags.map(tag => Tag.reconstruct(tag));
   }
 
-  public async findByName(param: {name: string, accountId: string}): Promise<Tag | undefined> {
+  public async findByName(param: {name: string; accountId: string}): Promise<Tag | undefined> {
     const {name, accountId} = param;
 
     const tag = await this.prisma.tag.findUnique({where: {accountId_name: {accountId, name}}});
