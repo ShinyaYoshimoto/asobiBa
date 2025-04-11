@@ -17,8 +17,13 @@ import {ScoresDeclarationsPostHandler} from './api/score-declarations/post/handl
 import {handsGet} from './api/hands/get';
 import {photosSearchPostRoute} from './api/photos/search/post/route';
 import {PhotosSearchPostHandler} from './api/photos/search/post/handler';
+import {listTagsGetRoute} from './api/tags/get/route';
+import {ListTagsGetHandler} from './api/tags/get/handler';
+import {cors} from 'hono/cors';
 
 const app = new OpenAPIHono({});
+
+app.use('*', cors());
 
 // 各種エンドポイントを追加する
 app.openapi(scoresDeclarationsCalculatePostRoute, new ScoresDeclarationsCalculatePostHandlerHandler().execute);
@@ -30,7 +35,7 @@ handsGet(app);
 app.openapi(scoresDeclarationsPostRoute, new ScoresDeclarationsPostHandler().execute);
 
 app.openapi(photosSearchPostRoute, new PhotosSearchPostHandler().execute);
-
+app.openapi(listTagsGetRoute, new ListTagsGetHandler().execute);
 // TODO
 // - [ ] 認証できるようにし、ユーザーごとに回答を保持、取得できるようにする
 
