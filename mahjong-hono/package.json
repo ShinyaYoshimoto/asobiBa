@@ -6,7 +6,8 @@
     "test": "jest",
     "prd": "pnpm run build && node dist/index.js",
     "lint": "eslint .",
-    "lint:fix": "eslint --fix ."
+    "lint:fix": "eslint --fix .",
+    "prisma:generate": "prisma generate"
   },
   "dependencies": {
     "@hono/node-server": "^1.12.1",

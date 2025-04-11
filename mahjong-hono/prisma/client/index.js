@@ -176,7 +176,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "/Users/ysmt/repo/github.com/ShinyaYoshimoto/asobiBa/mahjong-hono/src/generated/client",
+      "value": "/Users/ysmt/repo/github.com/ShinyaYoshimoto/asobiBa/mahjong-hono/prisma/client",
       "fromEnvVar": null
     },
     "config": {
@@ -194,10 +194,10 @@ const config = {
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
-    "rootEnvPath": "../../../.env",
-    "schemaEnvPath": "../../../.env"
+    "rootEnvPath": "../../.env",
+    "schemaEnvPath": "../../.env"
   },
-  "relativePath": "../../../prisma",
+  "relativePath": "..",
   "clientVersion": "5.22.0",
   "engineVersion": "605197351a3c8bdd595af2d2a9bc3025bca48ea2",
   "datasourceNames": [
@@ -213,8 +213,8 @@ const config = {
       }
     }
   },
-  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"../src/generated/client\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\n// TODO: questionテーブルを別で用意して、それに紐づくようにする\nmodel Answer {\n  id            String   @id @default(cuid())\n  isStartPlayer Boolean\n  isDraw        Boolean\n  fanCount      Int\n  symbolCount   Int?\n  isCorrect     Boolean\n  createdAt     DateTime @default(now())\n  updatedAt     DateTime @updatedAt\n}\n\n// 役と翻数を管理するテーブル\nmodel Hand {\n  id              String   @id @default(cuid())\n  name            String\n  nameKana        String\n  fanCount        Int\n  fanCountForCall Int\n  createdAt       DateTime @default(now())\n  updatedAt       DateTime @updatedAt\n}\n\nmodel Account {\n  id        String   @id @default(uuid())\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  photos Photo[]\n  tags   Tag[]\n}\n\nmodel Photo {\n  id        String   @id @default(uuid())\n  accountId String\n  fileName  String\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  photoTags PhotoTag[]\n  account   Account    @relation(fields: [accountId], references: [id], onDelete: Cascade)\n}\n\nmodel Tag {\n  id        String   @id @default(uuid())\n  accountId String\n  name      String\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  photoTags PhotoTag[]\n  account   Account    @relation(fields: [accountId], references: [id], onDelete: Cascade)\n\n  @@unique([accountId, name])\n}\n\nmodel PhotoTag {\n  photoId   String\n  tagId     String\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  photo Photo @relation(fields: [photoId], references: [id], onDelete: Cascade)\n  tag   Tag   @relation(fields: [tagId], references: [id], onDelete: Cascade)\n\n  @@unique([photoId, tagId])\n}\n",
-  "inlineSchemaHash": "52f356dc2e18c80b208a2e79ca3b42ede81a9f787ada8efa5f3b23ecdaaf804d",
+  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"../prisma/client\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\n// TODO: questionテーブルを別で用意して、それに紐づくようにする\nmodel Answer {\n  id            String   @id @default(cuid())\n  isStartPlayer Boolean\n  isDraw        Boolean\n  fanCount      Int\n  symbolCount   Int?\n  isCorrect     Boolean\n  createdAt     DateTime @default(now())\n  updatedAt     DateTime @updatedAt\n}\n\n// 役と翻数を管理するテーブル\nmodel Hand {\n  id              String   @id @default(cuid())\n  name            String\n  nameKana        String\n  fanCount        Int\n  fanCountForCall Int\n  createdAt       DateTime @default(now())\n  updatedAt       DateTime @updatedAt\n}\n\nmodel Account {\n  id        String   @id @default(uuid())\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  photos Photo[]\n  tags   Tag[]\n}\n\nmodel Photo {\n  id        String   @id @default(uuid())\n  accountId String\n  fileName  String\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  photoTags PhotoTag[]\n  account   Account    @relation(fields: [accountId], references: [id], onDelete: Cascade)\n}\n\nmodel Tag {\n  id        String   @id @default(uuid())\n  accountId String\n  name      String\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  photoTags PhotoTag[]\n  account   Account    @relation(fields: [accountId], references: [id], onDelete: Cascade)\n\n  @@unique([accountId, name])\n}\n\nmodel PhotoTag {\n  photoId   String\n  tagId     String\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  photo Photo @relation(fields: [photoId], references: [id], onDelete: Cascade)\n  tag   Tag   @relation(fields: [tagId], references: [id], onDelete: Cascade)\n\n  @@unique([photoId, tagId])\n}\n",
+  "inlineSchemaHash": "4fd552368ac65d31a589b4aacf1adfc14afa20dbc529700bd13a9dab31f896af",
   "copyEngine": true
 }
 
@@ -223,8 +223,8 @@ const fs = require('fs')
 config.dirname = __dirname
 if (!fs.existsSync(path.join(__dirname, 'schema.prisma'))) {
   const alternativePaths = [
-    "src/generated/client",
-    "generated/client",
+    "prisma/client",
+    "client",
   ]
   
   const alternativePath = alternativePaths.find((altPath) => {
@@ -253,7 +253,7 @@ Object.assign(exports, Prisma)
 
 // file annotations for bundling tools to include these files
 path.join(__dirname, "libquery_engine-darwin-arm64.dylib.node");
-path.join(process.cwd(), "src/generated/client/libquery_engine-darwin-arm64.dylib.node")
+path.join(process.cwd(), "prisma/client/libquery_engine-darwin-arm64.dylib.node")
 // file annotations for bundling tools to include these files
 path.join(__dirname, "schema.prisma");
-path.join(process.cwd(), "src/generated/client/schema.prisma")
+path.join(process.cwd(), "prisma/client/schema.prisma")
