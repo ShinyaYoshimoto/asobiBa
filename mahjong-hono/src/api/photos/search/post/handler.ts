@@ -35,13 +35,13 @@ export class PhotosSearchPostHandler extends AbstractHandler {
   };
 
   private logic = async (body: z.infer<typeof requestBodySchema>): Promise<z.infer<typeof responseBodySchema>> => {
-    const {limit, date, tagId, lastId} = body.option;
+    const {limit, date, tag_id, last_id} = body.option;
 
     const photos = await this.photoQuery.list({
       limit: limit ?? 20,
       date: date ? new Date(date) : new Date(),
-      tagId: tagId,
-      lastId: lastId,
+      tagId: tag_id,
+      lastId: last_id,
     });
 
     return photos.map(photo => ({

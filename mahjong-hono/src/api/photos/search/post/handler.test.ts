@@ -29,8 +29,8 @@ describe('POST /photos/search', () => {
           option: {
             limit: 20,
             date: new Date().toISOString(),
-            tagId: '1',
-            lastId: '1',
+            tag_id: '1',
+            last_id: '1',
           },
         }),
       });

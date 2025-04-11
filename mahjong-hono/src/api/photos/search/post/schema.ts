@@ -4,8 +4,8 @@ export const requestBodySchema = z.object({
   option: z.object({
     limit: z.number().min(1).max(20).default(20).optional(),
     date: z.string().optional(),
-    tagId: z.string().optional(),
-    lastId: z.string().optional(),
+    tag_id: z.string().optional(),
+    last_id: z.string().optional(),
   }),
 });
 
