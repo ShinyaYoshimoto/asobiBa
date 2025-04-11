@@ -1,6 +1,6 @@
 import {Context} from 'hono';
 import {AnswerQueryRdb} from '../../../../modules/answer/infrastructure/answer.query.rdb';
-import {PrismaClient} from '../../../../../prisma/client';
+import {PrismaClient} from '../../../../generated/client';
 import {AnswerQueryInterface} from '../../../../modules/answer/domain/answer.query';
 import {loggerInterface} from '../../../../utils/logger';
 import {AbstractHandler} from '../../../common/abstractHandler';

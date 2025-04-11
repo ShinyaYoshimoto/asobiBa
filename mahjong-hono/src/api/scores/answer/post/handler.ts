@@ -4,7 +4,7 @@ import {ScoreQueryInterface} from '../../../../modules/score/domain/score.query'
 import {ScoreQueryOnMemory} from '../../../../modules/score/infrastructure/score.query.memory';
 import {AnswerCommandInterface} from '../../../../modules/answer/domain/answer.command';
 import {AnswerCommandRdb} from '../../../../modules/answer/infrastructure/answer.command.rdb';
-import {PrismaClient} from '../../../../../prisma/client';
+import {PrismaClient} from '../../../../generated/client';
 import {AnswerEntity} from '../../../../modules/answer/domain/answer.entity';
 import {z} from 'zod';
 import {loggerInterface} from '../../../../utils/logger';

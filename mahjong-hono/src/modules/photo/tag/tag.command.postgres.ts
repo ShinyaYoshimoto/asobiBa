@@ -1,4 +1,4 @@
-import {PrismaClient} from '../../../../prisma/client';
+import {PrismaClient} from '../../../generated/client';
 import {TagCommandInterface} from './tag.command';
 import {Tag} from './tag.entity';
 

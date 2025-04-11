@@ -1,7 +1,7 @@
 import {Context} from 'hono';
 import {loggerInterface} from '../../../utils/logger';
 import {AbstractHandler} from '../../common/abstractHandler';
-import {PrismaClient} from '../../../../prisma/client';
+import {PrismaClient} from '../../../generated/client';
 import {HandQueryInterface} from '../../../modules/hand/domain/hand.query';
 import {HandQueryRDB} from '../../../modules/hand/infrastructure/hand.query.rdb';
 

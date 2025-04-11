@@ -1,6 +1,6 @@
 import {AnswerCommandInterface} from '../domain/answer.command';
 import {AnswerEntity, AnswerSchema} from '../domain/answer.entity';
-import {PrismaClient} from '../../../../prisma/client';
+import {PrismaClient} from '../../../generated/client';
 
 export class AnswerCommandRdb implements AnswerCommandInterface {
   constructor(private readonly prisma: PrismaClient) {}

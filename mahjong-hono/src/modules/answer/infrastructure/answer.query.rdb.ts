@@ -1,6 +1,6 @@
 import {AnswerQueryInterface} from '../domain/answer.query';
 import {AnswerEntity, AnswerSchema} from '../domain/answer.entity';
-import {PrismaClient} from '../../../../prisma/client';
+import {PrismaClient} from '../../../generated/client';
 import {z} from 'zod';
 import {AnswerSummarySchema} from '../domain/summary.value';
 import {ArrayUtil} from '../../../utils/array';
