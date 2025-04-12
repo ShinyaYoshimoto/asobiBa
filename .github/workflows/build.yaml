@@ -66,18 +66,7 @@ jobs:
       - name: Submit Cloud Build
         working-directory: ./mahjong-hono
         run: |
-          if gcloud builds submit \
+          gcloud builds submit \
             --region asia-east1 \
             --config cloudbuild.yaml \
-            --substitutions=_TAG_VERSION=${{ env.TAG_VERSION }},_DATABASE_URL=${{ secrets.DATABASE_URL }},_GCS_SA_KEY_PATH=${{ secrets.GCS_SA_KEY_PATH }},_GCS_BUCKET_NAME=${{ secrets.GCS_BUCKET_NAME }},_GCS_SA_KEY_OBJECT=${{ secrets.GCS_SA_KEY_OBJECT }}; then
-            echo "Build submitted successfully"
-          else
-            BUILD_STATUS=$?
-            if [ $BUILD_STATUS -eq 0 ]; then
-              echo "Image push successful, ignoring subsequent errors"
-              exit 0
-            else
-              echo "Build failed with status $BUILD_STATUS"
-              exit $BUILD_STATUS
-            fi
-          fi
+            --substitutions=_TAG_VERSION=${{ env.TAG_VERSION }},_DATABASE_URL=${{ secrets.DATABASE_URL }},_GCS_SA_KEY_PATH=${{ secrets.GCS_SA_KEY_PATH }},_GCS_BUCKET_NAME=${{ secrets.GCS_BUCKET_NAME }},_GCS_SA_KEY_OBJECT=${{ secrets.GCS_SA_KEY_OBJECT }}
