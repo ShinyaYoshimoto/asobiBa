@@ -6,6 +6,7 @@ import {loggerInterface} from '../../../../utils/logger';
 import {AbstractHandler} from '../../../common/abstractHandler';
 import {PhotoQueryInterface} from '../../../../modules/photo/photo.query';
 import {PhotoQueryPostgres} from '../../../../modules/photo/photo.query.postgres';
+import {Storage} from '@google-cloud/storage';
 
 export class PhotosSearchPostHandler extends AbstractHandler {
   private readonly photoQuery: PhotoQueryInterface;
@@ -29,13 +30,31 @@ export class PhotosSearchPostHandler extends AbstractHandler {
       const result = await this.logic(requestBody.data);
       return c.json(result, 200);
     } catch (e) {
-      this.logger.error('PhotosSearchPostHandler: Internal Server Error');
+      this.logger.error('PhotosSearchPostHandler: Internal Server Error', e);
       return c.json({message: 'Internal Server Error'}, 500);
     }
   };
 
   private logic = async (body: z.infer<typeof requestBodySchema>): Promise<z.infer<typeof responseBodySchema>> => {
     const {limit, date, tag_id, last_id} = body.option;
+
+    const storage = new Storage({
+      keyFilename: process.env.GCS_SA_KEY_PATH,
+    });
+
+    const bucketName = process.env.GCS_BUCKET_NAME;
+    if (!bucketName) {
+      throw new Error('GCS_BUCKET_NAME is not set');
+    }
+
+    const bucket = storage.bucket(bucketName);
+    const file = bucket.file('sample.png');
+
+    const signedUrl = await file.getSignedUrl({
+      version: 'v4',
+      action: 'read',
+      expires: Date.now() + 15 * 60 * 1000,
+    });
 
     const photos = await this.photoQuery.list({
       limit: limit ?? 20,
@@ -46,8 +65,9 @@ export class PhotosSearchPostHandler extends AbstractHandler {
 
     return photos.map(photo => ({
       id: photo.id(),
-      url: photo.fileName(),
-      thumbnail_url: photo.fileName(),
+      // url: photo.fileName(),
+      url: signedUrl[0],
+      thumbnail_url: signedUrl[0],
       date: photo.date().toISOString(),
       tags: photo.tags(),
     }));
