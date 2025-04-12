@@ -36,16 +36,21 @@ export class PhotosSearchPostHandler extends AbstractHandler {
   };
 
   private logic = async (body: z.infer<typeof requestBodySchema>): Promise<z.infer<typeof responseBodySchema>> => {
-    const {limit, date, tag_id, last_id} = body.option;
+    const { limit, date, tag_id, last_id } = body.option;
+
+    this.logger.info('GCS_SA_KEY_PATH', process.env.GCS_SA_KEY_PATH);
 
     const storage = new Storage({
       keyFilename: process.env.GCS_SA_KEY_PATH,
     });
+    this.logger.info('storage', storage);
 
+    this.logger.info('GCS_BUCKET_NAME', process.env.GCS_BUCKET_NAME);
     const bucketName = process.env.GCS_BUCKET_NAME;
     if (!bucketName) {
       throw new Error('GCS_BUCKET_NAME is not set');
     }
+    this.logger.info('bucketName', bucketName);
 
     const bucket = storage.bucket(bucketName);
     const file = bucket.file('sample.png');
