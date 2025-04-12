@@ -43,21 +43,19 @@ export class PhotosSearchPostHandler extends AbstractHandler {
   private logic = async (body: z.infer<typeof requestBodySchema>): Promise<z.infer<typeof responseBodySchema>> => {
     const {limit, date, tag_id, last_id} = body.option;
 
-    const keyPath = process.env.GCS_SA_KEY_PATH ?? '';
-    this.logger.info('keyPath', {keyPath});
+    const photos = await this.photoQuery.list({
+      limit: limit ?? 20,
+      date: date ? new Date(date) : new Date(),
+      tagId: tag_id,
+      lastId: last_id,
+    });
 
-    this.logger.info('process.env.GCS_SA_KEY_OBJECT', {process: process.env.GCS_SA_KEY_OBJECT});
-
+    // FIXME: この辺はクエリに切り出す. というか本当は、photosの取得と同時に取得したい
     const credentials = JSON.parse(Buffer.from(process.env.GCS_SA_KEY_OBJECT || '', 'base64').toString());
-    this.logger.info('credentials', {credentials});
-
     const storage = new Storage({
-      // keyFilename: process.env.GCS_SA_KEY_PATH,
       credentials,
       projectId: credentials.project_id,
     });
-
-    this.logger.info('storage', {storage});
 
     const bucketName = process.env.GCS_BUCKET_NAME;
     if (!bucketName) {
@@ -66,34 +64,22 @@ export class PhotosSearchPostHandler extends AbstractHandler {
 
     const bucket = storage.bucket(bucketName);
 
-    this.logger.info('bucket', {bucket});
-
-    const files = await bucket.getFiles();
-    this.logger.info('files', files);
-
-    const file = bucket.file('sample.png');
-    this.logger.info('file', {file});
-
-    const signedUrl = await file.getSignedUrl({
-      version: 'v4',
-      action: 'read',
-      expires: Date.now() + 15 * 60 * 1000,
-    });
-
-    const photos = await this.photoQuery.list({
-      limit: limit ?? 20,
-      date: date ? new Date(date) : new Date(),
-      tagId: tag_id,
-      lastId: last_id,
-    });
-
-    return photos.map(photo => ({
-      id: photo.id(),
-      // url: photo.fileName(),
-      url: signedUrl[0],
-      thumbnail_url: signedUrl[0],
-      date: photo.date().toISOString(),
-      tags: photo.tags(),
-    }));
+    const list: z.infer<typeof responseBodySchema> = [];
+    for (const photo of photos) {
+      const file = bucket.file(photo.fileName());
+      const signedUrl = await file.getSignedUrl({
+        version: 'v4',
+        action: 'read',
+        expires: Date.now() + 15 * 60 * 1000,
+      });
+      list.push({
+        id: photo.id(),
+        url: signedUrl[0],
+        thumbnail_url: signedUrl[0],
+        date: photo.date().toISOString(),
+        tags: photo.tags(),
+      });
+    }
+    return list;
   };
 }
