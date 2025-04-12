@@ -48,7 +48,10 @@ ENV GCS_SA_KEY_PATH=${GCS_SA_KEY_PATH}
 # GCS_SA_KEY_PATH名のファイルを生成する
 ARG GCS_SA_KEY_OBJECT
 ENV GCS_SA_KEY_OBJECT=${GCS_SA_KEY_OBJECT}
-RUN echo ${GCS_SA_KEY_OBJECT} > /app/${GCS_SA_KEY_PATH}
+RUN apk add --no-cache coreutils && \
+    echo ${GCS_SA_KEY_OBJECT} | base64 -d > /app/${GCS_SA_KEY_PATH} && \
+    chmod 600 /app/${GCS_SA_KEY_PATH} && \
+    chown hono:nodejs /app/${GCS_SA_KEY_PATH}
 
 ARG GCS_BUCKET_NAME
 ENV GCS_BUCKET_NAME=${GCS_BUCKET_NAME}
