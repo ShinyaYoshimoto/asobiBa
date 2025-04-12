@@ -7,7 +7,6 @@ import {AbstractHandler} from '../../../common/abstractHandler';
 import {PhotoQueryInterface} from '../../../../modules/photo/photo.query';
 import {PhotoQueryPostgres} from '../../../../modules/photo/photo.query.postgres';
 import {Storage} from '@google-cloud/storage';
-import * as fs from 'fs';
 import {Buffer} from 'buffer';
 export class PhotosSearchPostHandler extends AbstractHandler {
   private readonly photoQuery: PhotoQueryInterface;
@@ -70,7 +69,8 @@ export class PhotosSearchPostHandler extends AbstractHandler {
       const signedUrl = await file.getSignedUrl({
         version: 'v4',
         action: 'read',
-        expires: Date.now() + 15 * 60 * 1000,
+        // 有効期限は120分に設定する
+        expires: Date.now() + 120 * 60 * 1000,
       });
       list.push({
         id: photo.id(),
