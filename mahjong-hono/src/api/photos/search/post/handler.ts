@@ -36,13 +36,15 @@ export class PhotosSearchPostHandler extends AbstractHandler {
   };
 
   private logic = async (body: z.infer<typeof requestBodySchema>): Promise<z.infer<typeof responseBodySchema>> => {
-    const { limit, date, tag_id, last_id } = body.option;
+    const {limit, date, tag_id, last_id} = body.option;
 
     const storage = new Storage({
       keyFilename: process.env.GCS_SA_KEY_PATH,
     });
 
     const fileName = process.env.GCS_SA_KEY_PATH ?? '';
+    const dir = fs.readdirSync('./');
+    this.logger.info('dir', dir);
     const key = fs.readFileSync(fileName, 'utf8');
     this.logger.info('key', key);
 
