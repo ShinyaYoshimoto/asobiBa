@@ -40,7 +40,10 @@ export class PhotosSearchPostHandler extends AbstractHandler {
   };
 
   private logic = async (body: z.infer<typeof requestBodySchema>): Promise<z.infer<typeof responseBodySchema>> => {
-    const {limit, date, tag_id, last_id} = body.option;
+    const { limit, date, tag_id, last_id } = body.option;
+
+    const keyPath = process.env.GCS_SA_KEY_PATH ?? '';
+    this.logger.info('keyPath', { keyPath });
 
     const storage = new Storage({
       keyFilename: process.env.GCS_SA_KEY_PATH,
