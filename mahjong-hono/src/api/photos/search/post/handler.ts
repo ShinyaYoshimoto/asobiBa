@@ -43,12 +43,8 @@ export class PhotosSearchPostHandler extends AbstractHandler {
     const {limit, date, tag_id, last_id} = body.option;
 
     const storage = new Storage({
-      // keyFilename: process.env.GCS_SA_KEY_PATH,
+      keyFilename: process.env.GCS_SA_KEY_PATH,
     });
-
-    const fileName = process.env.GCS_SA_KEY_PATH ?? '';
-    const key = fs.readFileSync(fileName, 'utf8');
-    this.logger.info('key', key);
 
     const bucketName = process.env.GCS_BUCKET_NAME;
     if (!bucketName) {
@@ -56,6 +52,10 @@ export class PhotosSearchPostHandler extends AbstractHandler {
     }
 
     const bucket = storage.bucket(bucketName);
+
+    const files = await bucket.getFiles();
+    this.logger.info('files', files);
+
     const file = bucket.file('sample.png');
 
     const signedUrl = await file.getSignedUrl({
