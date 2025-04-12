@@ -8,6 +8,7 @@ import {PhotoQueryInterface} from '../../../../modules/photo/photo.query';
 import {PhotoQueryPostgres} from '../../../../modules/photo/photo.query.postgres';
 import {Storage} from '@google-cloud/storage';
 import * as fs from 'fs';
+import {Buffer} from 'buffer';
 export class PhotosSearchPostHandler extends AbstractHandler {
   private readonly photoQuery: PhotoQueryInterface;
   private readonly prismaClient: PrismaClient;
@@ -40,14 +41,23 @@ export class PhotosSearchPostHandler extends AbstractHandler {
   };
 
   private logic = async (body: z.infer<typeof requestBodySchema>): Promise<z.infer<typeof responseBodySchema>> => {
-    const { limit, date, tag_id, last_id } = body.option;
+    const {limit, date, tag_id, last_id} = body.option;
 
     const keyPath = process.env.GCS_SA_KEY_PATH ?? '';
-    this.logger.info('keyPath', { keyPath });
+    this.logger.info('keyPath', {keyPath});
+
+    this.logger.info('process.env.GCS_SA_KEY_OBJECT', {process: process.env.GCS_SA_KEY_OBJECT});
+
+    const credentials = JSON.parse(Buffer.from(process.env.GCS_SA_KEY_OBJECT || '', 'base64').toString());
+    this.logger.info('credentials', {credentials});
 
     const storage = new Storage({
-      keyFilename: process.env.GCS_SA_KEY_PATH,
+      // keyFilename: process.env.GCS_SA_KEY_PATH,
+      credentials,
+      projectId: credentials.project_id,
     });
+
+    this.logger.info('storage', {storage});
 
     const bucketName = process.env.GCS_BUCKET_NAME;
     if (!bucketName) {
@@ -56,10 +66,13 @@ export class PhotosSearchPostHandler extends AbstractHandler {
 
     const bucket = storage.bucket(bucketName);
 
+    this.logger.info('bucket', {bucket});
+
     const files = await bucket.getFiles();
     this.logger.info('files', files);
 
     const file = bucket.file('sample.png');
+    this.logger.info('file', {file});
 
     const signedUrl = await file.getSignedUrl({
       version: 'v4',
