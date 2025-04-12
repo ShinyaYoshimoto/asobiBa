@@ -42,10 +42,10 @@ export class PhotosSearchPostHandler extends AbstractHandler {
       keyFilename: process.env.GCS_SA_KEY_PATH,
     });
 
+    this.logger.info('storage', storage);
+
     const fileName = process.env.GCS_SA_KEY_PATH ?? '';
-    const dir = fs.readdirSync('./');
-    this.logger.info('dir', dir);
-    const key = fs.readFileSync(fileName, 'utf8');
+    const key = fs.readFileSync(fileName);
     this.logger.info('key', key);
 
     const bucketName = process.env.GCS_BUCKET_NAME;
