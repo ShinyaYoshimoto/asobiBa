@@ -29,8 +29,12 @@ export class PhotosSearchPostHandler extends AbstractHandler {
 
       const result = await this.logic(requestBody.data);
       return c.json(result, 200);
-    } catch (e) {
-      this.logger.error('PhotosSearchPostHandler: Internal Server Error', e);
+    } catch (e: any) {
+      this.logger.error('PhotosSearchPostHandler: Internal Server Error', {
+        error: e,
+        message: e?.message ?? '',
+        stack: e?.stack ?? '',
+      });
       return c.json({message: 'Internal Server Error'}, 500);
     }
   };
@@ -39,7 +43,7 @@ export class PhotosSearchPostHandler extends AbstractHandler {
     const {limit, date, tag_id, last_id} = body.option;
 
     const storage = new Storage({
-      keyFilename: process.env.GCS_SA_KEY_PATH,
+      // keyFilename: process.env.GCS_SA_KEY_PATH,
     });
 
     const fileName = process.env.GCS_SA_KEY_PATH ?? '';
