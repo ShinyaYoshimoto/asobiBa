@@ -10,6 +10,10 @@ export const PhotoSchema = z.object({
 export class Photo {
   private constructor(private readonly data: z.infer<typeof PhotoSchema>) {}
 
+  public static create(photo: Omit<z.infer<typeof PhotoSchema>, 'id'>): Photo {
+    return new Photo({id: crypto.randomUUID(), ...photo});
+  }
+
   public static reconstruct(photo: z.infer<typeof PhotoSchema>): Photo {
     if (!photo.id) {
       throw new Error('Invalid photo');
