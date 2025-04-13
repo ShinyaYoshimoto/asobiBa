@@ -96,7 +96,10 @@ export class PhotoQueryPostgres implements PhotoQueryInterface {
       id: photo.id,
       fileName: photo.fileName,
       date: photo.createdAt,
-      tags: [], // TODO: タグは使わないので、使うタイミングになったら追加してね
+      tags: photo.photoTags.map(photoTag => ({
+        id: photoTag.tag.id,
+        name: photoTag.tag.name,
+      })),
     });
   }
 }
