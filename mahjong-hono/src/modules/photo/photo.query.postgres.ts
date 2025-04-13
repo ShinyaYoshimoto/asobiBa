@@ -12,6 +12,15 @@ export class PhotoQueryPostgres implements PhotoQueryInterface {
     const startDate = new Date(date.getFullYear(), date.getMonth(), 1);
     const endDate = new Date(date.getFullYear(), date.getMonth() + 1, 0);
 
+    const lastCreatedAt = lastId
+      ? (
+          await this.prisma.photo.findUnique({
+            where: {id: lastId},
+            select: {createdAt: true},
+          })
+        )?.createdAt
+      : undefined;
+
     const photos = await this.prisma.photo.findMany({
       where: {
         // FIXME: 本当はaccountIdを指定する
@@ -20,19 +29,25 @@ export class PhotoQueryPostgres implements PhotoQueryInterface {
         createdAt: {
           gte: startDate,
           lte: endDate,
+          ...(lastCreatedAt && {
+            lt: lastCreatedAt,
+          }),
         },
+
+        ...(lastId && {
+          OR: [
+            {createdAt: {lt: lastCreatedAt}},
+            {
+              AND: [{createdAt: lastCreatedAt}, {id: {lt: lastId}}],
+            },
+          ],
+        }),
 
         photoTags: tagId
           ? {
               some: {
                 tagId: tagId,
               },
-            }
-          : undefined,
-
-        id: lastId
-          ? {
-              lt: lastId,
             }
           : undefined,
       },
@@ -81,10 +96,7 @@ export class PhotoQueryPostgres implements PhotoQueryInterface {
       id: photo.id,
       fileName: photo.fileName,
       date: photo.createdAt,
-      tags: photo.photoTags.map(photoTag => ({
-        id: photoTag.tag.id,
-        name: photoTag.tag.name,
-      })),
+      tags: [], // TODO: タグは使わないので、使うタイミングになったら追加してね
     });
   }
 }
