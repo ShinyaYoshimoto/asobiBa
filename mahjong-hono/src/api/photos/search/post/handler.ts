@@ -66,16 +66,26 @@ export class PhotosSearchPostHandler extends AbstractHandler {
     const list: z.infer<typeof responseBodySchema> = [];
     for (const photo of photos) {
       const file = bucket.file(photo.fileName());
-      const signedUrl = await file.getSignedUrl({
-        version: 'v4',
-        action: 'read',
-        // 有効期限は120分に設定する
-        expires: Date.now() + 120 * 60 * 1000,
-      });
+      const thumbnailFile = bucket.file(`small_${photo.fileName()}`);
+
+      const [signedUrl, thumbnailSignedUrl] = await Promise.all([
+        file.getSignedUrl({
+          version: 'v4',
+          action: 'read',
+          // 有効期限は120分に設定する
+          expires: Date.now() + 120 * 60 * 1000,
+        }),
+        thumbnailFile.getSignedUrl({
+          version: 'v4',
+          action: 'read',
+          expires: Date.now() + 120 * 60 * 1000,
+        }),
+      ]);
+
       list.push({
         id: photo.id(),
         url: signedUrl[0],
-        thumbnail_url: signedUrl[0],
+        thumbnail_url: thumbnailSignedUrl[0],
         date: photo.date().toISOString(),
         tags: photo.tags(),
       });
