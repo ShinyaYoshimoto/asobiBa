@@ -36,3 +36,4 @@ lerna-debug.log*
 
 # GCSのサービスアカウントキー
 gcs-sa.json
+gcs-cors.json

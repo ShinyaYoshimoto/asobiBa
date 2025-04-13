@@ -24,6 +24,8 @@ import {photosTagsPostRoute} from './api/photos/tags/post/route';
 import {PhotosTagsPostHandler} from './api/photos/tags/post/handler';
 import {photosTagsDeleteRoute} from './api/photos/tags/delete/route';
 import {PhotosTagsDeleteHandler} from './api/photos/tags/delete/handler';
+import {photosUploadSignedUrlPostRoute} from './api/photos/upload-signed-url/post/route';
+import {PhotosUploadSignedUrlPostHandler} from './api/photos/upload-signed-url/post/handler';
 
 const app = new OpenAPIHono({});
 
@@ -42,6 +44,7 @@ app.openapi(photosSearchPostRoute, new PhotosSearchPostHandler().execute);
 app.openapi(listTagsGetRoute, new ListTagsGetHandler().execute);
 app.openapi(photosTagsPostRoute, new PhotosTagsPostHandler().execute);
 app.openapi(photosTagsDeleteRoute, new PhotosTagsDeleteHandler().execute);
+app.openapi(photosUploadSignedUrlPostRoute, new PhotosUploadSignedUrlPostHandler().execute);
 // TODO
 // - [ ] 認証できるようにし、ユーザーごとに回答を保持、取得できるようにする
 
