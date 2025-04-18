@@ -2,12 +2,12 @@
   "compilerOptions": {
     "target": "ES2020",
     "module": "Commonjs",
-    // "outDir": "./dist",
+    "outDir": "./dist",
     "moduleResolution": "node",
     "strict": true,
     "skipLibCheck": true,
     "types": ["node", "jest"]
   },
   "include": ["src/**/*.ts", "index.ts"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", "dist"]
 }

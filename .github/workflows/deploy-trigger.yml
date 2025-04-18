@@ -1,0 +1,53 @@
+name: Manual Deploy for Trigger
+
+on:
+  workflow_dispatch:
+    inputs:
+      trigger-name:
+        description: 'Select trigger name'
+        required: true
+        type: choice
+        options:
+          - trigger-upload-games-csv
+          - sample-event
+      bucket-name:
+        description: 'Select bucket name'
+        required: true
+        type: choice
+        options:
+          - ma-tano-upload-games
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '20'
+
+      - name: Install pnpm
+        run: npm install -g pnpm
+
+      - name: Install dependencies
+        run: pnpm install
+      
+      - name: Build
+        run: pnpm build
+
+      - name: Deploy trigger
+        run: |
+          gcloud functions deploy ${{ inputs.trigger-name }} \
+            --gen2 \
+            --runtime=nodejs20 \
+            --region=asia-northeast1 \
+            --source=./dist \
+            --trigger-event-filters="type=google.cloud.storage.object.v1.finalized" \
+            --trigger-event-filters="bucket:${{ inputs.bucket-name }}" \
+            --entry-point ${{ inputs.trigger-name }} \
+            --set-env-vars BUCKET_NAME=${{ inputs.bucket-name }}

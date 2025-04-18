@@ -14,3 +14,12 @@
 .gitignore
 
 node_modules
+
+.env
+.env.sample
+
+eslint.config.mjs
+dist
+jest.config.ts
+
+*.test.ts
