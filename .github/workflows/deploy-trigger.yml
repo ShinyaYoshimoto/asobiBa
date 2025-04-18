@@ -43,6 +43,13 @@ jobs:
       - name: Build
         run: pnpm build
 
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v0.2.0
+        with:
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+          service_account_key: ${{ secrets.GCP_SA_KEY }}
+          export_default_credentials: true
+
       - name: Deploy trigger
         run: |
           gcloud functions deploy ${{ inputs.trigger-name }} \
