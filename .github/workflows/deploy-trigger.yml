@@ -31,6 +31,9 @@ jobs:
         with:
           node-version: '20'
 
+      - name: Change Working Directory
+        run: cd triggers
+
       - name: Install pnpm
         run: npm install -g pnpm
 
