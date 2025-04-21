@@ -1,6 +1,6 @@
 import {Sample} from '../module/sample';
 
-export class SampleHandler {
+export class SampleEvent {
   public static async handle(event: any) {
     console.log(event, 'start event handler');
 
