@@ -10,12 +10,7 @@ on:
         options:
           - sample-event
           - trigger-upload-games-csv
-      bucket-name:
-        description: 'Select bucket name'
-        required: true
-        type: choice
-        options:
-          - ma-tano-upload-games
+          - trigger-upload-gcs
 
 jobs:
   deploy:
@@ -48,6 +43,6 @@ jobs:
             --region=asia-northeast1 \
             --source=. \
             --trigger-event-filters="type=google.cloud.storage.object.v1.finalized" \
-            --trigger-event-filters="bucket=${{ inputs.bucket-name }}" \
+            --trigger-event-filters="bucket=${{ secrets.GCS_BUCKET_NAME }}" \
             --entry-point ${{ inputs.trigger-name }} \
-            --set-env-vars BUCKET_NAME=${{ inputs.bucket-name }}
+            --set-env-vars BUCKET_NAME=${{ secrets.GCS_BUCKET_NAME }}
