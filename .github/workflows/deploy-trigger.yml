@@ -43,6 +43,6 @@ jobs:
             --region=asia-northeast1 \
             --source=. \
             --trigger-event-filters="type=google.cloud.storage.object.v1.finalized" \
-            --trigger-event-filters="bucket=${{ secrets.GCS_BUCKET_NAME }}" \
+            --trigger-event-filters="bucket=mite-min-sai" \
             --entry-point ${{ inputs.trigger-name }} \
-            --set-env-vars BUCKET_NAME=${{ secrets.GCS_BUCKET_NAME }}
+            --set-env-vars BUCKET_NAME=mite-min-sai
