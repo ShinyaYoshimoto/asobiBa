@@ -1,5 +1,6 @@
 {
   "name": "triggers",
+  "main": "dist/index.js",
   "scripts": {
     "build": "tsc --project tsconfig.json",
     "test": "jest",
