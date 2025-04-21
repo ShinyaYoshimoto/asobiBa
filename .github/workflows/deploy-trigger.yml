@@ -45,6 +45,7 @@ jobs:
         run: |
           pnpm build
           cp package.json dist/
+          cp pnpm-lock.yaml dist/
 
       - name: Authenticate to Google Cloud
         uses: google-github-actions/auth@v2

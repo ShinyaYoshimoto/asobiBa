@@ -1,7 +1,7 @@
 import {cloudEvent} from '@google-cloud/functions-framework';
 import {Storage} from '@google-cloud/storage';
-import * as csvParser from 'csv-parser';
-import * as csvStringify from 'csv-stringify';
+import csvParser from 'csv-parser';
+import csvStringify from 'csv-stringify';
 
 const storage = new Storage();
 
