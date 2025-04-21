@@ -41,17 +41,13 @@ jobs:
       - name: Install dependencies
         run: |
           pnpm install
-          # ls -la
-          # cp tsconfig.json .
 
       - name: Build
         run: |
-          ls -la
           pnpm build
 
       - name: Copy files
         run: |
-          ls -la
           cp package.json dist/
           cp pnpm-lock.yaml dist/
 
@@ -66,6 +62,7 @@ jobs:
 
       - name: Deploy trigger
         run: |
+          ls -la
           gcloud functions deploy ${{ inputs.trigger-name }} \
             --gen2 \
             --runtime=nodejs20 \
