@@ -39,11 +39,16 @@ jobs:
         run: npm install -g pnpm
 
       - name: Install dependencies
-        run: pnpm install
+        run: |
+          pnpm install
+          cp tsconfig.json .
 
       - name: Build
         run: |
-          # pnpm build
+          pnpm build
+
+      - name: Copy files
+        run: |
           cp package.json dist/
           cp pnpm-lock.yaml dist/
 
