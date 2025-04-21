@@ -41,14 +41,17 @@ jobs:
       - name: Install dependencies
         run: |
           pnpm install
+          ls -la
           cp tsconfig.json .
 
       - name: Build
         run: |
+          ls -la
           pnpm build
 
       - name: Copy files
         run: |
+          ls -la
           cp package.json dist/
           cp pnpm-lock.yaml dist/
 
