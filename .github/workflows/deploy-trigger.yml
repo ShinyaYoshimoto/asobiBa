@@ -45,4 +45,5 @@ jobs:
             --trigger-event-filters="type=google.cloud.storage.object.v1.finalized" \
             --trigger-event-filters="bucket=mite-min-sai" \
             --entry-point ${{ inputs.trigger-name }} \
-            --set-env-vars BUCKET_NAME=mite-min-sai
+            --set-env-vars BUCKET_NAME=mite-min-sai \
+            --set-env-vars API_ENDPOINT=${{ secrets.API_ENDPOINT }}
