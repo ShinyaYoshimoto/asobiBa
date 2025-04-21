@@ -47,7 +47,7 @@ jobs:
       - name: Authenticate to Google Cloud
         uses: google-github-actions/auth@v2
         with:
-          workload_identity_provider: 'projects/782457994312/locations/global/workloadIdentityPools/github-actions-deployer/providers/github-actions-deployer'
+          workload_identity_provider: 'projects/782457994312/locations/global/workloadIdentityPools/asobiba-github-actions/providers/asobiba-github-actions'
           service_account: 'github-actions-deployer@ysmt-dev.iam.gserviceaccount.com'
 
       - name: Set up Cloud SDK
