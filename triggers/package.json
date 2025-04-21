@@ -1,8 +1,7 @@
 {
   "name": "triggers",
   "scripts": {
-    "build": "tsc",
-    "start": "node dist/index.js",
+    "build": "tsc --project tsconfig.json",
     "test": "jest",
     "lint": "eslint .",
     "lint:fix": "eslint --fix ."
