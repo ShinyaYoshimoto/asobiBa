@@ -144,16 +144,12 @@ const groupBy = <T extends {[key: string]: any}>(objects: T[], key: keyof T): Ar
   return Object.keys(map).map(k => ({key: k, values: map[k]}));
 };
 
-import {Sample} from './module/sample';
+import {SampleHandler} from './handler/sample';
 
 cloudEvent('sample-event', async (handler: any): Promise<void> => {
   const apiEndpoint = process.env.API_ENDPOINT;
+
   console.log('sample-event', handler, apiEndpoint);
 
-  console.log(sampleLogic());
+  SampleHandler.handle(handler);
 });
-
-const sampleLogic = (): string => {
-  const sample = new Sample('sample');
-  return sample.getSample();
-};
