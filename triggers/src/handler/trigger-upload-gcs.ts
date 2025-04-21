@@ -32,29 +32,24 @@ export class TriggerUploadGcs {
 
     // zipファイル名の最初の「_」以降、「.zip」までをtag_idとする. また、「_」がない場合は、tag_idはundefinedとする
     const tagId = file.name.includes('_') ? file.name.split('_')[1]?.split('.zip')[0] : undefined;
-    console.log('tagId', tagId);
 
     // 1. 解凍
     const [buffer] = await file.download();
     const zip = new AdmZip(buffer);
     const zipEntries = zip.getEntries();
-    console.log('zipEntries', zipEntries);
 
     // 画像ファイルのみをフィルタリング
     const imageEntries = zipEntries.filter((entry: any) => {
       const ext = entry.entryName.toLowerCase().split('.').pop();
       return ['jpg', 'jpeg', 'png'].includes(ext || '');
     });
-    console.log('imageEntries', imageEntries);
     // 20枚を超える場合はエラー
     if (imageEntries.length > 20) {
       throw new Error(`Too many images. Maximum 20 images allowed. Found: ${imageEntries.length}`);
     }
-    console.log('imageEntries', imageEntries);
 
     // 2. 解凍済みのファイルを圧縮してアップロード
     for (const entry of imageEntries) {
-      console.log('entry', entry);
       const imageBuffer = entry.getData();
       const compressedBuffer = await sharp(imageBuffer).jpeg({quality: 70}).toBuffer();
       const smallCompressedBuffer = await sharp(imageBuffer).resize(500).jpeg({quality: 70}).toBuffer();
@@ -89,7 +84,6 @@ export class TriggerUploadGcs {
           contentType: 'image/jpeg',
         },
       });
-      console.log('smallNewFile', smallNewFile);
     }
 
     // 3. 解凍したZipファイルを削除
@@ -104,8 +98,6 @@ export class TriggerUploadGcs {
       const [fileMetadata] = await file.getMetadata();
       const tagId = fileMetadata.metadata?.tag_id;
       const tookAt = fileMetadata.metadata?.took_at;
-      console.log('tagId', tagId);
-      console.log('tookAt', tookAt);
 
       // 3. APIにリクエスト
       // FIXME: 環境変数を使用する
