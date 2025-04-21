@@ -41,8 +41,8 @@ jobs:
       - name: Install dependencies
         run: |
           pnpm install
-          ls -la
-          cp tsconfig.json .
+          # ls -la
+          # cp tsconfig.json .
 
       - name: Build
         run: |
