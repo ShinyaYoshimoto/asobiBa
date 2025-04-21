@@ -8,8 +8,8 @@ on:
         required: true
         type: choice
         options:
-          - trigger-upload-games-csv
           - sample-event
+          - trigger-upload-games-csv
       bucket-name:
         description: 'Select bucket name'
         required: true

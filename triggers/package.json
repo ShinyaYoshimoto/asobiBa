@@ -1,7 +1,7 @@
 {
   "name": "triggers",
   "scripts": {
-    "build": "pwd && ls -la && ls -la module && tsc --project tsconfig.json",
+    "build": "pwd && ls -la && tsc --project tsconfig.json",
     "test": "jest",
     "lint": "eslint .",
     "lint:fix": "eslint --fix ."
