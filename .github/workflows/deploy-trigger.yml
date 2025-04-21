@@ -42,7 +42,9 @@ jobs:
         run: pnpm install
 
       - name: Build
-        run: pnpm build
+        run: |
+          pnpm build
+          cp package.json dist/
 
       - name: Authenticate to Google Cloud
         uses: google-github-actions/auth@v2
