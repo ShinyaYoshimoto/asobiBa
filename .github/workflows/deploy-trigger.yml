@@ -35,22 +35,6 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Install pnpm
-        run: npm install -g pnpm
-
-      - name: Install dependencies
-        run: |
-          pnpm install
-
-      - name: Build
-        run: |
-          pnpm build
-
-      - name: Copy files
-        run: |
-          cp package.json dist/
-          cp pnpm-lock.yaml dist/
-
       - name: Authenticate to Google Cloud
         uses: google-github-actions/auth@v2
         with:
@@ -67,7 +51,7 @@ jobs:
             --gen2 \
             --runtime=nodejs20 \
             --region=asia-northeast1 \
-            --source=./dist \
+            --source=. \
             --trigger-event-filters="type=google.cloud.storage.object.v1.finalized" \
             --trigger-event-filters="bucket=${{ inputs.bucket-name }}" \
             --entry-point ${{ inputs.trigger-name }} \
