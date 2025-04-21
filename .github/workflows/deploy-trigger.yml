@@ -43,7 +43,7 @@ jobs:
 
       - name: Build
         run: |
-          pnpm build
+          # pnpm build
           cp package.json dist/
           cp pnpm-lock.yaml dist/
 
