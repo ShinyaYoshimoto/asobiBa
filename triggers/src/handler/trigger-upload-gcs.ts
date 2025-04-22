@@ -34,10 +34,13 @@ export class TriggerUploadGcs {
     console.log('tagId', tagId);
 
     // 1. 解凍
+    console.log('start file.download');
     const [buffer] = await file.download();
+    console.log('end file.download', buffer);
     const zip = new AdmZip(buffer);
+    console.log('start zip.getEntries');
     const zipEntries = zip.getEntries();
-    console.log('zipEntries', zipEntries.length);
+    console.log('end zip.getEntries', zipEntries.length);
 
     // 画像ファイルのみをフィルタリング
     const imageEntries = zipEntries.filter((entry: any) => {
@@ -54,7 +57,9 @@ export class TriggerUploadGcs {
     for (const entry of imageEntries) {
       console.log('entry', entry.entryName);
       const imageBuffer = entry.getData();
+      console.log('start sharp');
       const compressedBuffer = await sharp(imageBuffer).jpeg({quality: 70}).toBuffer();
+      console.log('end sharp');
       const smallCompressedBuffer = await sharp(imageBuffer).resize(500).jpeg({quality: 70}).toBuffer();
 
       // 画像のメタデータを取得
@@ -63,11 +68,12 @@ export class TriggerUploadGcs {
       const tookAt = exif?.DateTimeOriginal
         ? new Date(exif.DateTimeOriginal.replace(':', '-').replace(':', '-'))
         : new Date();
-
+      console.log('end tookAt', tookAt);
       // UUIDで新しいファイル名を生成
       const newFileName = `${uuidv4()}.jpg`;
       console.log('newFileName', newFileName);
       // バケットにアップロード（メタデータにtag_idと撮影日時を含める）
+      console.log('start newFile.save');
       const newFile = bucket.file(newFileName);
       await newFile.save(compressedBuffer, {
         metadata: {
