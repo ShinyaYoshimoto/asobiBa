@@ -28,7 +28,7 @@ export class TriggerUploadGcs {
   }
 
   private static zipHandler = async (file: any, bucket: Bucket): Promise<void> => {
-    console.log('zipHandler', file);
+    console.log('zipHandler', file, bucket);
 
     // zipファイル名の最初の「_」以降、「.zip」までをtag_idとする. また、「_」がない場合は、tag_idはundefinedとする
     const tagId = file.name.includes('_') ? file.name.split('_')[1]?.split('.zip')[0] : undefined;
