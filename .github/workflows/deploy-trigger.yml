@@ -30,8 +30,8 @@ jobs:
       - name: Authenticate to Google Cloud
         uses: google-github-actions/auth@v2
         with:
-          workload_identity_provider: 'projects/782457994312/locations/global/workloadIdentityPools/asobiba-github-actions/providers/asobiba-github-actions'
-          service_account: 'github-actions-deployer@ysmt-dev.iam.gserviceaccount.com'
+          workload_identity_provider: ${{ secrets.WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ secrets.SERVICE_ACCOUNT }}
 
       - name: Set up Cloud SDK
         uses: google-github-actions/setup-gcloud@v2
@@ -45,7 +45,7 @@ jobs:
             --region=asia-northeast1 \
             --source=. \
             --trigger-event-filters="type=google.cloud.storage.object.v1.finalized" \
-            --trigger-event-filters="bucket=mite-min-sai" \
+            --trigger-event-filters="bucket=${{ secrets.GCS_BUCKET_NAME }}" \
             --entry-point ${{ inputs.trigger-name }} \
-            --set-env-vars BUCKET_NAME=mite-min-sai \
+            --set-env-vars BUCKET_NAME=${{ secrets.GCS_BUCKET_NAME }} \
             --set-env-vars API_ENDPOINT=${{ secrets.API_ENDPOINT }}
