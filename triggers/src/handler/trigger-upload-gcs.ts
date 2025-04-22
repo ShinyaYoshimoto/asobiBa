@@ -35,21 +35,21 @@ export class TriggerUploadGcs {
 
     // 1. 解凍
     // ストリームでzipファイルをダウンロード
-    const downloadStream = file.createReadStream();
-    const chunks: Buffer[] = [];
+    // const downloadStream = file.createReadStream();
+    // const chunks: Buffer[] = [];
 
-    console.log('Starting download');
-    await new Promise((resolve, reject) => {
-      downloadStream.on('data', (chunk: any) => chunks.push(Buffer.from(chunk)));
-      downloadStream.on('end', () => resolve(null));
-      downloadStream.on('error', reject);
-    });
+    // console.log('Starting download');
+    // await new Promise((resolve, reject) => {
+    //   downloadStream.on('data', (chunk: any) => chunks.push(Buffer.from(chunk)));
+    //   downloadStream.on('end', () => resolve(null));
+    //   downloadStream.on('error', reject);
+    // });
 
-    const buffer = Buffer.concat(chunks);
-    console.log('Download completed, size:', buffer.length);
+    // const buffer = Buffer.concat(chunks);
+    // console.log('Download completed, size:', buffer.length);
 
     // console.log('start file.download');
-    // const [buffer] = await file.download();
+    const [buffer] = await file.download();
     console.log('end file.download', buffer);
     const zip = new AdmZip(buffer);
     console.log('start zip.getEntries');
