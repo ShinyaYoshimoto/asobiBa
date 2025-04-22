@@ -38,7 +38,6 @@ jobs:
 
       - name: Deploy trigger
         run: |
-          ls -la
           gcloud functions deploy ${{ inputs.trigger-name }} \
             --gen2 \
             --runtime=nodejs20 \
