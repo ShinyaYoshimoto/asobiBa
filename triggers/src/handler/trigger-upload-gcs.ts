@@ -34,8 +34,22 @@ export class TriggerUploadGcs {
     console.log('tagId', tagId);
 
     // 1. 解凍
-    console.log('start file.download');
-    const [buffer] = await file.download();
+    // ストリームでzipファイルをダウンロード
+    const downloadStream = file.createReadStream();
+    const chunks: Buffer[] = [];
+
+    console.log('Starting download');
+    await new Promise((resolve, reject) => {
+      downloadStream.on('data', (chunk: any) => chunks.push(Buffer.from(chunk)));
+      downloadStream.on('end', () => resolve(null));
+      downloadStream.on('error', reject);
+    });
+
+    const buffer = Buffer.concat(chunks);
+    console.log('Download completed, size:', buffer.length);
+
+    // console.log('start file.download');
+    // const [buffer] = await file.download();
     console.log('end file.download', buffer);
     const zip = new AdmZip(buffer);
     console.log('start zip.getEntries');
@@ -54,47 +68,55 @@ export class TriggerUploadGcs {
     }
 
     // 2. 解凍済みのファイルを圧縮してアップロード
-    for (const entry of imageEntries) {
-      console.log('entry', entry.entryName);
-      const imageBuffer = entry.getData();
-      console.log('start sharp');
-      const compressedBuffer = await sharp(imageBuffer).jpeg({quality: 70}).toBuffer();
-      console.log('end sharp');
-      const smallCompressedBuffer = await sharp(imageBuffer).resize(500).jpeg({quality: 70}).toBuffer();
+    // for (const entry of imageEntries) {
+    await Promise.all(
+      imageEntries.map(async (entry: any) => {
+        console.log('entry', entry.entryName);
+        const imageBuffer = entry.getData();
+        console.log('start sharp');
+        // const compressedBuffer = await sharp(imageBuffer).jpeg({quality: 70}).toBuffer();
+        // const smallCompressedBuffer = await sharp(imageBuffer).resize(500).jpeg({ quality: 70 }).toBuffer();
 
-      // 画像のメタデータを取得
-      const metadata = await sharp(imageBuffer).metadata();
-      const exif = metadata.exif as any;
-      const tookAt = exif?.DateTimeOriginal
-        ? new Date(exif.DateTimeOriginal.replace(':', '-').replace(':', '-'))
-        : new Date();
-      console.log('end tookAt', tookAt);
-      // UUIDで新しいファイル名を生成
-      const newFileName = `${uuidv4()}.jpg`;
-      console.log('newFileName', newFileName);
-      // バケットにアップロード（メタデータにtag_idと撮影日時を含める）
-      console.log('start newFile.save');
-      const newFile = bucket.file(newFileName);
-      await newFile.save(compressedBuffer, {
-        metadata: {
-          contentType: 'image/jpeg',
-          metadata: {
-            tag_id: tagId,
-            original_name: entry.entryName,
-            took_at: tookAt.toISOString(), // 撮影日時を追加
-          },
-        },
-      });
-      console.log('newFile', newFile);
-      // サムネイル用の画像をバケットにアップロード
-      const smallNewFile = bucket.file(`small_${newFileName}`);
-      await smallNewFile.save(smallCompressedBuffer, {
-        metadata: {
-          contentType: 'image/jpeg',
-        },
-      });
-      console.log('smallNewFile', smallNewFile);
-    }
+        const [compressedBuffer, smallCompressedBuffer, metadata] = await Promise.all([
+          sharp(imageBuffer).jpeg({quality: 70}).toBuffer(),
+          sharp(imageBuffer).resize(500).jpeg({quality: 70}).toBuffer(),
+          sharp(imageBuffer).metadata(),
+        ]);
+        console.log('end sharp');
+
+        // 画像のメタデータを取得
+        const exif = metadata.exif as any;
+        const tookAt = exif?.DateTimeOriginal
+          ? new Date(exif.DateTimeOriginal.replace(':', '-').replace(':', '-'))
+          : new Date();
+
+        // UUIDで新しいファイル名を生成
+        const newFileName = `${uuidv4()}.jpg`;
+
+        // バケットにアップロード（メタデータにtag_idと撮影日時を含める）
+        const newFile = bucket.file(newFileName);
+        const smallNewFile = bucket.file(`small_${newFileName}`);
+
+        await Promise.all([
+          newFile.save(compressedBuffer, {
+            metadata: {
+              contentType: 'image/jpeg',
+              metadata: {
+                tag_id: tagId,
+                original_name: entry.entryName,
+                took_at: tookAt.toISOString(), // 撮影日時を追加
+              },
+            },
+          }),
+          // サムネイル用の画像をバケットにアップロード
+          smallNewFile.save(smallCompressedBuffer, {
+            metadata: {
+              contentType: 'image/jpeg',
+            },
+          }),
+        ]);
+      })
+    );
 
     // 3. 解凍したZipファイルを削除
     await file.delete();

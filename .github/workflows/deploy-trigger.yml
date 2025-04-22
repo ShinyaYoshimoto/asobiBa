@@ -36,22 +36,6 @@ jobs:
       - name: Set up Cloud SDK
         uses: google-github-actions/setup-gcloud@v2
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '20'
-
-      - name: Install pnpm
-        run: npm install -g pnpm
-
-      - name: Install dependencies
-        run: |
-          pnpm install
-
-      - name: Build
-        run: |
-          pnpm build
-
       - name: Deploy trigger
         run: |
           gcloud functions deploy ${{ inputs.trigger-name }} \
@@ -62,7 +46,5 @@ jobs:
             --trigger-event-filters="type=google.cloud.storage.object.v1.finalized" \
             --trigger-event-filters="bucket=${{ secrets.GCS_BUCKET_NAME }}" \
             --entry-point ${{ inputs.trigger-name }} \
-            --memory=2048MB \
-            --cpu=1 \
             --set-env-vars BUCKET_NAME=${{ secrets.GCS_BUCKET_NAME }} \
             --set-env-vars API_ENDPOINT=${{ secrets.API_ENDPOINT }}
