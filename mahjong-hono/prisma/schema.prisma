@@ -50,6 +50,7 @@ model Photo {
   fileName String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  description String?
 
   photoTags PhotoTag[]
   account Account @relation(fields: [accountId], references: [id], onDelete: Cascade)

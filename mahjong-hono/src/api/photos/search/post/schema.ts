@@ -21,5 +21,6 @@ export const responseBodySchema = z.array(
         name: z.string(),
       })
     ),
+    description: z.string(),
   })
 );

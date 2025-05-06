@@ -5,6 +5,7 @@ export const PhotoSchema = z.object({
   fileName: z.string(),
   date: z.date(),
   tags: z.array(z.object({id: z.string(), name: z.string()})),
+  description: z.string().optional(),
 });
 
 export class Photo {
@@ -25,4 +26,5 @@ export class Photo {
   public fileName = () => this.data.fileName;
   public date = () => this.data.date;
   public tags = () => this.data.tags;
+  public description = () => this.data.description;
 }

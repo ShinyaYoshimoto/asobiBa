@@ -154,7 +154,8 @@ exports.Prisma.PhotoScalarFieldEnum = {
   accountId: 'accountId',
   fileName: 'fileName',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  description: 'description'
 };
 
 exports.Prisma.TagScalarFieldEnum = {

@@ -4230,6 +4230,7 @@ export namespace Prisma {
     fileName: string | null
     createdAt: Date | null
     updatedAt: Date | null
+    description: string | null
   }
 
   export type PhotoMaxAggregateOutputType = {
@@ -4238,6 +4239,7 @@ export namespace Prisma {
     fileName: string | null
     createdAt: Date | null
     updatedAt: Date | null
+    description: string | null
   }
 
   export type PhotoCountAggregateOutputType = {
@@ -4246,6 +4248,7 @@ export namespace Prisma {
     fileName: number
     createdAt: number
     updatedAt: number
+    description: number
     _all: number
   }
 
@@ -4256,6 +4259,7 @@ export namespace Prisma {
     fileName?: true
     createdAt?: true
     updatedAt?: true
+    description?: true
   }
 
   export type PhotoMaxAggregateInputType = {
@@ -4264,6 +4268,7 @@ export namespace Prisma {
     fileName?: true
     createdAt?: true
     updatedAt?: true
+    description?: true
   }
 
   export type PhotoCountAggregateInputType = {
@@ -4272,6 +4277,7 @@ export namespace Prisma {
     fileName?: true
     createdAt?: true
     updatedAt?: true
+    description?: true
     _all?: true
   }
 
@@ -4353,6 +4359,7 @@ export namespace Prisma {
     fileName: string
     createdAt: Date
     updatedAt: Date
+    description: string | null
     _count: PhotoCountAggregateOutputType | null
     _min: PhotoMinAggregateOutputType | null
     _max: PhotoMaxAggregateOutputType | null
@@ -4378,6 +4385,7 @@ export namespace Prisma {
     fileName?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    description?: boolean
     photoTags?: boolean | Photo$photoTagsArgs<ExtArgs>
     account?: boolean | AccountDefaultArgs<ExtArgs>
     _count?: boolean | PhotoCountOutputTypeDefaultArgs<ExtArgs>
@@ -4389,6 +4397,7 @@ export namespace Prisma {
     fileName?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    description?: boolean
     account?: boolean | AccountDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["photo"]>
 
@@ -4398,6 +4407,7 @@ export namespace Prisma {
     fileName?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    description?: boolean
   }
 
   export type PhotoInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4421,6 +4431,7 @@ export namespace Prisma {
       fileName: string
       createdAt: Date
       updatedAt: Date
+      description: string | null
     }, ExtArgs["result"]["photo"]>
     composites: {}
   }
@@ -4821,6 +4832,7 @@ export namespace Prisma {
     readonly fileName: FieldRef<"Photo", 'String'>
     readonly createdAt: FieldRef<"Photo", 'DateTime'>
     readonly updatedAt: FieldRef<"Photo", 'DateTime'>
+    readonly description: FieldRef<"Photo", 'String'>
   }
     
 
@@ -7114,7 +7126,8 @@ export namespace Prisma {
     accountId: 'accountId',
     fileName: 'fileName',
     createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
+    updatedAt: 'updatedAt',
+    description: 'description'
   };
 
   export type PhotoScalarFieldEnum = (typeof PhotoScalarFieldEnum)[keyof typeof PhotoScalarFieldEnum]
@@ -7426,6 +7439,7 @@ export namespace Prisma {
     fileName?: StringFilter<"Photo"> | string
     createdAt?: DateTimeFilter<"Photo"> | Date | string
     updatedAt?: DateTimeFilter<"Photo"> | Date | string
+    description?: StringNullableFilter<"Photo"> | string | null
     photoTags?: PhotoTagListRelationFilter
     account?: XOR<AccountRelationFilter, AccountWhereInput>
   }
@@ -7436,6 +7450,7 @@ export namespace Prisma {
     fileName?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    description?: SortOrderInput | SortOrder
     photoTags?: PhotoTagOrderByRelationAggregateInput
     account?: AccountOrderByWithRelationInput
   }
@@ -7449,6 +7464,7 @@ export namespace Prisma {
     fileName?: StringFilter<"Photo"> | string
     createdAt?: DateTimeFilter<"Photo"> | Date | string
     updatedAt?: DateTimeFilter<"Photo"> | Date | string
+    description?: StringNullableFilter<"Photo"> | string | null
     photoTags?: PhotoTagListRelationFilter
     account?: XOR<AccountRelationFilter, AccountWhereInput>
   }, "id">
@@ -7459,6 +7475,7 @@ export namespace Prisma {
     fileName?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    description?: SortOrderInput | SortOrder
     _count?: PhotoCountOrderByAggregateInput
     _max?: PhotoMaxOrderByAggregateInput
     _min?: PhotoMinOrderByAggregateInput
@@ -7473,6 +7490,7 @@ export namespace Prisma {
     fileName?: StringWithAggregatesFilter<"Photo"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Photo"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Photo"> | Date | string
+    description?: StringNullableWithAggregatesFilter<"Photo"> | string | null
   }
 
   export type TagWhereInput = {
@@ -7790,6 +7808,7 @@ export namespace Prisma {
     fileName: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    description?: string | null
     photoTags?: PhotoTagCreateNestedManyWithoutPhotoInput
     account: AccountCreateNestedOneWithoutPhotosInput
   }
@@ -7800,6 +7819,7 @@ export namespace Prisma {
     fileName: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    description?: string | null
     photoTags?: PhotoTagUncheckedCreateNestedManyWithoutPhotoInput
   }
 
@@ -7808,6 +7828,7 @@ export namespace Prisma {
     fileName?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     photoTags?: PhotoTagUpdateManyWithoutPhotoNestedInput
     account?: AccountUpdateOneRequiredWithoutPhotosNestedInput
   }
@@ -7818,6 +7839,7 @@ export namespace Prisma {
     fileName?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     photoTags?: PhotoTagUncheckedUpdateManyWithoutPhotoNestedInput
   }
 
@@ -7827,6 +7849,7 @@ export namespace Prisma {
     fileName: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    description?: string | null
   }
 
   export type PhotoUpdateManyMutationInput = {
@@ -7834,6 +7857,7 @@ export namespace Prisma {
     fileName?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type PhotoUncheckedUpdateManyInput = {
@@ -7842,6 +7866,7 @@ export namespace Prisma {
     fileName?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type TagCreateInput = {
@@ -8201,6 +8226,21 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
+  export type StringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
   export type PhotoTagListRelationFilter = {
     every?: PhotoTagWhereInput
     some?: PhotoTagWhereInput
@@ -8222,6 +8262,7 @@ export namespace Prisma {
     fileName?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    description?: SortOrder
   }
 
   export type PhotoMaxOrderByAggregateInput = {
@@ -8230,6 +8271,7 @@ export namespace Prisma {
     fileName?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    description?: SortOrder
   }
 
   export type PhotoMinOrderByAggregateInput = {
@@ -8238,6 +8280,25 @@ export namespace Prisma {
     fileName?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    description?: SortOrder
+  }
+
+  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type TagAccountIdNameCompoundUniqueInput = {
@@ -8435,6 +8496,10 @@ export namespace Prisma {
     connectOrCreate?: PhotoTagCreateOrConnectWithoutPhotoInput | PhotoTagCreateOrConnectWithoutPhotoInput[]
     createMany?: PhotoTagCreateManyPhotoInputEnvelope
     connect?: PhotoTagWhereUniqueInput | PhotoTagWhereUniqueInput[]
+  }
+
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
   }
 
   export type PhotoTagUpdateManyWithoutPhotoNestedInput = {
@@ -8702,11 +8767,43 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type NestedStringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
+  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
   export type PhotoCreateWithoutAccountInput = {
     id?: string
     fileName: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    description?: string | null
     photoTags?: PhotoTagCreateNestedManyWithoutPhotoInput
   }
 
@@ -8715,6 +8812,7 @@ export namespace Prisma {
     fileName: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    description?: string | null
     photoTags?: PhotoTagUncheckedCreateNestedManyWithoutPhotoInput
   }
 
@@ -8779,6 +8877,7 @@ export namespace Prisma {
     fileName?: StringFilter<"Photo"> | string
     createdAt?: DateTimeFilter<"Photo"> | Date | string
     updatedAt?: DateTimeFilter<"Photo"> | Date | string
+    description?: StringNullableFilter<"Photo"> | string | null
   }
 
   export type TagUpsertWithWhereUniqueWithoutAccountInput = {
@@ -8987,6 +9086,7 @@ export namespace Prisma {
     fileName: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    description?: string | null
     account: AccountCreateNestedOneWithoutPhotosInput
   }
 
@@ -8996,6 +9096,7 @@ export namespace Prisma {
     fileName: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    description?: string | null
   }
 
   export type PhotoCreateOrConnectWithoutPhotoTagsInput = {
@@ -9040,6 +9141,7 @@ export namespace Prisma {
     fileName?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     account?: AccountUpdateOneRequiredWithoutPhotosNestedInput
   }
 
@@ -9049,6 +9151,7 @@ export namespace Prisma {
     fileName?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type TagUpsertWithoutPhotoTagsInput = {
@@ -9083,6 +9186,7 @@ export namespace Prisma {
     fileName: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    description?: string | null
   }
 
   export type TagCreateManyAccountInput = {
@@ -9097,6 +9201,7 @@ export namespace Prisma {
     fileName?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     photoTags?: PhotoTagUpdateManyWithoutPhotoNestedInput
   }
 
@@ -9105,6 +9210,7 @@ export namespace Prisma {
     fileName?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     photoTags?: PhotoTagUncheckedUpdateManyWithoutPhotoNestedInput
   }
 
@@ -9113,6 +9219,7 @@ export namespace Prisma {
     fileName?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type TagUpdateWithoutAccountInput = {

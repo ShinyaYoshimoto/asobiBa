@@ -88,6 +88,7 @@ export class PhotosSearchPostHandler extends AbstractHandler {
         thumbnail_url: thumbnailSignedUrl[0],
         date: photo.date().toISOString(),
         tags: photo.tags(),
+        description: photo.description() ?? '',
       });
     }
     return list;

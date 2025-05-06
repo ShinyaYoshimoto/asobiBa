@@ -78,6 +78,7 @@ export class PhotoQueryPostgres implements PhotoQueryInterface {
           id: photoTag.tag.id,
           name: photoTag.tag.name,
         })),
+        description: photo.description ?? '',
       })
     );
   }
@@ -100,6 +101,7 @@ export class PhotoQueryPostgres implements PhotoQueryInterface {
         id: photoTag.tag.id,
         name: photoTag.tag.name,
       })),
+      description: photo.description ?? '',
     });
   }
 }
