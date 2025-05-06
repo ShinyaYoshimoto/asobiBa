@@ -15,6 +15,7 @@ import {scoresDeclarationsSummariesGetHandlerRoute} from './api/score-declaratio
 import {scoresDeclarationsPostRoute} from './api/score-declarations/post/route';
 import {ScoresDeclarationsPostHandler} from './api/score-declarations/post/handler';
 import {handsGet} from './api/hands/get';
+import {photosDescriptionPost} from './api/photos/description/post';
 import {photosSearchPostRoute} from './api/photos/search/post/route';
 import {PhotosSearchPostHandler} from './api/photos/search/post/handler';
 import {listTagsGetRoute} from './api/tags/get/route';
@@ -48,6 +49,8 @@ app.openapi(photosTagsPostRoute, new PhotosTagsPostHandler().execute);
 app.openapi(photosTagsDeleteRoute, new PhotosTagsDeleteHandler().execute);
 app.openapi(photosUploadSignedUrlPostRoute, new PhotosUploadSignedUrlPostHandler().execute);
 app.openapi(photosPostRoute, new PhotosPostHandler().execute);
+
+photosDescriptionPost(app);
 // TODO
 // - [ ] 認証できるようにし、ユーザーごとに回答を保持、取得できるようにする
 

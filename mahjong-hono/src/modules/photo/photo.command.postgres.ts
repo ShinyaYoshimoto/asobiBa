@@ -66,4 +66,19 @@ export class PhotoCommandPostgres implements PhotoCommandInterface {
       tags: photo.tags().filter(photoTag => photoTag.id !== tag.id()),
     });
   }
+
+  public async updateDescription(photo: Photo, description: string): Promise<Photo> {
+    const updatedPhoto = await this.prisma.photo.update({
+      where: {id: photo.id()},
+      data: {description},
+    });
+
+    return Photo.reconstruct({
+      id: updatedPhoto.id,
+      fileName: updatedPhoto.fileName,
+      date: updatedPhoto.createdAt,
+      tags: photo.tags(),
+      description: updatedPhoto.description ?? '',
+    });
+  }
 }
