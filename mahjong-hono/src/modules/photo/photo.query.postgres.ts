@@ -10,7 +10,7 @@ export class PhotoQueryPostgres implements PhotoQueryInterface {
 
     // FIXME: 本当はValueObject作るとかしたほうがいい
     const startDate = new Date(date.getFullYear(), date.getMonth(), 1);
-    const endDate = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+    const endDate = new Date(date.getFullYear(), date.getMonth() + 1, 1);
 
     const lastCreatedAt = lastId
       ? (
