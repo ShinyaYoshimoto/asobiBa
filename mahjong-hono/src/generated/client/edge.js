@@ -176,7 +176,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "/Users/ysmt/repo/github.com/ShinyaYoshimoto/asobiBa/mahjong-hono/src/generated/client",
+      "value": "/home/runner/work/asobiBa/asobiBa/mahjong-hono/src/generated/client",
       "fromEnvVar": null
     },
     "config": {
@@ -185,7 +185,7 @@ const config = {
     "binaryTargets": [
       {
         "fromEnvVar": null,
-        "value": "darwin-arm64",
+        "value": "debian-openssl-3.0.x",
         "native": true
       },
       {
@@ -194,12 +194,11 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "/Users/ysmt/repo/github.com/ShinyaYoshimoto/asobiBa/mahjong-hono/prisma/schema.prisma",
+    "sourceFilePath": "/home/runner/work/asobiBa/asobiBa/mahjong-hono/prisma/schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
-    "rootEnvPath": null,
-    "schemaEnvPath": "../../../.env"
+    "rootEnvPath": null
   },
   "relativePath": "../../../prisma",
   "clientVersion": "5.22.0",
@@ -208,6 +207,8 @@ const config = {
     "db"
   ],
   "activeProvider": "postgresql",
+  "postinstall": true,
+  "ciName": "GitHub Actions",
   "inlineDatasources": {
     "db": {
       "url": {
