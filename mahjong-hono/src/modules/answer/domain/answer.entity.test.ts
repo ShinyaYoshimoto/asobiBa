@@ -1,3 +1,4 @@
+import {describe, it, expect} from 'vitest';
 import {AnswerEntity, AnswerSchema} from './answer.entity';
 
 describe('AnswerEntity', () => {

@@ -1,3 +1,4 @@
+import {describe, it, expect} from 'vitest';
 import {ScoreQueryOnMemory} from './score.query.memory';
 
 describe('取扱可能な点数パターンを取得する', () => {

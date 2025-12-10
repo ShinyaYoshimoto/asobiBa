@@ -1,19 +1,20 @@
+import {describe, it, expect, beforeEach, vi} from 'vitest';
 import app from '../../../../app';
 import {Photo} from '../../../../modules/photo/photo.entity';
 import {PhotoQueryPostgres} from '../../../../modules/photo/photo.query.postgres';
 
-jest.mock('../../../../modules/photo/photo.query.postgres');
+vi.mock('../../../../modules/photo/photo.query.postgres');
 
 describe('POST /photos/search', () => {
   describe('正常系', () => {
     beforeEach(() => {
-      (PhotoQueryPostgres.prototype.list as jest.Mock).mockClear();
+      vi.mocked(PhotoQueryPostgres.prototype.list).mockClear();
     });
     it('オプションの指定なし', async () => {
       // Arrange
 
       // モックの実装
-      (PhotoQueryPostgres.prototype.list as jest.Mock).mockResolvedValue([
+      vi.mocked(PhotoQueryPostgres.prototype.list).mockResolvedValue([
         Photo.reconstruct({
           id: '1',
           fileName: 'test.jpg',
