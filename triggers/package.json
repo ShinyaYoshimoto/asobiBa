@@ -3,7 +3,7 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc --project tsconfig.json",
-    "test": "vitest run --reporter=verbose --silent=false",
+    "test": "vitest run --reporter=verbose",
     "lint": "eslint .",
     "lint:fix": "eslint --fix ."
   },
