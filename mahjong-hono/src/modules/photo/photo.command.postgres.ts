@@ -1,13 +1,13 @@
-import {PrismaClient} from '../../generated/client';
-import {PhotoCommandInterface} from './photo.command';
+import type {PrismaClient} from '../../generated/client';
+import type {PhotoCommandInterface} from './photo.command';
 import {Photo} from './photo.entity';
-import {Tag} from './tag/tag.entity';
+import type {Tag} from './tag/tag.entity';
 
 export class PhotoCommandPostgres implements PhotoCommandInterface {
   constructor(private readonly prisma: PrismaClient) {}
 
   public async create(photo: Photo): Promise<Photo> {
-    const newPhoto = await this.prisma.photo.create({
+    const _newPhoto = await this.prisma.photo.create({
       data: {
         // FIXME: 現状は固定値で入れておく。ごめん。
         accountId: 'c2e9e129-e6fd-407b-8b21-1f359d7c5b37',

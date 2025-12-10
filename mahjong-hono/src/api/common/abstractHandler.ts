@@ -1,6 +1,6 @@
-import {Context} from 'hono';
-import {HandlerInterface} from './handlerInterface';
-import {basicLogger, loggerInterface} from '../../utils/logger';
+import type {Context} from 'hono';
+import {basicLogger, type loggerInterface} from '../../utils/logger';
+import type {HandlerInterface} from './handlerInterface';
 
 export abstract class AbstractHandler implements HandlerInterface {
   protected logger: loggerInterface;

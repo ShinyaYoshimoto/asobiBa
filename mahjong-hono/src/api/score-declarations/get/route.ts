@@ -1,6 +1,6 @@
 import {createRoute} from '@hono/zod-openapi';
-import {responseBodySchema} from './schema';
 import {errorResponseSchema} from '../../common/schema';
+import {responseBodySchema} from './schema';
 
 const description = `
 ## 概要（何ができるか）

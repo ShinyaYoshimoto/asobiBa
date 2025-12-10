@@ -1,9 +1,9 @@
-import {Context} from 'hono';
-import {loggerInterface} from '../../../utils/logger';
-import {AbstractHandler} from '../../common/abstractHandler';
+import type {Context} from 'hono';
 import {PrismaClient} from '../../../generated/client';
-import {HandQueryInterface} from '../../../modules/hand/domain/hand.query';
+import type {HandQueryInterface} from '../../../modules/hand/domain/hand.query';
 import {HandQueryRDB} from '../../../modules/hand/infrastructure/hand.query.rdb';
+import type {loggerInterface} from '../../../utils/logger';
+import {AbstractHandler} from '../../common/abstractHandler';
 
 export class HandsGetHander extends AbstractHandler {
   private prismaClient: PrismaClient;

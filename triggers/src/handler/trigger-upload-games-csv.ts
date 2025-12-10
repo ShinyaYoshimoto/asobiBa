@@ -21,7 +21,7 @@ export class TriggerUploadGamesCsv {
     const bucket = storage.bucket(bucketName);
     const file = bucket.file(fileName);
 
-    if (!this.validate(fileName)) {
+    if (!TriggerUploadGamesCsv.validate(fileName)) {
       return;
     }
 
@@ -80,7 +80,6 @@ export class TriggerUploadGamesCsv {
   };
 }
 
-
 const logic = (param: any): playerPoint[] => {
   const list = [
     {
@@ -138,11 +137,14 @@ const logic = (param: any): playerPoint[] => {
 };
 
 const groupBy = <T extends {[key: string]: any}>(objects: T[], key: keyof T): Array<{key: string; values: T[]}> => {
-  const map = objects.reduce((map, obj) => {
-    map[obj[key]] = map[obj[key]] || [];
-    map[obj[key]].push(obj);
-    return map;
-  }, {} as {[key: string]: T[]});
+  const map = objects.reduce(
+    (map, obj) => {
+      map[obj[key]] = map[obj[key]] || [];
+      map[obj[key]].push(obj);
+      return map;
+    },
+    {} as {[key: string]: T[]}
+  );
 
   return Object.keys(map).map(k => ({key: k, values: map[k]}));
 };

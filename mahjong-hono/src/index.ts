@@ -1,6 +1,6 @@
 import {serve} from '@hono/node-server';
-import {basicLogger} from './utils/logger';
 import app from './app';
+import {basicLogger} from './utils/logger';
 
 // FIXME: ENVからportを取得
 const port = 8080;

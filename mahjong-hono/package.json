@@ -5,8 +5,9 @@
     "build": "tsc && copyfiles -u 1 \"src/generated/**/*\" dist",
     "test": "vitest run --reporter=verbose --silent=true",
     "prd": "pnpm run build && node dist/index.js",
-    "lint": "eslint .",
-    "lint:fix": "eslint --fix .",
+    "lint": "biome check .",
+    "lint:fix": "biome check --write .",
+    "format": "biome format --write .",
     "prisma:generate": "prisma generate",
     "prisma:studio": "prisma studio",
     "prisma:migrate": "prisma migrate dev"
@@ -21,11 +22,9 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
+    "@biomejs/biome": "2.3.8",
     "@types/node": "^20.11.17",
-    "@typescript-eslint/eslint-plugin": "^8.6.0",
-    "@typescript-eslint/parser": "^8.6.0",
     "copyfiles": "^2.4.1",
-    "eslint": "^9.10.0",
     "prisma": "^5.20.0",
     "ts-node": "^10.9.2",
     "tsx": "^4.7.1",

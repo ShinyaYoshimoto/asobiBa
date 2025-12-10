@@ -1,6 +1,6 @@
+import type {PrismaClient} from '../../generated/client';
 import {Photo} from './photo.entity';
-import {PhotoQueryInterface} from './photo.query';
-import {PrismaClient} from '../../generated/client';
+import type {PhotoQueryInterface} from './photo.query';
 
 export class PhotoQueryPostgres implements PhotoQueryInterface {
   constructor(private readonly prisma: PrismaClient) {}
