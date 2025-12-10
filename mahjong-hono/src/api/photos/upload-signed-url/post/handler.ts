@@ -4,7 +4,12 @@ import type {Context} from 'hono';
 import type {z} from 'zod';
 import {AbstractHandler} from '../../../common/abstractHandler';
 import {requestBodySchema, type responseBodySchema} from './schema';
+import type {loggerInterface} from '../../../../utils/logger';
 export class PhotosUploadSignedUrlPostHandler extends AbstractHandler {
+  constructor(dep?: {logger?: loggerInterface}) {
+    super(dep);
+  }
+
   execute = async (c: Context) => {
     try {
       const requestBody = requestBodySchema.safeParse(await c.req.json());
