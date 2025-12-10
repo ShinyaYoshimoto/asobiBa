@@ -1,34 +1,33 @@
 import {swaggerUI} from '@hono/swagger-ui';
 import {OpenAPIHono} from '@hono/zod-openapi';
-
+import {cors} from 'hono/cors';
+import {handsGet} from './api/hands/get';
+import {photosDescriptionPost} from './api/photos/description/post';
+import {PhotosPostHandler} from './api/photos/post/handler';
+import {photosPostRoute} from './api/photos/post/route';
+import {PhotosSearchPostHandler} from './api/photos/search/post/handler';
+import {photosSearchPostRoute} from './api/photos/search/post/route';
+import {PhotosTagsDeleteHandler} from './api/photos/tags/delete/handler';
+import {photosTagsDeleteRoute} from './api/photos/tags/delete/route';
+import {PhotosTagsPostHandler} from './api/photos/tags/post/handler';
+import {photosTagsPostRoute} from './api/photos/tags/post/route';
+import {PhotosUploadSignedUrlPostHandler} from './api/photos/upload-signed-url/post/handler';
+import {photosUploadSignedUrlPostRoute} from './api/photos/upload-signed-url/post/route';
+import {ScoresDeclarationsCalculatePostHandlerHandler} from './api/score-declarations/calculate/post/handler';
 // FIXME: APIを増やすたびに、RouterとHandlerを追加する必要があり、ちょっと冗長な気もする
 import {scoresDeclarationsCalculatePostRoute} from './api/score-declarations/calculate/post/route';
-import {ScoresDeclarationsCalculatePostHandlerHandler} from './api/score-declarations/calculate/post/handler';
-import {scoresAnswerPostRoute} from './api/scores/answer/post/route';
-import {ScoresAnswerPostHandler} from './api/scores/answer/post/handler';
 import {ScoresDeclarationsGetHandler} from './api/score-declarations/get/handler';
 import {scoresDeclarationsGetRoute} from './api/score-declarations/get/route';
-import {ScoresDeclarationsSummariesGetHandler} from './api/score-declarations/summaries/get/handler';
-import {scoresDeclarationsSummariesGetHandlerRoute} from './api/score-declarations/summaries/get/route';
+import {ScoresDeclarationsPostHandler} from './api/score-declarations/post/handler';
 // import {handsGetRoute} from './api/hands/get/route';
 // import {HandsGetHander} from './api/hands/get/handler';
 import {scoresDeclarationsPostRoute} from './api/score-declarations/post/route';
-import {ScoresDeclarationsPostHandler} from './api/score-declarations/post/handler';
-import {handsGet} from './api/hands/get';
-import {photosDescriptionPost} from './api/photos/description/post';
-import {photosSearchPostRoute} from './api/photos/search/post/route';
-import {PhotosSearchPostHandler} from './api/photos/search/post/handler';
-import {listTagsGetRoute} from './api/tags/get/route';
+import {ScoresDeclarationsSummariesGetHandler} from './api/score-declarations/summaries/get/handler';
+import {scoresDeclarationsSummariesGetHandlerRoute} from './api/score-declarations/summaries/get/route';
+import {ScoresAnswerPostHandler} from './api/scores/answer/post/handler';
+import {scoresAnswerPostRoute} from './api/scores/answer/post/route';
 import {ListTagsGetHandler} from './api/tags/get/handler';
-import {cors} from 'hono/cors';
-import {photosTagsPostRoute} from './api/photos/tags/post/route';
-import {PhotosTagsPostHandler} from './api/photos/tags/post/handler';
-import {photosTagsDeleteRoute} from './api/photos/tags/delete/route';
-import {PhotosTagsDeleteHandler} from './api/photos/tags/delete/handler';
-import {photosUploadSignedUrlPostRoute} from './api/photos/upload-signed-url/post/route';
-import {PhotosUploadSignedUrlPostHandler} from './api/photos/upload-signed-url/post/handler';
-import {photosPostRoute} from './api/photos/post/route';
-import {PhotosPostHandler} from './api/photos/post/handler';
+import {listTagsGetRoute} from './api/tags/get/route';
 
 const app = new OpenAPIHono({});
 

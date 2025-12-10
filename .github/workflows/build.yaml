@@ -34,7 +34,7 @@ jobs:
           cd ./mahjong-hono  # 必要に応じてディレクトリを変更
           pnpm install
 
-      - name: Run ESLint
+      - name: Run Biome
         run: |
           cd ./mahjong-hono  # 必要に応じてディレクトリを変更
           pnpm run lint

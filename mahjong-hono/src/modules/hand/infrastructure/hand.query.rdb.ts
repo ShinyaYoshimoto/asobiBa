@@ -1,6 +1,6 @@
-import {HandQueryInterface} from '../domain/hand.query';
-import {PrismaClient} from '../../../generated/client';
+import type {PrismaClient} from '../../../generated/client';
 import {Hand} from '../domain/hand.entity';
+import type {HandQueryInterface} from '../domain/hand.query';
 
 export class HandQueryRDB implements HandQueryInterface {
   constructor(private readonly prisma: PrismaClient) {}
