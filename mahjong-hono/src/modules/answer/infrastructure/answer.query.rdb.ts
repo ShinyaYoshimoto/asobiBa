@@ -1,9 +1,9 @@
-import {AnswerQueryInterface} from '../domain/answer.query';
-import {AnswerEntity, AnswerSchema} from '../domain/answer.entity';
-import {PrismaClient} from '../../../generated/client';
-import {z} from 'zod';
-import {AnswerSummarySchema} from '../domain/summary.value';
+import type {z} from 'zod';
+import type {PrismaClient} from '../../../generated/client';
 import {ArrayUtil} from '../../../utils/array';
+import {AnswerEntity, AnswerSchema} from '../domain/answer.entity';
+import type {AnswerQueryInterface} from '../domain/answer.query';
+import type {AnswerSummarySchema} from '../domain/summary.value';
 
 export class AnswerQueryRdb implements AnswerQueryInterface {
   constructor(private readonly prisma: PrismaClient) {}

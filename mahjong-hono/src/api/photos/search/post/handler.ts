@@ -1,13 +1,13 @@
-import {Context} from 'hono';
-import {requestBodySchema, responseBodySchema} from './schema';
-import {PrismaClient} from '../../../../generated/client';
-import {z} from 'zod';
-import {loggerInterface} from '../../../../utils/logger';
-import {AbstractHandler} from '../../../common/abstractHandler';
-import {PhotoQueryInterface} from '../../../../modules/photo/photo.query';
-import {PhotoQueryPostgres} from '../../../../modules/photo/photo.query.postgres';
+import {Buffer} from 'node:buffer';
 import {Storage} from '@google-cloud/storage';
-import {Buffer} from 'buffer';
+import type {Context} from 'hono';
+import type {z} from 'zod';
+import {PrismaClient} from '../../../../generated/client';
+import type {PhotoQueryInterface} from '../../../../modules/photo/photo.query';
+import {PhotoQueryPostgres} from '../../../../modules/photo/photo.query.postgres';
+import type {loggerInterface} from '../../../../utils/logger';
+import {AbstractHandler} from '../../../common/abstractHandler';
+import {requestBodySchema, type responseBodySchema} from './schema';
 export class PhotosSearchPostHandler extends AbstractHandler {
   private readonly photoQuery: PhotoQueryInterface;
   private readonly prismaClient: PrismaClient;

@@ -1,14 +1,14 @@
-import {Context} from 'hono';
-import {requestBodySchema} from './schema';
+import type {Context} from 'hono';
+import type {z} from 'zod';
 import {PrismaClient} from '../../../generated/client';
-import {z} from 'zod';
-import {loggerInterface} from '../../../utils/logger';
-import {AbstractHandler} from '../../common/abstractHandler';
-import {TagQueryInterface} from '../../../modules/photo/tag/tag.query';
-import {TagQueryPostgres} from '../../../modules/photo/tag/tag.query.postgres';
-import {PhotoCommandInterface} from '../../../modules/photo/photo.command';
+import type {PhotoCommandInterface} from '../../../modules/photo/photo.command';
 import {PhotoCommandPostgres} from '../../../modules/photo/photo.command.postgres';
 import {Photo} from '../../../modules/photo/photo.entity';
+import type {TagQueryInterface} from '../../../modules/photo/tag/tag.query';
+import {TagQueryPostgres} from '../../../modules/photo/tag/tag.query.postgres';
+import type {loggerInterface} from '../../../utils/logger';
+import {AbstractHandler} from '../../common/abstractHandler';
+import {requestBodySchema} from './schema';
 
 export class PhotosPostHandler extends AbstractHandler {
   private readonly prismaClient: PrismaClient;

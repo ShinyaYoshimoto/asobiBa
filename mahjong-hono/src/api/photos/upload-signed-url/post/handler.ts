@@ -1,15 +1,10 @@
-import {Context} from 'hono';
-import {requestBodySchema, responseBodySchema} from './schema';
-import {z} from 'zod';
-import {loggerInterface} from '../../../../utils/logger';
-import {AbstractHandler} from '../../../common/abstractHandler';
+import {Buffer} from 'node:buffer';
 import {Storage} from '@google-cloud/storage';
-import {Buffer} from 'buffer';
+import type {Context} from 'hono';
+import type {z} from 'zod';
+import {AbstractHandler} from '../../../common/abstractHandler';
+import {requestBodySchema, type responseBodySchema} from './schema';
 export class PhotosUploadSignedUrlPostHandler extends AbstractHandler {
-  constructor(dep?: {logger?: loggerInterface}) {
-    super(dep);
-  }
-
   execute = async (c: Context) => {
     try {
       const requestBody = requestBodySchema.safeParse(await c.req.json());
@@ -52,7 +47,7 @@ export class PhotosUploadSignedUrlPostHandler extends AbstractHandler {
 
     // アンダースコア区切りでタグIDをつける（最大3つまで）
     const fileName =
-      tag_ids && tag_ids.length > 0 ? now.valueOf() + '_' + tag_ids.join('_') + '.zip' : now.valueOf() + '.zip';
+      tag_ids && tag_ids.length > 0 ? `${now.valueOf()}_${tag_ids.join('_')}.zip` : `${now.valueOf()}.zip`;
 
     const file = bucket.file(fileName);
 

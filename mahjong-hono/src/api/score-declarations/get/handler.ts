@@ -1,9 +1,9 @@
-import {Context} from 'hono';
-import {AnswerQueryRdb} from '../../../modules/answer/infrastructure/answer.query.rdb';
+import type {Context} from 'hono';
 import {PrismaClient} from '../../../generated/client';
-import {AnswerQueryInterface} from '../../../modules/answer/domain/answer.query';
+import type {AnswerQueryInterface} from '../../../modules/answer/domain/answer.query';
+import {AnswerQueryRdb} from '../../../modules/answer/infrastructure/answer.query.rdb';
+import type {loggerInterface} from '../../../utils/logger';
 import {AbstractHandler} from '../../common/abstractHandler';
-import {loggerInterface} from '../../../utils/logger';
 
 export class ScoresDeclarationsGetHandler extends AbstractHandler {
   private readonly answerQuery: AnswerQueryInterface;
@@ -34,7 +34,7 @@ export class ScoresDeclarationsGetHandler extends AbstractHandler {
         },
         200
       );
-    } catch (e) {
+    } catch (_e) {
       // TODO: logging
       return c.json({message: 'Internal Server Error'}, 500);
     }

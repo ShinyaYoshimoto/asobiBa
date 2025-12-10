@@ -1,5 +1,5 @@
-import {PrismaClient} from '../../../generated/client';
-import {TagCommandInterface} from './tag.command';
+import type {PrismaClient} from '../../../generated/client';
+import type {TagCommandInterface} from './tag.command';
 import {Tag} from './tag.entity';
 
 export class TagCommandPostgres implements TagCommandInterface {

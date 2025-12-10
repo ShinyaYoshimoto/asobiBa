@@ -1,4 +1,4 @@
-import {Bucket, Storage} from '@google-cloud/storage';
+import {type Bucket, Storage} from '@google-cloud/storage';
 import AdmZip from 'adm-zip';
 import sharp from 'sharp';
 import {v4 as uuidv4} from 'uuid';
@@ -14,13 +14,13 @@ export class TriggerUploadGcs {
     const file = bucket.file(fileName);
 
     if (fileName.endsWith('.zip')) {
-      await this.zipHandler(file, bucket);
+      await TriggerUploadGcs.zipHandler(file, bucket);
     } else if (fileName.endsWith('.png') || fileName.endsWith('.jpg') || fileName.endsWith('.jpeg')) {
       if (fileName.startsWith('small_')) {
         // サムネイル用の画像なので、画像ハンドラを呼び出さない
         return;
       }
-      await this.imageHandler(file);
+      await TriggerUploadGcs.imageHandler(file);
     } else {
       throw new Error('Uploaded file is not a zip or image file.');
     }

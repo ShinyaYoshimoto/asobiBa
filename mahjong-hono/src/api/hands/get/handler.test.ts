@@ -1,8 +1,7 @@
 import app from '../../../app';
 
 describe('GET /hands', () => {
-  beforeEach(() => {
-  });
+  beforeEach(() => {});
 
   describe('正常系', () => {
     it('happy pattern', async () => {

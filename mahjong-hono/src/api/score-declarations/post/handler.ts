@@ -1,14 +1,14 @@
-import {Context} from 'hono';
-import {requestBodySchema, responseBodySchema} from './schema';
-import {ScoreQueryInterface} from '../../../modules/score/domain/score.query';
-import {ScoreQueryOnMemory} from '../../../modules/score/infrastructure/score.query.memory';
-import {AnswerCommandInterface} from '../../../modules/answer/domain/answer.command';
-import {AnswerCommandRdb} from '../../../modules/answer/infrastructure/answer.command.rdb';
+import type {Context} from 'hono';
+import type {z} from 'zod';
 import {PrismaClient} from '../../../generated/client';
+import type {AnswerCommandInterface} from '../../../modules/answer/domain/answer.command';
 import {AnswerEntity} from '../../../modules/answer/domain/answer.entity';
-import {z} from 'zod';
-import {loggerInterface} from '../../../utils/logger';
+import {AnswerCommandRdb} from '../../../modules/answer/infrastructure/answer.command.rdb';
+import type {ScoreQueryInterface} from '../../../modules/score/domain/score.query';
+import {ScoreQueryOnMemory} from '../../../modules/score/infrastructure/score.query.memory';
+import type {loggerInterface} from '../../../utils/logger';
 import {AbstractHandler} from '../../common/abstractHandler';
+import {requestBodySchema, type responseBodySchema} from './schema';
 
 export class ScoresDeclarationsPostHandler extends AbstractHandler {
   private readonly scoreQuery: ScoreQueryInterface;
@@ -37,7 +37,7 @@ export class ScoresDeclarationsPostHandler extends AbstractHandler {
 
       const result = await this.logic(requestBody.data);
       return c.json(result, 200);
-    } catch (e) {
+    } catch (_e) {
       this.logger.error('ScoresAnswerHandler: Internal Server Error');
       return c.json({message: 'Internal Server Error'}, 500);
     }
