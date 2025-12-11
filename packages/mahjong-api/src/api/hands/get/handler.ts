@@ -1,18 +1,15 @@
 import type {Context} from 'hono';
-import {PrismaClient} from '../../../generated/client';
 import type {HandQueryInterface} from '../../../modules/hand/domain/hand.query';
 import {HandQueryRDB} from '../../../modules/hand/infrastructure/hand.query.rdb';
 import type {loggerInterface} from '../../../utils/logger';
 import {AbstractHandler} from '../../common/abstractHandler';
 
 export class HandsGetHander extends AbstractHandler {
-  private prismaClient: PrismaClient;
   private handQuery: HandQueryInterface;
 
   constructor(dep?: {logger?: loggerInterface; handQuery?: HandQueryInterface}) {
     super(dep);
-    this.prismaClient = new PrismaClient();
-    this.handQuery = dep?.handQuery ?? new HandQueryRDB(this.prismaClient);
+    this.handQuery = dep?.handQuery ?? new HandQueryRDB();
   }
 
   execute = async (c: Context) => {

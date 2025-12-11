@@ -1,5 +1,4 @@
 import type {Context} from 'hono';
-import {PrismaClient} from '../../../generated/client';
 import type {AnswerQueryInterface} from '../../../modules/answer/domain/answer.query';
 import {AnswerQueryRdb} from '../../../modules/answer/infrastructure/answer.query.rdb';
 import type {loggerInterface} from '../../../utils/logger';
@@ -7,12 +6,10 @@ import {AbstractHandler} from '../../common/abstractHandler';
 
 export class ScoresDeclarationsGetHandler extends AbstractHandler {
   private readonly answerQuery: AnswerQueryInterface;
-  private readonly prismaClient: PrismaClient;
 
   constructor(dep?: {answerQuery?: AnswerQueryInterface; logger?: loggerInterface}) {
     super(dep);
-    this.prismaClient = new PrismaClient();
-    this.answerQuery = dep?.answerQuery ?? new AnswerQueryRdb(this.prismaClient);
+    this.answerQuery = dep?.answerQuery ?? new AnswerQueryRdb();
   }
 
   execute = async (c: Context) => {

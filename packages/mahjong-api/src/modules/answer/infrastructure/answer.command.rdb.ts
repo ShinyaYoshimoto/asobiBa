@@ -1,12 +1,10 @@
-import type {PrismaClient} from '../../../generated/client';
+import { db } from '@asobiba/common';
 import type {AnswerCommandInterface} from '../domain/answer.command';
 import {AnswerEntity, AnswerSchema} from '../domain/answer.entity';
 
 export class AnswerCommandRdb implements AnswerCommandInterface {
-  constructor(private readonly prisma: PrismaClient) {}
-
   async register(answer: AnswerEntity): Promise<AnswerEntity> {
-    const createdAnswer = await this.prisma.answer.create({
+    const createdAnswer = await db.answer.create({
       data: {
         isStartPlayer: answer.isStartPlayer(),
         isDraw: answer.isDraw(),

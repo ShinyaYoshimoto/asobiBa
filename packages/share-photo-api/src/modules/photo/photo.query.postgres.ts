@@ -1,10 +1,8 @@
-import type {PrismaClient} from '../../generated/client';
+import { db } from '@asobiba/common';
 import {Photo} from './photo.entity';
 import type {PhotoQueryInterface} from './photo.query';
 
 export class PhotoQueryPostgres implements PhotoQueryInterface {
-  constructor(private readonly prisma: PrismaClient) {}
-
   public async list(param: {limit: number; date: Date; tagId?: string; lastId?: string}): Promise<Photo[]> {
     const {limit, date, tagId, lastId} = param;
 
@@ -14,14 +12,14 @@ export class PhotoQueryPostgres implements PhotoQueryInterface {
 
     const lastCreatedAt = lastId
       ? (
-          await this.prisma.photo.findUnique({
+          await db.photo.findUnique({
             where: {id: lastId},
             select: {createdAt: true},
           })
         )?.createdAt
       : undefined;
 
-    const photos = await this.prisma.photo.findMany({
+    const photos = await db.photo.findMany({
       where: {
         // FIXME: 本当はaccountIdを指定する
         // accountId: 'clx00000000000000000000000',
@@ -86,7 +84,7 @@ export class PhotoQueryPostgres implements PhotoQueryInterface {
   public async find(param: {id: string}): Promise<Photo | undefined> {
     const {id} = param;
 
-    const photo = await this.prisma.photo.findUnique({
+    const photo = await db.photo.findUnique({
       where: {id},
       include: {photoTags: {include: {tag: true}}},
     });

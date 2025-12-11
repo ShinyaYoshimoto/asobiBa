@@ -1,13 +1,11 @@
-import type {PrismaClient} from '../../generated/client';
+import { db } from '@asobiba/common';
 import type {PhotoCommandInterface} from './photo.command';
 import {Photo} from './photo.entity';
 import type {Tag} from './tag/tag.entity';
 
 export class PhotoCommandPostgres implements PhotoCommandInterface {
-  constructor(private readonly prisma: PrismaClient) {}
-
   public async create(photo: Photo): Promise<Photo> {
-    const newPhoto = await this.prisma.photo.create({
+    const newPhoto = await db.photo.create({
       data: {
         // FIXME: 現状は固定値で入れておく。ごめん。
         accountId: 'c2e9e129-e6fd-407b-8b21-1f359d7c5b37',
@@ -24,7 +22,7 @@ export class PhotoCommandPostgres implements PhotoCommandInterface {
   }
 
   public async addTag(photo: Photo, tag: Tag): Promise<Photo> {
-    const newPhotoTag = await this.prisma.photoTag.create({
+    const newPhotoTag = await db.photoTag.create({
       data: {
         photoId: photo.id(),
         tagId: tag.id(),
@@ -50,7 +48,7 @@ export class PhotoCommandPostgres implements PhotoCommandInterface {
   }
 
   public async removeTag(photo: Photo, tag: Tag): Promise<Photo> {
-    await this.prisma.photoTag.delete({
+    await db.photoTag.delete({
       where: {
         photoId_tagId: {
           photoId: photo.id(),
@@ -68,7 +66,7 @@ export class PhotoCommandPostgres implements PhotoCommandInterface {
   }
 
   public async updateDescription(photo: Photo, description: string): Promise<Photo> {
-    const updatedPhoto = await this.prisma.photo.update({
+    const updatedPhoto = await db.photo.update({
       where: {id: photo.id()},
       data: {description},
     });

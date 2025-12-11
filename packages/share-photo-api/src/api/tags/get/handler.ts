@@ -1,5 +1,4 @@
 import type {Context} from 'hono';
-import {PrismaClient} from '../../../generated/client';
 import type {TagQueryInterface} from '../../../modules/photo/tag/tag.query';
 import {TagQueryPostgres} from '../../../modules/photo/tag/tag.query.postgres';
 import type {loggerInterface} from '../../../utils/logger';
@@ -7,12 +6,10 @@ import {AbstractHandler} from '../../common/abstractHandler';
 
 export class ListTagsGetHandler extends AbstractHandler {
   private readonly tagQuery: TagQueryInterface;
-  private readonly prismaClient: PrismaClient;
 
   constructor(dep?: {tagQuery?: TagQueryInterface; logger?: loggerInterface}) {
     super(dep);
-    this.prismaClient = new PrismaClient();
-    this.tagQuery = dep?.tagQuery ?? new TagQueryPostgres(this.prismaClient);
+    this.tagQuery = dep?.tagQuery ?? new TagQueryPostgres();
   }
 
   execute = async (c: Context) => {

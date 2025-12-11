@@ -1,6 +1,5 @@
 import type {Context} from 'hono';
 import type {z} from 'zod';
-import {PrismaClient} from '../../../../generated/client';
 import type {PhotoCommandInterface} from '../../../../modules/photo/photo.command';
 import {PhotoCommandPostgres} from '../../../../modules/photo/photo.command.postgres';
 import type {PhotoQueryInterface} from '../../../../modules/photo/photo.query';
@@ -16,7 +15,6 @@ import {requestBodySchema} from './schema';
 
 export class PhotosTagsDeleteHandler extends AbstractHandler {
   private readonly photoQuery: PhotoQueryInterface;
-  private readonly prismaClient: PrismaClient;
   private readonly tagQuery: TagQueryInterface;
   private readonly tagCommand: TagCommandInterface;
   private readonly photoCommand: PhotoCommandInterface;
@@ -28,11 +26,10 @@ export class PhotosTagsDeleteHandler extends AbstractHandler {
     logger?: loggerInterface;
   }) {
     super(dep);
-    this.prismaClient = new PrismaClient();
-    this.photoQuery = dep?.photoQuery ?? new PhotoQueryPostgres(this.prismaClient);
-    this.tagQuery = dep?.tagQuery ?? new TagQueryPostgres(this.prismaClient);
-    this.tagCommand = dep?.tagCommand ?? new TagCommandPostgres(this.prismaClient);
-    this.photoCommand = dep?.photoCommand ?? new PhotoCommandPostgres(this.prismaClient);
+    this.photoQuery = dep?.photoQuery ?? new PhotoQueryPostgres();
+    this.tagQuery = dep?.tagQuery ?? new TagQueryPostgres();
+    this.tagCommand = dep?.tagCommand ?? new TagCommandPostgres();
+    this.photoCommand = dep?.photoCommand ?? new PhotoCommandPostgres();
   }
 
   execute = async (c: Context) => {

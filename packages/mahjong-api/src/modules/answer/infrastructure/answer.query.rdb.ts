@@ -1,21 +1,19 @@
-import type {z} from 'zod';
-import type {PrismaClient} from '../../../generated/client';
+import type { z } from 'zod';
+import { db } from '@asobiba/common';
 import {ArrayUtil} from '../../../utils/array';
 import {AnswerEntity, AnswerSchema} from '../domain/answer.entity';
 import type {AnswerQueryInterface} from '../domain/answer.query';
 import type {AnswerSummarySchema} from '../domain/summary.value';
 
 export class AnswerQueryRdb implements AnswerQueryInterface {
-  constructor(private readonly prisma: PrismaClient) {}
-
   // FIXME: 一旦、雑に全件返している。この辺の対応はまたいつか
   async loadAll(): Promise<AnswerEntity[]> {
-    const answers = await this.prisma.answer.findMany();
+    const answers = await db.answer.findMany();
     return answers.map((answer) => AnswerEntity.reconstruct(AnswerSchema.parse(answer)));
   }
 
   async loadSummary(): Promise<z.infer<typeof AnswerSummarySchema>[]> {
-    const summaries = await this.prisma.answer.groupBy({
+    const summaries = await db.answer.groupBy({
       by: ['isStartPlayer', 'isDraw', 'fanCount', 'symbolCount', 'isCorrect'],
       _count: {
         _all: true,

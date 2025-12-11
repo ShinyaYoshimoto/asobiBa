@@ -1,6 +1,5 @@
 import type {Context} from 'hono';
 import type {z} from 'zod';
-import {PrismaClient} from '../../../generated/client';
 import type {PhotoCommandInterface} from '../../../modules/photo/photo.command';
 import {PhotoCommandPostgres} from '../../../modules/photo/photo.command.postgres';
 import {Photo} from '../../../modules/photo/photo.entity';
@@ -11,14 +10,12 @@ import {AbstractHandler} from '../../common/abstractHandler';
 import {requestBodySchema} from './schema';
 
 export class PhotosPostHandler extends AbstractHandler {
-  private readonly prismaClient: PrismaClient;
   private readonly photoCommand: PhotoCommandInterface;
   private readonly tagQuery: TagQueryInterface;
   constructor(dep?: {photoCommand?: PhotoCommandInterface; tagQuery?: TagQueryInterface; logger?: loggerInterface}) {
     super(dep);
-    this.prismaClient = new PrismaClient();
-    this.photoCommand = dep?.photoCommand ?? new PhotoCommandPostgres(this.prismaClient);
-    this.tagQuery = dep?.tagQuery ?? new TagQueryPostgres(this.prismaClient);
+    this.photoCommand = dep?.photoCommand ?? new PhotoCommandPostgres();
+    this.tagQuery = dep?.tagQuery ?? new TagQueryPostgres();
   }
 
   execute = async (c: Context) => {

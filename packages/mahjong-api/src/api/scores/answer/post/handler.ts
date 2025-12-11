@@ -1,6 +1,6 @@
 import type {Context} from 'hono';
 import type {z} from 'zod';
-import {PrismaClient} from '../../../../generated/client';
+import { db } from '@asobiba/common';
 import type {AnswerCommandInterface} from '../../../../modules/answer/domain/answer.command';
 import {AnswerEntity} from '../../../../modules/answer/domain/answer.entity';
 import {AnswerCommandRdb} from '../../../../modules/answer/infrastructure/answer.command.rdb';
@@ -13,7 +13,6 @@ import {requestBodySchema, type responseBodySchema} from './schema';
 export class ScoresAnswerPostHandler extends AbstractHandler {
   private readonly scoreQuery: ScoreQueryInterface;
   private readonly answerCommand: AnswerCommandInterface;
-  private readonly prismaClient: PrismaClient;
 
   constructor(dep?: {
     scoreQuery?: ScoreQueryInterface;
@@ -21,9 +20,8 @@ export class ScoresAnswerPostHandler extends AbstractHandler {
     logger?: loggerInterface;
   }) {
     super(dep);
-    this.prismaClient = new PrismaClient();
     this.scoreQuery = dep?.scoreQuery ?? new ScoreQueryOnMemory();
-    this.answerCommand = dep?.answerCommand ?? new AnswerCommandRdb(this.prismaClient);
+    this.answerCommand = dep?.answerCommand ?? new AnswerCommandRdb();
   }
 
   execute = async (c: Context) => {
@@ -68,11 +66,11 @@ export class ScoresAnswerPostHandler extends AbstractHandler {
             })
           )
           .then(async () => {
-            await this.prismaClient.$disconnect();
+            db.$disconnect();
           })
           .catch(async (e) => {
             this.logger.error(e);
-            await this.prismaClient.$disconnect();
+            db.$disconnect();
             throw e;
           });
 
@@ -99,11 +97,11 @@ export class ScoresAnswerPostHandler extends AbstractHandler {
             })
           )
           .then(async () => {
-            await this.prismaClient.$disconnect();
+            db.$disconnect();
           })
           .catch(async (e) => {
             this.logger.error(e);
-            await this.prismaClient.$disconnect();
+            db.$disconnect();
             throw e;
           });
 
@@ -134,11 +132,11 @@ export class ScoresAnswerPostHandler extends AbstractHandler {
             })
           )
           .then(async () => {
-            await this.prismaClient.$disconnect();
+            db.$disconnect();
           })
           .catch(async (e) => {
             this.logger.error(e);
-            await this.prismaClient.$disconnect();
+            db.$disconnect();
             throw e;
           });
 
@@ -166,11 +164,11 @@ export class ScoresAnswerPostHandler extends AbstractHandler {
             })
           )
           .then(async () => {
-            await this.prismaClient.$disconnect();
+            db.$disconnect();
           })
           .catch(async (e) => {
             this.logger.error(e);
-            await this.prismaClient.$disconnect();
+            db.$disconnect();
             throw e;
           });
 

@@ -1,6 +1,5 @@
 import type {Context} from 'hono';
 import type {z} from 'zod';
-import {PrismaClient} from '../../../../generated/client';
 import type {PhotoCommandInterface} from '../../../../modules/photo/photo.command';
 import {PhotoCommandPostgres} from '../../../../modules/photo/photo.command.postgres';
 import type {PhotoQueryInterface} from '../../../../modules/photo/photo.query';
@@ -11,7 +10,6 @@ import {requestBodySchema} from './schema';
 
 export class PhotosDescriptionPostHandler extends AbstractHandler {
   private readonly photoQuery: PhotoQueryInterface;
-  private readonly prismaClient: PrismaClient;
   private readonly photoCommand: PhotoCommandInterface;
   constructor(dep?: {
     photoQuery?: PhotoQueryInterface;
@@ -19,9 +17,8 @@ export class PhotosDescriptionPostHandler extends AbstractHandler {
     logger?: loggerInterface;
   }) {
     super(dep);
-    this.prismaClient = new PrismaClient();
-    this.photoQuery = dep?.photoQuery ?? new PhotoQueryPostgres(this.prismaClient);
-    this.photoCommand = dep?.photoCommand ?? new PhotoCommandPostgres(this.prismaClient);
+    this.photoQuery = dep?.photoQuery ?? new PhotoQueryPostgres();
+    this.photoCommand = dep?.photoCommand ?? new PhotoCommandPostgres();
   }
 
   execute = async (c: Context) => {

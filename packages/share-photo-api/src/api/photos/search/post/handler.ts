@@ -2,7 +2,6 @@ import {Buffer} from 'buffer';
 import {Storage} from '@google-cloud/storage';
 import type {Context} from 'hono';
 import type {z} from 'zod';
-import {PrismaClient} from '../../../../generated/client';
 import type {PhotoQueryInterface} from '../../../../modules/photo/photo.query';
 import {PhotoQueryPostgres} from '../../../../modules/photo/photo.query.postgres';
 import type {loggerInterface} from '../../../../utils/logger';
@@ -10,12 +9,10 @@ import {AbstractHandler} from '../../../common/abstractHandler';
 import {requestBodySchema, type responseBodySchema} from './schema';
 export class PhotosSearchPostHandler extends AbstractHandler {
   private readonly photoQuery: PhotoQueryInterface;
-  private readonly prismaClient: PrismaClient;
 
   constructor(dep?: {photoQuery?: PhotoQueryInterface; logger?: loggerInterface}) {
     super(dep);
-    this.prismaClient = new PrismaClient();
-    this.photoQuery = dep?.photoQuery ?? new PhotoQueryPostgres(this.prismaClient);
+    this.photoQuery = dep?.photoQuery ?? new PhotoQueryPostgres();
   }
 
   execute = async (c: Context) => {
