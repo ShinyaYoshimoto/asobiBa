@@ -17,6 +17,15 @@ importers:
       '@biomejs/biome':
         specifier: ^1.9.4
         version: 1.9.4
+      '@hono/node-server':
+        specifier: ^1.12.1
+        version: 1.19.7(hono@4.10.8)
+      '@hono/swagger-ui':
+        specifier: ^0.4.0
+        version: 0.4.1(hono@4.10.8)
+      '@hono/zod-openapi':
+        specifier: ^0.15.3
+        version: 0.15.3(hono@4.10.8)(zod@3.25.76)
       '@types/node':
         specifier: ^20.11.17
         version: 20.19.26
@@ -26,6 +35,9 @@ importers:
       copyfiles:
         specifier: ^2.4.1
         version: 2.4.1
+      hono:
+        specifier: ^4.5.6
+        version: 4.10.8
       prisma:
         specifier: ^5.20.0
         version: 5.22.0
@@ -41,6 +53,9 @@ importers:
       vitest:
         specifier: ^2.1.8
         version: 2.1.9(@types/node@20.19.26)
+      zod:
+        specifier: ^3.23.8
+        version: 3.25.76
 
   packages/gsc-trigger:
     dependencies:
