@@ -1,17 +1,18 @@
+import {beforeEach, describe, expect, it, vi} from 'vitest';
 import app from '../../../app';
 import {AnswerEntity, AnswerSchema} from '../../../modules/answer/domain/answer.entity';
 import {AnswerQueryRdb} from '../../../modules/answer/infrastructure/answer.query.rdb';
 
-jest.mock('../../../modules/answer/infrastructure/answer.query.rdb');
+vi.mock('../../../modules/answer/infrastructure/answer.query.rdb');
 
 describe('GET /score-declarations', () => {
   describe('正常系', () => {
     beforeEach(() => {
-      (AnswerQueryRdb.prototype.loadAll as jest.Mock).mockClear();
+      vi.mocked(AnswerQueryRdb.prototype.loadAll).mockClear();
     });
     it('answersを取得できること', async () => {
       // Arrange
-      (AnswerQueryRdb.prototype.loadAll as jest.Mock).mockResolvedValue([
+      vi.mocked(AnswerQueryRdb.prototype.loadAll).mockResolvedValue([
         AnswerEntity.create(
           AnswerSchema.parse({
             id: '1',

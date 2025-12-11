@@ -1,3 +1,4 @@
+import {beforeEach, describe, expect, it, vi} from 'vitest';
 import {AnswerEntity, AnswerSchema} from './answer.entity';
 
 describe('AnswerEntity', () => {

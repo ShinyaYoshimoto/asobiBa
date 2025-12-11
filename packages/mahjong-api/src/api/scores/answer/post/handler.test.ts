@@ -1,13 +1,14 @@
+import {beforeEach, describe, expect, it, vi} from 'vitest';
 import app from '../../../../app';
 import {AnswerEntity, AnswerSchema} from '../../../../modules/answer/domain/answer.entity';
 import {AnswerCommandRdb} from '../../../../modules/answer/infrastructure/answer.command.rdb';
 
-jest.mock('../../../../modules/answer/infrastructure/answer.command.rdb');
+vi.mock('../../../../modules/answer/infrastructure/answer.command.rdb');
 
 describe('POST /scores/answer', () => {
   describe('正常系', () => {
     beforeEach(() => {
-      (AnswerCommandRdb.prototype.register as jest.Mock).mockClear();
+      (AnswerCommandRdb.prototype.register as any).mockClear();
     });
     it('子の30符1翻ツモは、子から300点、親から500点のあがりである', async () => {
       // Arrange
@@ -25,7 +26,7 @@ describe('POST /scores/answer', () => {
       };
 
       // モックの実装
-      (AnswerCommandRdb.prototype.register as jest.Mock).mockResolvedValue(
+      (AnswerCommandRdb.prototype.register as any).mockResolvedValue(
         AnswerEntity.create(
           AnswerSchema.parse({
             isStartPlayer: false,
@@ -68,7 +69,7 @@ describe('POST /scores/answer', () => {
       };
 
       // モックの実装
-      (AnswerCommandRdb.prototype.register as jest.Mock).mockResolvedValue(
+      (AnswerCommandRdb.prototype.register as any).mockResolvedValue(
         AnswerEntity.create(
           AnswerSchema.parse({
             isStartPlayer: false,
@@ -111,7 +112,7 @@ describe('POST /scores/answer', () => {
       };
 
       // モックの実装
-      (AnswerCommandRdb.prototype.register as jest.Mock).mockResolvedValue(
+      (AnswerCommandRdb.prototype.register as any).mockResolvedValue(
         AnswerEntity.create(
           AnswerSchema.parse({
             isStartPlayer: false,
@@ -155,7 +156,7 @@ describe('POST /scores/answer', () => {
       };
 
       // モックの実装
-      (AnswerCommandRdb.prototype.register as jest.Mock).mockResolvedValue(
+      (AnswerCommandRdb.prototype.register as any).mockResolvedValue(
         AnswerEntity.create(
           AnswerSchema.parse({
             isStartPlayer: false,
