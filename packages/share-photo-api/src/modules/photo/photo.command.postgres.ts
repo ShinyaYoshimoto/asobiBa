@@ -1,7 +1,7 @@
-import {PrismaClient} from '../../generated/client';
-import {PhotoCommandInterface} from './photo.command';
+import type {PrismaClient} from '../../generated/client';
+import type {PhotoCommandInterface} from './photo.command';
 import {Photo} from './photo.entity';
-import {Tag} from './tag/tag.entity';
+import type {Tag} from './tag/tag.entity';
 
 export class PhotoCommandPostgres implements PhotoCommandInterface {
   constructor(private readonly prisma: PrismaClient) {}
@@ -15,7 +15,7 @@ export class PhotoCommandPostgres implements PhotoCommandInterface {
         createdAt: photo.date(),
         updatedAt: photo.date(),
         photoTags: {
-          create: photo.tags().map(tag => ({tagId: tag.id})),
+          create: photo.tags().map((tag) => ({tagId: tag.id})),
         },
       },
     });
@@ -37,7 +37,7 @@ export class PhotoCommandPostgres implements PhotoCommandInterface {
       fileName: photo.fileName(),
       date: photo.date(),
       tags: [
-        ...photo.tags().map(photoTag => ({
+        ...photo.tags().map((photoTag) => ({
           id: photoTag.id,
           name: photoTag.name,
         })),
@@ -63,7 +63,7 @@ export class PhotoCommandPostgres implements PhotoCommandInterface {
       id: photo.id(),
       fileName: photo.fileName(),
       date: photo.date(),
-      tags: photo.tags().filter(photoTag => photoTag.id !== tag.id()),
+      tags: photo.tags().filter((photoTag) => photoTag.id !== tag.id()),
     });
   }
 

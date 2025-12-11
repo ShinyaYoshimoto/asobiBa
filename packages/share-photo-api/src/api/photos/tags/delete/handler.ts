@@ -1,18 +1,18 @@
-import {Context} from 'hono';
-import {requestBodySchema} from './schema';
+import type {Context} from 'hono';
+import type {z} from 'zod';
 import {PrismaClient} from '../../../../generated/client';
-import {z} from 'zod';
-import {loggerInterface} from '../../../../utils/logger';
-import {AbstractHandler} from '../../../common/abstractHandler';
-import {PhotoQueryInterface} from '../../../../modules/photo/photo.query';
+import type {PhotoCommandInterface} from '../../../../modules/photo/photo.command';
+import {PhotoCommandPostgres} from '../../../../modules/photo/photo.command.postgres';
+import type {PhotoQueryInterface} from '../../../../modules/photo/photo.query';
 import {PhotoQueryPostgres} from '../../../../modules/photo/photo.query.postgres';
-import {TagQueryInterface} from '../../../../modules/photo/tag/tag.query';
-import {TagQueryPostgres} from '../../../../modules/photo/tag/tag.query.postgres';
-import {TagCommandInterface} from '../../../../modules/photo/tag/tag.command';
+import type {TagCommandInterface} from '../../../../modules/photo/tag/tag.command';
 import {TagCommandPostgres} from '../../../../modules/photo/tag/tag.command.postgres';
 import {Tag} from '../../../../modules/photo/tag/tag.entity';
-import {PhotoCommandInterface} from '../../../../modules/photo/photo.command';
-import {PhotoCommandPostgres} from '../../../../modules/photo/photo.command.postgres';
+import type {TagQueryInterface} from '../../../../modules/photo/tag/tag.query';
+import {TagQueryPostgres} from '../../../../modules/photo/tag/tag.query.postgres';
+import type {loggerInterface} from '../../../../utils/logger';
+import {AbstractHandler} from '../../../common/abstractHandler';
+import {requestBodySchema} from './schema';
 
 export class PhotosTagsDeleteHandler extends AbstractHandler {
   private readonly photoQuery: PhotoQueryInterface;
@@ -60,7 +60,7 @@ export class PhotosTagsDeleteHandler extends AbstractHandler {
       throw new Error('Photo not found');
     }
 
-    const targetTag = photo.tags().find(tag => tag.id === tag_id);
+    const targetTag = photo.tags().find((tag) => tag.id === tag_id);
     if (!targetTag) {
       throw new Error('Tag not set');
     }

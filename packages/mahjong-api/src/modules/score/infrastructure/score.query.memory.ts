@@ -1,5 +1,5 @@
-import {z} from 'zod';
-import {ScoreQueryInterface} from '../domain/score.query';
+import type {z} from 'zod';
+import type {ScoreQueryInterface} from '../domain/score.query';
 
 import {scoreEntitySchema} from '../domain/score.entity';
 
@@ -7,7 +7,7 @@ export class ScoreQueryOnMemory implements ScoreQueryInterface {
   findScore = async (params: {fanCount: number; symbolCount?: number}): Promise<z.infer<typeof scoreEntitySchema>> => {
     const {fanCount, symbolCount} = params;
     const score = scoreDef.find(
-      score =>
+      (score) =>
         // 飜数の条件
         // - 13飜以上は13飜として扱う
         // - 4飜かつ40符以上は、5飜として扱う
@@ -15,10 +15,10 @@ export class ScoreQueryOnMemory implements ScoreQueryInterface {
         (fanCount > 13
           ? score.fanCount === 13
           : fanCount === 4 && symbolCount && symbolCount >= 40
-          ? score.fanCount === 5
-          : fanCount === 3 && symbolCount && symbolCount >= 70
-          ? score.fanCount === 5
-          : score.fanCount === fanCount) &&
+            ? score.fanCount === 5
+            : fanCount === 3 && symbolCount && symbolCount >= 70
+              ? score.fanCount === 5
+              : score.fanCount === fanCount) &&
         // 符数の条件
         // - 5飜以上は飜数が一致するものを返す
         // - 4飜かつ40符以上は、符は考慮しない
@@ -26,10 +26,10 @@ export class ScoreQueryOnMemory implements ScoreQueryInterface {
         (fanCount > 4
           ? true
           : fanCount === 4 && symbolCount && symbolCount >= 40
-          ? true
-          : fanCount === 3 && symbolCount && symbolCount >= 70
-          ? true
-          : score.symbolCount === symbolCount)
+            ? true
+            : fanCount === 3 && symbolCount && symbolCount >= 70
+              ? true
+              : score.symbolCount === symbolCount)
     );
     if (!score) {
       // TODO: logging

@@ -1,9 +1,9 @@
-import {AnswerQueryInterface} from '../domain/answer.query';
-import {AnswerEntity, AnswerSchema} from '../domain/answer.entity';
-import {PrismaClient} from '../../../generated/client';
-import {z} from 'zod';
-import {AnswerSummarySchema} from '../domain/summary.value';
+import type {z} from 'zod';
+import type {PrismaClient} from '../../../generated/client';
 import {ArrayUtil} from '../../../utils/array';
+import {AnswerEntity, AnswerSchema} from '../domain/answer.entity';
+import type {AnswerQueryInterface} from '../domain/answer.query';
+import type {AnswerSummarySchema} from '../domain/summary.value';
 
 export class AnswerQueryRdb implements AnswerQueryInterface {
   constructor(private readonly prisma: PrismaClient) {}
@@ -11,7 +11,7 @@ export class AnswerQueryRdb implements AnswerQueryInterface {
   // FIXME: 一旦、雑に全件返している。この辺の対応はまたいつか
   async loadAll(): Promise<AnswerEntity[]> {
     const answers = await this.prisma.answer.findMany();
-    return answers.map(answer => AnswerEntity.reconstruct(AnswerSchema.parse(answer)));
+    return answers.map((answer) => AnswerEntity.reconstruct(AnswerSchema.parse(answer)));
   }
 
   async loadSummary(): Promise<z.infer<typeof AnswerSummarySchema>[]> {
@@ -23,7 +23,7 @@ export class AnswerQueryRdb implements AnswerQueryInterface {
     });
 
     const grouped = ArrayUtil.groupBy(
-      summaries.map(summary => ({
+      summaries.map((summary) => ({
         ...summary,
         key: `${summary.symbolCount}-${summary.fanCount}-${summary.isStartPlayer ? 'start' : 'notStart'}-${
           summary.isDraw ? 'draw' : 'notDraw'
@@ -33,15 +33,15 @@ export class AnswerQueryRdb implements AnswerQueryInterface {
     );
 
     return grouped
-      .map(group => ({
+      .map((group) => ({
         isStartPlayer: group.values[0].isStartPlayer,
         isDraw: group.values[0].isDraw,
         fanCount: group.values[0].fanCount,
         isCorrect: group.values[0].isCorrect,
         symbolCount: group.values[0].symbolCount === null ? undefined : group.values[0].symbolCount,
         count: {
-          true: group.values.find(summary => summary.isCorrect)?._count._all ?? 0,
-          false: group.values.find(summary => !summary.isCorrect)?._count._all ?? 0,
+          true: group.values.find((summary) => summary.isCorrect)?._count._all ?? 0,
+          false: group.values.find((summary) => !summary.isCorrect)?._count._all ?? 0,
         },
       }))
       .sort((a, b) => {

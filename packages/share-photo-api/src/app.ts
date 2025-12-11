@@ -13,7 +13,7 @@ import {PhotosTagsPostHandler} from './api/photos/tags/post/handler';
 import {photosTagsPostRoute} from './api/photos/tags/post/route';
 import {PhotosUploadSignedUrlPostHandler} from './api/photos/upload-signed-url/post/handler';
 import {photosUploadSignedUrlPostRoute} from './api/photos/upload-signed-url/post/route';
-import {TagsGetHandler} from './api/tags/get/handler';
+import {ListTagsGetHandler} from './api/tags/get/handler';
 import {listTagsGetRoute} from './api/tags/get/route';
 
 const app = new OpenAPIHono({});
@@ -22,7 +22,7 @@ app.use('*', cors());
 
 // 各種エンドポイントを追加する
 app.openapi(photosSearchPostRoute, new PhotosSearchPostHandler().execute);
-app.openapi(listTagsGetRoute, new TagsGetHandler().execute);
+app.openapi(listTagsGetRoute, new ListTagsGetHandler().execute);
 app.openapi(photosTagsPostRoute, new PhotosTagsPostHandler().execute);
 app.openapi(photosTagsDeleteRoute, new PhotosTagsDeleteHandler().execute);
 app.openapi(photosUploadSignedUrlPostRoute, new PhotosUploadSignedUrlPostHandler().execute);
