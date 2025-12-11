@@ -1,14 +1,15 @@
 import {PrismaClient} from './generated/client';
 
 // NOTE: 開発時のホットリロード対策を考慮したシングルトン実装
-const globalForPrisma = globalThis as unknown as {
-  prisma: PrismaClient | undefined;
-};
+declare global {
+  // eslint-disable-next-line no-var
+  var __prisma: PrismaClient | undefined;
+}
 
-const prisma = globalForPrisma.prisma ?? new PrismaClient();
+const prisma = globalThis.__prisma ?? new PrismaClient();
 
 if (process.env.NODE_ENV !== 'production') {
-  globalForPrisma.prisma = prisma;
+  globalThis.__prisma = prisma;
 }
 
 export const db = prisma;
