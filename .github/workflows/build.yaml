@@ -33,9 +33,7 @@ jobs:
         run: pnpm install
 
       - name: Run Biome
-        run: |
-          cd ./packages/mahjong-api
-          pnpm run lint
+        run: pnpm -r lint
         continue-on-error: false # エラーがあれば処理を中断
 
       - name: Set up Cloud SDK
