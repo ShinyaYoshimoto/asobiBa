@@ -1,0 +1,20 @@
+{
+  "name": "asobiba",
+  "version": "1.0.0",
+  "private": true,
+  "description": "技術検証用のいろいろを詰め込むリポジトリ",
+  "scripts": {
+    "build": "pnpm -r build",
+    "test": "pnpm -r test",
+    "lint": "pnpm -r lint",
+    "lint:fix": "pnpm -r lint:fix",
+    "format": "pnpm -r format"
+  },
+  "devDependencies": {
+    "pnpm": "^9.0.0"
+  },
+  "engines": {
+    "node": ">=20.0.0",
+    "pnpm": ">=9.0.0"
+  }
+}

@@ -22,7 +22,7 @@ jobs:
       id-token: 'write'
     defaults:
       run:
-        working-directory: triggers
+        working-directory: packages/gsc-trigger
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
