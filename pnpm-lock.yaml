@@ -87,6 +87,9 @@ importers:
 
   packages/mahjong-api:
     dependencies:
+      '@asobiba/common':
+        specifier: workspace:*
+        version: link:../common
       '@google-cloud/storage':
         specifier: ^7.16.0
         version: 7.18.0
@@ -139,6 +142,9 @@ importers:
 
   packages/share-photo-api:
     dependencies:
+      '@asobiba/common':
+        specifier: workspace:*
+        version: link:../common
       '@google-cloud/storage':
         specifier: ^7.16.0
         version: 7.18.0
