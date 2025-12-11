@@ -3,13 +3,13 @@ import {OpenAPIHono} from '@hono/zod-openapi';
 import {cors} from 'hono/cors';
 
 import {handsGet} from './api/hands/get';
-import {ScoreDeclarationsCalculatePostHandler} from './api/score-declarations/calculate/post/handler';
+import {ScoresDeclarationsCalculatePostHandlerHandler} from './api/score-declarations/calculate/post/handler';
 import {scoresDeclarationsCalculatePostRoute} from './api/score-declarations/calculate/post/route';
-import {ScoreDeclarationsGetHandler} from './api/score-declarations/get/handler';
+import {ScoresDeclarationsGetHandler} from './api/score-declarations/get/handler';
 import {scoresDeclarationsGetRoute} from './api/score-declarations/get/route';
-import {ScoreDeclarationsPostHandler} from './api/score-declarations/post/handler';
+import {ScoresDeclarationsPostHandler} from './api/score-declarations/post/handler';
 import {scoresDeclarationsPostRoute} from './api/score-declarations/post/route';
-import {ScoreDeclarationsSummariesGetHandler} from './api/score-declarations/summaries/get/handler';
+import {ScoresDeclarationsSummariesGetHandler} from './api/score-declarations/summaries/get/handler';
 import {scoresDeclarationsSummariesGetHandlerRoute} from './api/score-declarations/summaries/get/route';
 import {ScoresAnswerPostHandler} from './api/scores/answer/post/handler';
 import {scoresAnswerPostRoute} from './api/scores/answer/post/route';
@@ -19,12 +19,12 @@ const app = new OpenAPIHono({});
 app.use('*', cors());
 
 // 各種エンドポイントを追加する
-app.openapi(scoresDeclarationsCalculatePostRoute, new ScoreDeclarationsCalculatePostHandler().execute);
+app.openapi(scoresDeclarationsCalculatePostRoute, new ScoresDeclarationsCalculatePostHandlerHandler().execute);
 app.openapi(scoresAnswerPostRoute, new ScoresAnswerPostHandler().execute);
-app.openapi(scoresDeclarationsGetRoute, new ScoreDeclarationsGetHandler().execute);
-app.openapi(scoresDeclarationsSummariesGetHandlerRoute, new ScoreDeclarationsSummariesGetHandler().execute);
+app.openapi(scoresDeclarationsGetRoute, new ScoresDeclarationsGetHandler().execute);
+app.openapi(scoresDeclarationsSummariesGetHandlerRoute, new ScoresDeclarationsSummariesGetHandler().execute);
 handsGet(app);
-app.openapi(scoresDeclarationsPostRoute, new ScoreDeclarationsPostHandler().execute);
+app.openapi(scoresDeclarationsPostRoute, new ScoresDeclarationsPostHandler().execute);
 
 /////////////////////////////////
 // swagger UI

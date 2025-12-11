@@ -1,13 +1,13 @@
-import {Context} from 'hono';
-import {requestBodySchema} from './schema';
+import type {Context} from 'hono';
+import type {z} from 'zod';
 import {PrismaClient} from '../../../../generated/client';
-import {z} from 'zod';
-import {loggerInterface} from '../../../../utils/logger';
-import {AbstractHandler} from '../../../common/abstractHandler';
-import {PhotoQueryInterface} from '../../../../modules/photo/photo.query';
-import {PhotoQueryPostgres} from '../../../../modules/photo/photo.query.postgres';
-import {PhotoCommandInterface} from '../../../../modules/photo/photo.command';
+import type {PhotoCommandInterface} from '../../../../modules/photo/photo.command';
 import {PhotoCommandPostgres} from '../../../../modules/photo/photo.command.postgres';
+import type {PhotoQueryInterface} from '../../../../modules/photo/photo.query';
+import {PhotoQueryPostgres} from '../../../../modules/photo/photo.query.postgres';
+import type {loggerInterface} from '../../../../utils/logger';
+import {AbstractHandler} from '../../../common/abstractHandler';
+import {requestBodySchema} from './schema';
 
 export class PhotosDescriptionPostHandler extends AbstractHandler {
   private readonly photoQuery: PhotoQueryInterface;

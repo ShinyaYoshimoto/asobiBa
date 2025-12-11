@@ -1,9 +1,9 @@
-import {Context} from 'hono';
+import type {Context} from 'hono';
 import {PrismaClient} from '../../../generated/client';
-import {AbstractHandler} from '../../common/abstractHandler';
-import {loggerInterface} from '../../../utils/logger';
-import {TagQueryInterface} from '../../../modules/photo/tag/tag.query';
+import type {TagQueryInterface} from '../../../modules/photo/tag/tag.query';
 import {TagQueryPostgres} from '../../../modules/photo/tag/tag.query.postgres';
+import type {loggerInterface} from '../../../utils/logger';
+import {AbstractHandler} from '../../common/abstractHandler';
 
 export class ListTagsGetHandler extends AbstractHandler {
   private readonly tagQuery: TagQueryInterface;
@@ -19,7 +19,7 @@ export class ListTagsGetHandler extends AbstractHandler {
     try {
       const tags = await this.tagQuery.list();
       return c.json(
-        tags.map(tag => ({id: tag.id(), name: tag.name()})),
+        tags.map((tag) => ({id: tag.id(), name: tag.name()})),
         200
       );
     } catch (e) {

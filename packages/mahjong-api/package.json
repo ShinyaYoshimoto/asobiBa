@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "main": "dist/index.js",
   "scripts": {
+    "dev": "tsx watch src/index.ts",
     "build": "tsc && copyfiles -u 1 \"src/generated/**/*\" dist",
     "test": "vitest",
     "lint": "biome check .",

@@ -1,6 +1,6 @@
+import type {PrismaClient} from '../../generated/client';
 import {Photo} from './photo.entity';
-import {PhotoQueryInterface} from './photo.query';
-import {PrismaClient} from '../../generated/client';
+import type {PhotoQueryInterface} from './photo.query';
 
 export class PhotoQueryPostgres implements PhotoQueryInterface {
   constructor(private readonly prisma: PrismaClient) {}
@@ -69,12 +69,12 @@ export class PhotoQueryPostgres implements PhotoQueryInterface {
       },
     });
 
-    return photos.map(photo =>
+    return photos.map((photo) =>
       Photo.reconstruct({
         id: photo.id,
         fileName: photo.fileName,
         date: photo.createdAt,
-        tags: photo.photoTags.map(photoTag => ({
+        tags: photo.photoTags.map((photoTag) => ({
           id: photoTag.tag.id,
           name: photoTag.tag.name,
         })),
@@ -97,7 +97,7 @@ export class PhotoQueryPostgres implements PhotoQueryInterface {
       id: photo.id,
       fileName: photo.fileName,
       date: photo.createdAt,
-      tags: photo.photoTags.map(photoTag => ({
+      tags: photo.photoTags.map((photoTag) => ({
         id: photoTag.tag.id,
         name: photoTag.tag.name,
       })),

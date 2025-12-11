@@ -1,4 +1,4 @@
-import {Bucket, Storage} from '@google-cloud/storage';
+import {type Bucket, Storage} from '@google-cloud/storage';
 import AdmZip from 'adm-zip';
 import sharp from 'sharp';
 import {v4 as uuidv4} from 'uuid';
