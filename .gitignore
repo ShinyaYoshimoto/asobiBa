@@ -1,2 +1,18 @@
 node_modules
 dist
+
+# pnpm
+.pnpm-store
+.pnpm-debug.log
+
+# Test coverage
+coverage
+
+# Environment files
+.env
+.env.local
+
+# IDE
+.idea
+*.swp
+*.swo
