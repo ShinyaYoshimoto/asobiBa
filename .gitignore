@@ -1,6 +1,9 @@
 node_modules
 dist
 
+# Prisma generated client
+**/generated/client
+
 # pnpm
 .pnpm-store
 .pnpm-debug.log
