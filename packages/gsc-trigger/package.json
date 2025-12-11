@@ -10,6 +10,7 @@
     "format": "biome format --write ."
   },
   "dependencies": {
+    "@asobiba/common": "workspace:^",
     "@google-cloud/functions-framework": "^3.0.0",
     "@google-cloud/storage": "^5.18.0",
     "adm-zip": "^0.5.16",

@@ -8,8 +8,29 @@ importers:
 
   .: {}
 
+  packages/common:
+    devDependencies:
+      '@biomejs/biome':
+        specifier: ^1.9.4
+        version: 1.9.4
+      '@types/node':
+        specifier: ^20.11.17
+        version: 20.19.26
+      '@vitest/coverage-v8':
+        specifier: ^2.1.8
+        version: 2.1.9(vitest@2.1.9(@types/node@20.19.26))
+      typescript:
+        specifier: ^4.9.4
+        version: 4.9.5
+      vitest:
+        specifier: ^2.1.8
+        version: 2.1.9(@types/node@20.19.26)
+
   packages/gsc-trigger:
     dependencies:
+      '@asobiba/common':
+        specifier: workspace:^
+        version: link:../common
       '@google-cloud/functions-framework':
         specifier: ^3.0.0
         version: 3.5.1
