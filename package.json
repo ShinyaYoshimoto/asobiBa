@@ -8,7 +8,10 @@
     "test": "pnpm -r test",
     "lint": "pnpm -r lint",
     "lint:fix": "pnpm -r lint:fix",
-    "format": "pnpm -r format"
+    "format": "pnpm -r format",
+    "prisma:migrate": "pnpm --filter @asobiba/common prisma:migrate",
+    "prisma:generate": "pnpm --filter @asobiba/common prisma:generate",
+    "prisma:studio": "pnpm --filter @asobiba/common prisma:studio"
   },
   "engines": {
     "node": ">=20.0.0",

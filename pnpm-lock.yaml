@@ -8,6 +8,40 @@ importers:
 
   .: {}
 
+  packages/common:
+    dependencies:
+      '@prisma/client':
+        specifier: ^5.20.0
+        version: 5.22.0(prisma@5.22.0)
+    devDependencies:
+      '@biomejs/biome':
+        specifier: ^1.9.4
+        version: 1.9.4
+      '@types/node':
+        specifier: ^20.11.17
+        version: 20.19.26
+      '@vitest/coverage-v8':
+        specifier: ^2.1.8
+        version: 2.1.9(vitest@2.1.9(@types/node@20.19.26))
+      copyfiles:
+        specifier: ^2.4.1
+        version: 2.4.1
+      prisma:
+        specifier: ^5.20.0
+        version: 5.22.0
+      ts-node:
+        specifier: ^10.9.2
+        version: 10.9.2(@types/node@20.19.26)(typescript@4.9.5)
+      tsx:
+        specifier: ^4.7.1
+        version: 4.21.0
+      typescript:
+        specifier: ^4.9.4
+        version: 4.9.5
+      vitest:
+        specifier: ^2.1.8
+        version: 2.1.9(@types/node@20.19.26)
+
   packages/gsc-trigger:
     dependencies:
       '@google-cloud/functions-framework':
