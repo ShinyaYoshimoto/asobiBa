@@ -100,3 +100,84 @@ pnpm prisma:studio
 ### Prisma Client の出力先
 
 Prisma Client は `src/generated/client` に生成されます。
+
+## 既存パッケージからの移行
+
+既存のパッケージで独自のPrismaClientを使用している場合、以下の手順で共通パッケージに移行できます：
+
+### 1. 依存関係の追加
+
+`package.json` に `@asobiba/common` を追加します：
+
+```json
+{
+  "dependencies": {
+    "@asobiba/common": "workspace:*"
+  }
+}
+```
+
+### 2. インポートの変更
+
+既存のコードを以下のように変更します：
+
+**変更前:**
+```typescript
+import { PrismaClient } from '../../../generated/client';
+
+const prisma = new PrismaClient();
+```
+
+**変更後:**
+```typescript
+import { db } from '@asobiba/common';
+import type { PrismaClient } from '@asobiba/common';
+
+// dbを直接使用
+const users = await db.account.findMany();
+```
+
+### 3. クラスでの使用例
+
+**変更前:**
+```typescript
+export class HandsGetHandler {
+  private prismaClient: PrismaClient;
+
+  constructor() {
+    this.prismaClient = new PrismaClient();
+  }
+}
+```
+
+**変更後:**
+```typescript
+import { db } from '@asobiba/common';
+
+export class HandsGetHandler {
+  constructor() {
+    // dbを直接使用するか、依存性注入で渡す
+  }
+
+  async execute() {
+    const hands = await db.hand.findMany();
+    return hands;
+  }
+}
+```
+
+### 4. 既存のPrismaスキーマとクライアントの削除
+
+移行が完了したら、以下を削除できます：
+
+- `prisma/schema.prisma` (個別パッケージの)
+- `src/generated/client/` (生成されたクライアント)
+- `package.json` から `@prisma/client` と `prisma` の依存関係
+- `prisma:generate`, `prisma:migrate` などのスクリプト
+
+### 注意事項
+
+- 共通パッケージのPrisma Clientを使用する前に、`pnpm prisma:generate` を実行してください
+- データベース接続は、環境変数 `DATABASE_URL` で設定します
+- シングルトンパターンにより、アプリケーション全体で1つのPrismaClientインスタンスが共有されます
+
