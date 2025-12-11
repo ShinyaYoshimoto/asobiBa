@@ -15,7 +15,7 @@ export class AnswerEntity {
   private constructor(private readonly data: z.infer<typeof AnswerSchema>) {}
 
   static create(answer: z.infer<typeof AnswerSchema>) {
-    const symbolCount = answer.fanCount > 4 ? undefined : answer.symbolCount ?? undefined;
+    const symbolCount = answer.fanCount > 4 ? undefined : (answer.symbolCount ?? undefined);
     const data = AnswerSchema.safeParse({...answer, symbolCount});
 
     if (data.success) {

@@ -1,6 +1,6 @@
-import {z} from 'zod';
-import {AnswerEntity} from './answer.entity';
-import {AnswerSummarySchema} from './summary.value';
+import type {z} from 'zod';
+import type {AnswerEntity} from './answer.entity';
+import type {AnswerSummarySchema} from './summary.value';
 
 export interface AnswerQueryInterface {
   loadAll(): Promise<AnswerEntity[]>;

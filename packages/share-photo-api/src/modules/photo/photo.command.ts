@@ -1,5 +1,5 @@
-import {Photo} from './photo.entity';
-import {Tag} from './tag/tag.entity';
+import type {Photo} from './photo.entity';
+import type {Tag} from './tag/tag.entity';
 
 export interface PhotoCommandInterface {
   create(photo: Photo): Promise<Photo>;

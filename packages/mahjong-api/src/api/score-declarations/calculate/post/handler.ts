@@ -1,9 +1,9 @@
-import {Context} from 'hono';
-import {requestBodySchema} from './schema';
-import {ScoreQueryInterface} from '../../../../modules/score/domain/score.query';
+import type {Context} from 'hono';
+import type {ScoreQueryInterface} from '../../../../modules/score/domain/score.query';
 import {ScoreQueryOnMemory} from '../../../../modules/score/infrastructure/score.query.memory';
-import {loggerInterface} from '../../../../utils/logger';
+import type {loggerInterface} from '../../../../utils/logger';
 import {AbstractHandler} from '../../../common/abstractHandler';
+import {requestBodySchema} from './schema';
 
 export class ScoresDeclarationsCalculatePostHandlerHandler extends AbstractHandler {
   private readonly scoreRepository: ScoreQueryInterface;
