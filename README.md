@@ -19,6 +19,18 @@
 # 依存関係のインストール
 pnpm install
 
+# 環境変数の設定
+cp .env.example .env
+
+# テスト用データベースの起動（Docker）
+pnpm db:up
+
+# Prisma Clientの生成
+pnpm prisma:generate
+
+# データベースマイグレーションの実行
+pnpm prisma:migrate
+
 # 全パッケージのビルド
 pnpm build
 
@@ -27,6 +39,22 @@ pnpm test
 
 # 全パッケージのLint実行
 pnpm lint
+```
+
+### データベース管理
+
+```bash
+# テスト用データベースの起動
+pnpm db:up
+
+# テスト用データベースの停止
+pnpm db:down
+
+# テスト用データベースのリセット（データを削除して再起動）
+pnpm db:reset
+
+# Prisma Studioの起動（データベースGUI）
+pnpm prisma:studio
 ```
 
 ### 個別パッケージの操作
