@@ -96,6 +96,8 @@ pnpm --filter @asobiba/mahjong-api dev
 pnpm db:up
 
 # 2. 環境変数をpackages/commonにコピー（Prismaマイグレーション用）
+# 注: Prismaはスキーマファイルと同じディレクトリの.envを読み込むため、
+#     ルートの.envとは別にpackages/commonにもコピーが必要です
 cp .env packages/common/.env
 
 # 3. マイグレーションの実行
