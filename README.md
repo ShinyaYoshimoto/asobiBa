@@ -1,5 +1,5 @@
 # 概要
-- 技術検証用のいろいろを詰め込むリポジトリ（の予定）
+- 技術検証 → アプリケーションとして表現する
 
 # モノレポ構成
 
@@ -44,11 +44,3 @@ pnpm --filter @asobiba/mahjong-api dev
 
 - `mahjong-hono/` - `packages/mahjong-api` に移行済み
 - `triggers/` - `packages/gsc-trigger` に移行済み
-
-# Cursorの活用
-- Cursorエディタを活用します
-- 以下のRuleを参考にさせていただいてます（25.04時点）
-
-参考）
-https://github.com/Shin-sibainu/shincode-tech-stack-rules/tree/main
-https://github.com/kinopeee/cursorrules
