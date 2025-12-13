@@ -11,7 +11,10 @@
     "format": "pnpm -r format",
     "prisma:migrate": "pnpm --filter @asobiba/common prisma:migrate",
     "prisma:generate": "pnpm --filter @asobiba/common prisma:generate",
-    "prisma:studio": "pnpm --filter @asobiba/common prisma:studio"
+    "prisma:studio": "pnpm --filter @asobiba/common prisma:studio",
+    "db:up": "docker compose up -d",
+    "db:down": "docker compose down",
+    "db:reset": "docker compose down -v && docker compose up -d"
   },
   "engines": {
     "node": ">=20.0.0",

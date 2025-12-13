@@ -1,8 +1,27 @@
 import {beforeEach, describe, expect, it} from 'vitest';
+import {db} from '@asobiba/common';
 import app from '../../../app';
 
 describe('GET /hands', () => {
-  beforeEach(() => {});
+  beforeEach(async () => {
+    // テスト用の役（Hand）データを作成
+    await db.hand.create({
+      data: {
+        name: 'リーチ',
+        nameKana: 'りーち',
+        fanCount: 1,
+        fanCountForCall: 0,
+      },
+    });
+    await db.hand.create({
+      data: {
+        name: 'タンヤオ',
+        nameKana: 'たんやお',
+        fanCount: 1,
+        fanCountForCall: 1,
+      },
+    });
+  });
 
   describe('正常系', () => {
     it('happy pattern', async () => {

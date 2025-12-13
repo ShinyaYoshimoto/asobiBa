@@ -97,6 +97,33 @@ pnpm prisma:studio
 
 - `DATABASE_URL`: PostgreSQLの接続URL
 
+例: `.env` ファイル
+```
+DATABASE_URL="postgresql://asobiba:asobiba@localhost:5432/asobiba_test?schema=public"
+```
+
+### テスト用データベース（Docker）
+
+ルートディレクトリの `docker-compose.yml` を使用して、ローカル開発用のPostgreSQLデータベースを起動できます。
+
+```bash
+# データベースの起動（ルートディレクトリから実行）
+cd ../..
+pnpm db:up
+
+# .env ファイルをpackages/commonにコピー
+cp .env packages/common/.env
+
+# マイグレーションの実行
+pnpm prisma:migrate
+
+# データベースの停止
+pnpm db:down
+
+# データベースのリセット
+pnpm db:reset
+```
+
 ### Prisma Client の出力先
 
 Prisma Client は `src/generated/client` に生成されます。
