@@ -5,7 +5,7 @@
   "description": "技術検証用のいろいろを詰め込むリポジトリ",
   "scripts": {
     "build": "pnpm -r build",
-    "test": "pnpm -r test",
+    "test": "pnpm -r --workspace-concurrency=1 test",
     "lint": "pnpm -r lint",
     "lint:fix": "pnpm -r lint:fix",
     "format": "pnpm -r format",

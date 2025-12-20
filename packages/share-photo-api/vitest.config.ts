@@ -9,5 +9,11 @@ export default defineConfig({
       reporter: ['text', 'json', 'html'],
     },
     setupFiles: ['./vitest.setup.ts'],
+    pool: 'forks',
+    poolOptions: {
+      forks: {
+        singleFork: true,
+      },
+    },
   },
 });
