@@ -22,7 +22,7 @@ jobs:
         run: |
           base_ref=origin/${{ github.event.pull_request.base.ref }}
           # additions+deletions
-          total_lines=$(git diff --numstat $base_ref...HEAD | awk '{adds+=$1; dels+=$2} END{print adds+dels+0}')
+          total_lines=$(git diff --numstat $base_ref...HEAD | awk 'BEGIN{adds=0; dels=0} {adds+=$1; dels+=$2} END{print adds+dels}')
           # changed files
           total_files=$(git diff --name-only $base_ref...HEAD | wc -l | tr -d '[:space:]')
           echo "total_lines=$total_lines" >> $GITHUB_OUTPUT
