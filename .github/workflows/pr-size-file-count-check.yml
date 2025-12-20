@@ -25,8 +25,8 @@ jobs:
           total_lines=$(git diff --numstat $base_ref...HEAD | awk '{adds+=$1; dels+=$2} END{print adds+dels+0}')
           # changed files
           total_files=$(git diff --name-only $base_ref...HEAD | wc -l | tr -d '[:space:]')
-          echo "total_lines=$total_lines" > $GITHUB_OUTPUT
-          echo "total_files=$total_files" > $GITHUB_OUTPUT
+          echo "total_lines=$total_lines" >> $GITHUB_OUTPUT
+          echo "total_files=$total_files" >> $GITHUB_OUTPUT
 
       - name: Check limits
         run: |
@@ -46,11 +46,11 @@ jobs:
           fi
 
           if [ "$total_lines" -gt "$line_limit" ]; then
-            echo "::error ::Pull request too large: $total_lines changed lines (limit: $line_limit)."
+            echo "::error::Pull request too large: $total_lines changed lines (limit: $line_limit)."
             exceeded=1
           fi
           if [ "$total_files" -gt "$file_limit" ]; then
-            echo "::error ::Too many changed files: $total_files (limit: $file_limit)."
+            echo "::error::Too many changed files: $total_files (limit: $file_limit)."
             exceeded=1
           fi
 
