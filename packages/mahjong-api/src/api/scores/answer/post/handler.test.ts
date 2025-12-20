@@ -1,11 +1,7 @@
-import {beforeEach, describe, expect, it} from 'vitest';
+import {describe, expect, it} from 'vitest';
 import app from '../../../../app';
 
 describe('POST /scores/answer', () => {
-  beforeEach(async () => {
-    // データベースのクリーンアップは vitest.setup.ts で自動的に行われる
-  });
-
   describe('正常系', () => {
     it('子の30符1翻ツモは、子から300点、親から500点のあがりである', async () => {
       // Arrange

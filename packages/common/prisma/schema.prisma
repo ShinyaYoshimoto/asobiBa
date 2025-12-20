@@ -76,6 +76,8 @@ model PhotoTag {
 
   photo Photo @relation(fields: [photoId], references: [id], onDelete: Cascade)
   tag Tag @relation(fields: [tagId], references: [id], onDelete: Cascade)
+  
+  @@id([photoId, tagId])
   @@unique([photoId, tagId])
 }
 
