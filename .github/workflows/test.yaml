@@ -44,7 +44,6 @@ jobs:
 
       - name: Set up environment variables
         run: |
-          echo 'DATABASE_URL="postgresql://asobiba:asobiba@localhost:5432/asobiba_test?schema=public"' > .env
           echo 'DATABASE_URL="postgresql://asobiba:asobiba@localhost:5432/asobiba_test?schema=public"' > packages/common/.env
 
       - name: Generate Prisma Client
