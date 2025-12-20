@@ -1,15 +1,8 @@
-import {beforeEach, describe, expect, it, vi} from 'vitest';
+import {describe, expect, it} from 'vitest';
 import app from '../../../app';
-import {AnswerEntity, AnswerSchema} from '../../../modules/answer/domain/answer.entity';
-import {AnswerCommandRdb} from '../../../modules/answer/infrastructure/answer.command.rdb';
-
-vi.mock('../../../modules/answer/infrastructure/answer.command.rdb');
 
 describe('POST /score-declarations', () => {
   describe('正常系', () => {
-    beforeEach(() => {
-      (AnswerCommandRdb.prototype.register as any).mockClear();
-    });
     it('子の30符1翻ツモは、子から300点、親から500点のあがりである', async () => {
       // Arrange
       const question = {
@@ -25,19 +18,6 @@ describe('POST /score-declarations', () => {
         },
       };
 
-      // モックの実装
-      (AnswerCommandRdb.prototype.register as any).mockResolvedValue(
-        AnswerEntity.create(
-          AnswerSchema.parse({
-            isStartPlayer: false,
-            isDraw: true,
-            symbolCount: 30,
-            fanCount: 1,
-            isCorrect: true,
-          })
-        )
-      );
-
       // Action
       const response = await app.request('/scores/answer', {
         method: 'POST',
@@ -50,6 +30,7 @@ describe('POST /score-declarations', () => {
       const result = await response.json();
 
       // Assert
+      expect(response.status).toBe(200);
       expect(result.isCorrect).toBeTruthy();
     });
 
@@ -68,19 +49,6 @@ describe('POST /score-declarations', () => {
         },
       };
 
-      // モックの実装
-      (AnswerCommandRdb.prototype.register as any).mockResolvedValue(
-        AnswerEntity.create(
-          AnswerSchema.parse({
-            isStartPlayer: false,
-            isDraw: true,
-            symbolCount: 30,
-            fanCount: 1,
-            isCorrect: false,
-          })
-        )
-      );
-
       // Action
       const response = await app.request('/scores/answer', {
         method: 'POST',
@@ -93,6 +61,7 @@ describe('POST /score-declarations', () => {
       const result = await response.json();
 
       // Assert
+      expect(response.status).toBe(200);
       expect(result.isCorrect).toBeFalsy();
     });
 
@@ -111,19 +80,6 @@ describe('POST /score-declarations', () => {
         },
       };
 
-      // モックの実装
-      (AnswerCommandRdb.prototype.register as any).mockResolvedValue(
-        AnswerEntity.create(
-          AnswerSchema.parse({
-            isStartPlayer: false,
-            isDraw: true,
-            symbolCount: 110,
-            fanCount: 1,
-            isCorrect: false,
-          })
-        )
-      );
-
       // Action
       const response = await app.request('/scores/answer', {
         method: 'POST',
@@ -136,9 +92,11 @@ describe('POST /score-declarations', () => {
       const result = await response.json();
 
       // Assert
+      expect(response.status).toBe(200);
       expect(result.isCorrect).toBeTruthy();
     });
   });
+
   describe('異常系', () => {
     it('子の0符1翻ツモは、子から300点、親から500点のあがりである', async () => {
       // Arrange
@@ -154,20 +112,6 @@ describe('POST /score-declarations', () => {
           other: 500,
         },
       };
-
-      // モックの実装
-      (AnswerCommandRdb.prototype.register as any).mockResolvedValue(
-        AnswerEntity.create(
-          AnswerSchema.parse({
-            isStartPlayer: false,
-            isDraw: true,
-            // NOTE: 本来0符であるため正しくないが、テストを通すために20符にしている
-            symbolCount: 20,
-            fanCount: 1,
-            isCorrect: false,
-          })
-        )
-      );
 
       // Action
       const response = await app.request('/scores/answer', {

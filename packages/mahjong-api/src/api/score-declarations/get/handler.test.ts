@@ -1,29 +1,23 @@
-import {beforeEach, describe, expect, it, vi} from 'vitest';
+import {beforeEach, describe, expect, it} from 'vitest';
+import {db} from '@asobiba/common';
 import app from '../../../app';
-import {AnswerEntity, AnswerSchema} from '../../../modules/answer/domain/answer.entity';
-import {AnswerQueryRdb} from '../../../modules/answer/infrastructure/answer.query.rdb';
-
-vi.mock('../../../modules/answer/infrastructure/answer.query.rdb');
 
 describe('GET /score-declarations', () => {
   describe('正常系', () => {
-    beforeEach(() => {
-      vi.mocked(AnswerQueryRdb.prototype.loadAll).mockClear();
+    beforeEach(async () => {
+      // テスト用のanswerを作成
+      await db.answer.create({
+        data: {
+          isStartPlayer: false,
+          isDraw: true,
+          symbolCount: 30,
+          fanCount: 1,
+          isCorrect: false,
+        },
+      });
     });
+
     it('answersを取得できること', async () => {
-      // Arrange
-      vi.mocked(AnswerQueryRdb.prototype.loadAll).mockResolvedValue([
-        AnswerEntity.create(
-          AnswerSchema.parse({
-            id: '1',
-            isStartPlayer: false,
-            isDraw: true,
-            symbolCount: 30,
-            fanCount: 1,
-            isCorrect: false,
-          })
-        ),
-      ]);
       // Act
       const response = await app.request('/score-declarations', {
         method: 'GET',
@@ -32,7 +26,10 @@ describe('GET /score-declarations', () => {
       const result = await response.json();
 
       // Assert
+      expect(response.status).toBe(200);
       expect(result.answers).toHaveLength(1);
+      expect(result.answers[0].id).toBeDefined();
+      expect(result.answers[0].isCorrect).toBe(false);
     });
   });
 });

@@ -5,13 +5,16 @@
   "description": "技術検証用のいろいろを詰め込むリポジトリ",
   "scripts": {
     "build": "pnpm -r build",
-    "test": "pnpm -r test",
+    "test": "pnpm -r --workspace-concurrency=1 test",
     "lint": "pnpm -r lint",
     "lint:fix": "pnpm -r lint:fix",
     "format": "pnpm -r format",
     "prisma:migrate": "pnpm --filter @asobiba/common prisma:migrate",
     "prisma:generate": "pnpm --filter @asobiba/common prisma:generate",
-    "prisma:studio": "pnpm --filter @asobiba/common prisma:studio"
+    "prisma:studio": "pnpm --filter @asobiba/common prisma:studio",
+    "db:up": "docker compose up -d",
+    "db:down": "docker compose down",
+    "db:reset": "docker compose down -v && docker compose up -d"
   },
   "engines": {
     "node": ">=20.0.0",
