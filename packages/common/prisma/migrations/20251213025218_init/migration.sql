@@ -62,7 +62,9 @@ CREATE TABLE "PhotoTag" (
     "photoId" TEXT NOT NULL,
     "tagId" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" TIMESTAMP(3) NOT NULL
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "PhotoTag_pkey" PRIMARY KEY ("photoId", "tagId")
 );
 
 -- CreateIndex
