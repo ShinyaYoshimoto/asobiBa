@@ -1,0 +1,59 @@
+name: PR size and file count check
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, edited]
+
+jobs:
+  pr-limits:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Fetch base ref
+        run: |
+          git fetch origin ${{ github.event.pull_request.base.ref }}
+
+      - name: Count changed lines and files
+        id: count
+        run: |
+          base_ref=origin/${{ github.event.pull_request.base.ref }}
+          # additions+deletions
+          total_lines=$(git diff --numstat $base_ref...HEAD | awk '{adds+=$1; dels+=$2} END{print adds+dels+0}')
+          # changed files
+          total_files=$(git diff --name-only $base_ref...HEAD | wc -l | tr -d '[:space:]')
+          echo "total_lines=$total_lines" > $GITHUB_OUTPUT
+          echo "total_files=$total_files" > $GITHUB_OUTPUT
+
+      - name: Check limits
+        run: |
+          total_lines=${{ steps.count.outputs.total_lines }}
+          total_files=${{ steps.count.outputs.total_files }}
+          line_limit=200
+          file_limit=10
+          echo "Changed lines: $total_lines (limit: $line_limit)"
+          echo "Changed files: $total_files (limit: $file_limit)"
+
+          exceeded=0
+          if [ -z "$total_lines" ]; then
+            total_lines=0
+          fi
+          if [ -z "$total_files" ]; then
+            total_files=0
+          fi
+
+          if [ "$total_lines" -gt "$line_limit" ]; then
+            echo "::error ::Pull request too large: $total_lines changed lines (limit: $line_limit)."
+            exceeded=1
+          fi
+          if [ "$total_files" -gt "$file_limit" ]; then
+            echo "::error ::Too many changed files: $total_files (limit: $file_limit)."
+            exceeded=1
+          fi
+
+          if [ "$exceeded" -eq 1 ]; then
+            exit 1
+          fi
